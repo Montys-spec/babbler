@@ -1,193 +1,142 @@
-// Babbler – screens and round logic.
-// Loads the word list, picks the words for a round (see pickRound in progress.js),
-// and steps through them. For each card: tap to reveal, then swipe right (knew it)
-// or left (didn't). Every answer is saved on the device right away.
+// Babbler – start screen, building a round, loading the lesson data.
+// Loaded last: the round itself lives in round.js, "Fehler finden" in spot.js.
 
 const VOCAB_FILE = "data/vocab.json";
-const ROUND_SIZE = 10;  // words per round
+const SENTENCES_FILE = "data/sentences.json";
+const SETTINGS_KEY = "babbler-settings-v1";
+const ROUND_SIZE = 10;  // tasks per round
 
-let words = [];        // all words from the JSON file
-let topics = [];       // topic names in file order
-let pool = [];         // the words the current round was picked from (all, or one topic)
-let deck = [];         // the words of the current round
-let position = 0;      // index of the current card in the deck
-let revealed = false;  // has the German side of the current card been shown?
-let known = [];        // words swiped right this round
-let missed = [];       // words swiped left this round
+let words = [];      // from data/vocab.json
+let sentences = [];  // from data/sentences.json
 
-// Shortcut for finding elements by their id in index.html
-const $ = (id) => document.getElementById(id);
+// The only choice on the start screen: the topic ("alle" or a topic name).
+// Remembered on this device.
+let settings = loadSettings();
 
-// Show one screen and hide the other two.
-function showScreen(name) {
-  for (const screen of ["start", "card", "done"]) {
-    $("screen-" + screen).classList.toggle("hidden", screen !== name);
+function loadSettings() {
+  const defaults = { topic: "alle" };
+  try {
+    return Object.assign(defaults, JSON.parse(localStorage.getItem(SETTINGS_KEY)));
+  } catch (err) {
+    return defaults;
   }
-  window.scrollTo(0, 0);
 }
 
-// Returns a shuffled copy of the list (Fisher–Yates shuffle).
-function shuffle(list) {
-  const copy = list.slice();
-  for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
+function saveSettings() {
+  try {
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify({ topic: settings.topic }));
+  } catch (err) {
+    // not saved – the app still works, it just forgets the choice
   }
-  return copy;
 }
 
-// The swipe gesture; answer() runs once the card has flown off screen.
-const swiper = makeSwipeable($("card"), {
-  canSwipe: () => revealed,
-  onSwipe: (direction) => answer(direction === "right"),
-});
+// Only the items of the chosen topic.
+function inTopic(list) {
+  return settings.topic === "alle" ? list : list.filter((item) => item.cat === settings.topic);
+}
 
 // ---------- Start screen ----------
 
-function showStart() {
-  const all = statsFor(words);
-  $("stat-due").textContent = all.faellig;
-  $("stat-new").textContent = all.neu;
-  $("stat-learned").textContent = all.sicher + " / " + all.total;
-  $("howto").classList.toggle("hidden", all.neu < all.total);  // hide once anything was practised
+// One progress line: "12 / 537 sicher" plus bar.
+function showLearned(id, kind, list) {
+  const learned = list.filter((item) => itemLearned(kind, item)).length;
+  $(id).textContent = learned + " / " + list.length + " sicher";
+  $(id + "-bar").style.width = (learned / list.length) * 100 + "%";
+}
 
-  // One row per topic: name, progress bar, and how many words are due.
-  const list = $("topic-list");
-  list.innerHTML = "";
-  for (const topic of topics) {
-    const topicWords = words.filter((w) => w.cat === topic);
-    const s = statsFor(topicWords);
-    const row = document.createElement("button");
-    row.className = "topic";
-    row.innerHTML =
-      '<span class="topic-head"><span class="topic-name"></span><span class="topic-count"></span></span>' +
-      '<span class="topic-bar"><span class="topic-bar-fill"></span></span>';
-    row.querySelector(".topic-name").textContent = topic;
-    row.querySelector(".topic-count").textContent =
-      (s.faellig ? s.faellig + " fällig · " : "") + s.sicher + " / " + s.total;
-    row.querySelector(".topic-bar-fill").style.width = (s.sicher / s.total) * 100 + "%";
-    row.addEventListener("click", () => startRound(topicWords));
-    list.append(row);
-  }
+function showStart() {
+  showLearned("learned-words", "wort", words);
+  showLearned("learned-sentences", "satz", sentences);
+  $("sel-topic").value = settings.topic;
   showScreen("start");
 }
 
-// ---------- Rounds ----------
-
-// Start a round with the most important words from the given list.
-function startRound(list) {
-  pool = list;
-  playDeck(pickRound(list, ROUND_SIZE));
-}
-
-// Play exactly these words (in random order).
-function playDeck(list) {
-  deck = shuffle(list);
-  position = 0;
-  known = [];
-  missed = [];
-  showScreen("card");
-  showCard();
-}
-
-// Fill the card with the current word, German side still covered.
-function showCard() {
-  const word = deck[position];
-  revealed = false;
-  $("counter").textContent = (position + 1) + " / " + deck.length;
-  $("progress-bar").style.width = (position / deck.length) * 100 + "%";
-  $("card-cat").textContent = word.cat + (wordStatus(word) === "neu" ? " · neu" : "");
-  $("word-it").textContent = word.it;
-  $("word-de").textContent = word.de;
-  $("card").classList.remove("revealed");
-  $("answer-buttons").classList.add("inactive");
-  swiper.reset();
-}
-
-// Uncover the German translation and allow swiping.
-function reveal() {
-  if (revealed) return;
-  revealed = true;
-  $("card").classList.add("revealed");
-  $("answer-buttons").classList.remove("inactive");
-}
-
-// Save the answer and move on to the next card (or the result screen).
-function answer(knewIt) {
-  const word = deck[position];
-  recordAnswer(word, knewIt);
-  (knewIt ? known : missed).push(word);
-  position++;
-  if (position < deck.length) {
-    showCard();
-  } else {
-    showResult();
+function fillTopicSelect(topics) {
+  const select = $("sel-topic");
+  for (const topic of ["alle"].concat(topics)) {
+    const option = document.createElement("option");
+    option.value = topic;
+    option.textContent = topic === "alle" ? "Alle Themen" : topic;
+    select.append(option);
   }
 }
 
-function showResult() {
-  $("progress-bar").style.width = "100%";
-  $("score-num").textContent = known.length + " / " + deck.length;
+// ---------- Building a round ----------
 
-  // List the words that were swiped left.
-  const list = $("missed-list");
-  list.innerHTML = "";
-  for (const word of missed) {
-    const item = document.createElement("li");
-    const it = document.createElement("strong");
-    it.textContent = word.it;
-    item.append(it, " – " + word.de);
-    list.append(item);
-  }
-  $("missed-box").classList.toggle("hidden", missed.length === 0);
-  $("btn-repeat").classList.toggle("hidden", missed.length === 0);
-  $("btn-repeat").textContent = "Fehler wiederholen (" + missed.length + ")";
-  showScreen("done");
+// The app decides what comes next – you just press "Üben".
+// Each round mixes, with a little chance in the numbers:
+//   1–2 "Fehler finden" tasks, 2–4 sentence cards, the rest word cards.
+// Which words/sentences come is decided by pickRound (due first, then new),
+// and both directions are mixed in (see buildCards).
+function startPractice() {
+  const topicWords = inTopic(words);
+  const topicSentences = inTopic(sentences);
+
+  const spotCount = randomInt(1, 2);
+  const sentenceCards = pickRound(buildCards("satz", topicSentences), randomInt(2, 4));
+  const wordCards = pickRound(
+    buildCards("wort", topicWords),
+    ROUND_SIZE - spotCount - sentenceCards.length
+  );
+
+  // Sentences already on a card this round are left out of "Fehler finden".
+  const onCards = new Set(sentenceCards.map((card) => card.item));
+  const spotTasks = makeSpotTasks(topicSentences.filter((s) => !onCards.has(s)), spotCount);
+
+  const cardTasks = wordCards.concat(sentenceCards).map((card) => ({ type: "card", card: card }));
+  playRound(shuffle(cardTasks.concat(spotTasks)));
 }
 
 // ---------- Loading ----------
 
-// Load the word list. The start button stays disabled until it has loaded.
-async function loadWords() {
+async function loadJson(file) {
+  const response = await fetch(file);
+  if (!response.ok) throw new Error(file + ": HTTP " + response.status);
+  return response.json();
+}
+
+// Number the items inside each topic (1, 2, 3 …) – the file lists the most useful first.
+// Returns the topic names in file order.
+function addRanks(list) {
+  const count = {};
+  for (const item of list) {
+    count[item.cat] = (count[item.cat] || 0) + 1;
+    item.rank = count[item.cat];
+  }
+  return Object.keys(count);
+}
+
+async function init() {
   $("btn-start").disabled = true;
   try {
-    const response = await fetch(VOCAB_FILE);
-    if (!response.ok) throw new Error("HTTP " + response.status);
-    words = await response.json();
-    if (!Array.isArray(words) || words.length === 0) throw new Error("leere Liste");
-
-    // Remember each word's position inside its topic (used to mix new words fairly).
-    const seen = {};
-    for (const word of words) {
-      seen[word.cat] = (seen[word.cat] || 0) + 1;
-      word.rank = seen[word.cat];
-    }
-    topics = Object.keys(seen);
-
-    $("word-count").textContent =
-      words.length + " Vokabeln in " + topics.length + " Themen · " + ROUND_SIZE + " pro Runde";
+    [words, sentences] = await Promise.all([loadJson(VOCAB_FILE), loadJson(SENTENCES_FILE)]);
+    const topics = addRanks(words);
+    addRanks(sentences);
+    fillTopicSelect(topics);
+    if (!topics.includes(settings.topic)) settings.topic = "alle";
     $("btn-start").disabled = false;
     showStart();
   } catch (err) {
     // Usually happens when index.html is opened directly instead of via start.command.
     $("error").textContent =
-      "Die Vokabeln konnten nicht geladen werden. Bitte die App über start.command starten.";
+      "Die Übungen konnten nicht geladen werden. Bitte die App über start.command starten.";
     $("error").classList.remove("hidden");
     console.error(err);
   }
 }
 
-// ---------- Buttons & keys ----------
+// ---------- Buttons & dropdown ----------
 
-// Only treat a click as "reveal" – after revealing, the card is swiped instead.
-$("card").addEventListener("click", reveal);
-$("btn-yes").addEventListener("click", () => swiper.fly("right"));
-$("btn-no").addEventListener("click", () => swiper.fly("left"));
-$("btn-start").addEventListener("click", () => startRound(words));
-$("btn-again").addEventListener("click", () => startRound(pool));
-$("btn-repeat").addEventListener("click", () => playDeck(missed));
+$("sel-topic").addEventListener("change", (e) => {
+  settings.topic = e.target.value;
+  saveSettings();
+});
+
+$("btn-start").addEventListener("click", startPractice);
+$("btn-again").addEventListener("click", startPractice);
 $("btn-home").addEventListener("click", showStart);
 $("btn-quit").addEventListener("click", showStart);
+$("btn-spot-quit").addEventListener("click", showStart);
 $("btn-reset").addEventListener("click", () => {
   if (confirm("Den gesamten Lernfortschritt löschen?")) {
     resetProgress();
@@ -195,17 +144,4 @@ $("btn-reset").addEventListener("click", () => {
   }
 });
 
-// Keyboard (desktop): Space/Enter reveals, arrow keys answer.
-document.addEventListener("keydown", (e) => {
-  if ($("screen-card").classList.contains("hidden")) return;
-  if (!revealed && (e.key === " " || e.key === "Enter")) {
-    e.preventDefault();
-    reveal();
-  } else if (revealed && e.key === "ArrowRight") {
-    swiper.fly("right");
-  } else if (revealed && e.key === "ArrowLeft") {
-    swiper.fly("left");
-  }
-});
-
-loadWords();
+init();

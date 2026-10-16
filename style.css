@@ -15,6 +15,8 @@
   --mint: #7ee7b7;
   --on-mint: #08261a;
   --danger: #f28b82;
+  --danger-bg: rgba(242, 139, 130, 0.1);
+  --mint-bg: rgba(126, 231, 183, 0.08);
   --shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
 }
 
@@ -30,6 +32,8 @@
     --mint: #2bb380;
     --on-mint: #ffffff;
     --danger: #d64545;
+    --danger-bg: rgba(214, 69, 69, 0.08);
+    --mint-bg: rgba(43, 179, 128, 0.08);
     --shadow: 0 12px 32px rgba(16, 38, 30, 0.12);
   }
 }
@@ -70,6 +74,11 @@ main {
 
 .muted {
   color: var(--muted);
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.6rem;
   margin: 0;
 }
 
@@ -119,107 +128,6 @@ main {
   cursor: pointer;
 }
 
-/* ---------- Start screen ---------- */
-
-.screen-start {
-  padding-top: 6vh;
-}
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-.stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  padding: 14px 6px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-}
-
-.stat-num {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--mint);
-  font-variant-numeric: tabular-nums;
-}
-
-.stat-label {
-  font-size: 0.8rem;
-  color: var(--muted);
-}
-
-.section-title {
-  margin: 8px 0 -8px;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-}
-
-.topic-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-/* One topic row: name + numbers on top, thin progress bar below. */
-.topic {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 14px 16px;
-  font: inherit;
-  color: inherit;
-  text-align: left;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  cursor: pointer;
-  transition: transform 0.1s;
-}
-
-.topic:active {
-  transform: scale(0.98);
-}
-
-.topic-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.topic-name {
-  font-weight: 600;
-}
-
-.topic-count {
-  font-size: 0.85rem;
-  color: var(--muted);
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
-
-.topic-bar {
-  height: 4px;
-  border-radius: 2px;
-  background: var(--surface-2);
-  overflow: hidden;
-}
-
-.topic-bar-fill {
-  display: block;
-  height: 100%;
-  width: 0;
-  border-radius: 2px;
-  background: linear-gradient(90deg, var(--green-2), var(--mint));
-}
-
 .link-btn {
   align-self: center;
   margin-top: 8px;
@@ -231,6 +139,12 @@ main {
   border: none;
   text-decoration: underline;
   cursor: pointer;
+}
+
+/* ---------- Start screen ---------- */
+
+.screen-start {
+  padding-top: 6vh;
 }
 
 .brand {
@@ -250,6 +164,117 @@ h1 {
 .subtitle {
   margin: 4px 0 0;
   color: var(--muted);
+}
+
+/* "Vokabeln 12 / 537 sicher" + bar, same for sentences */
+.overview {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+}
+
+.overview-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.overview-head {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+}
+
+.overview-num {
+  color: var(--mint);
+  font-variant-numeric: tabular-nums;
+}
+
+.bar {
+  display: block;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.bar-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  min-width: 6px;  /* a tiny dot even at 0, so the bar reads as a bar */
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--green-2), var(--mint));
+  transition: width 0.4s;
+}
+
+/* Topic dropdown */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.select-wrap {
+  position: relative;
+  display: block;
+}
+
+/* Our own mint chevron instead of the browser's arrow */
+.select-wrap::after {
+  content: "";
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--mint);
+  border-bottom: 2px solid var(--mint);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+select {
+  width: 100%;
+  padding: 14px 48px 14px 16px;
+  font: inherit;
+  font-size: 1rem;  /* 16px or more stops iPhone from zooming in */
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+select:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 2px;
+}
+
+.start-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.error {
+  color: var(--danger);
+  margin: 0;
 }
 
 .howto {
@@ -289,20 +314,7 @@ h1 {
   color: var(--danger);
 }
 
-.start-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  text-align: center;
-  font-size: 0.9rem;
-}
-
-.error {
-  color: var(--danger);
-  margin: 0;
-}
-
-/* ---------- Card screen ---------- */
+/* ---------- Top bar (card + spot screens) ---------- */
 
 .topbar {
   display: flex;
@@ -332,6 +344,8 @@ h1 {
   font-variant-numeric: tabular-nums;
 }
 
+/* ---------- Card screen ---------- */
+
 .card-area {
   flex: 1;
   display: flex;
@@ -350,7 +364,7 @@ h1 {
   align-items: center;
   justify-content: center;
   gap: 14px;
-  padding: 32px 24px;
+  padding: 72px 24px 56px;
   text-align: center;
   background: linear-gradient(160deg, var(--surface-2), var(--surface));
   border: 1px solid var(--border);
@@ -380,13 +394,15 @@ h1 {
 .card-cat {
   position: absolute;
   top: 20px;
+  left: 16px;
+  right: 16px;
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--muted);
 }
 
-.word-it {
+.card-front {
   font-size: 2.4rem;
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -401,12 +417,24 @@ h1 {
   transition: opacity 0.25s;
 }
 
-.word-de {
+.card-back {
   font-size: 1.5rem;
   color: var(--mint);
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 0.25s, transform 0.25s;
+}
+
+/* Sentences are longer → smaller text */
+.card.long .card-front {
+  font-size: 1.6rem;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+.card.long .card-back {
+  font-size: 1.2rem;
+  line-height: 1.35;
 }
 
 .hint {
@@ -420,12 +448,12 @@ h1 {
   display: none;
 }
 
-/* After tapping: show the German word and the swipe hint. */
+/* After tapping: show the hidden side and the swipe hint. */
 .card.revealed {
   cursor: grab;
 }
 
-.card.revealed .word-de,
+.card.revealed .card-back,
 .card.revealed .divider {
   opacity: 1;
   transform: none;
@@ -442,7 +470,7 @@ h1 {
 /* "Gewusst" / "Nicht gewusst" stamps fade in while dragging. */
 .stamp {
   position: absolute;
-  top: 52px;  /* below the category label */
+  top: 52px;  /* below the topic label */
   padding: 6px 12px;
   border: 3px solid;
   border-radius: 10px;
@@ -494,16 +522,95 @@ h1 {
   color: var(--on-mint);
 }
 
+/* ---------- Spot screen ("Fehler finden") ---------- */
+
+.spot-intro h2 {
+  font-size: 1.3rem;
+  margin-bottom: 6px;
+}
+
+.spot-intro .muted {
+  font-size: 0.9rem;
+}
+
+.spot-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.spot-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  font: inherit;
+  font-size: 1.1rem;
+  color: inherit;
+  text-align: left;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+/* Marked as "has a mistake" */
+.spot-item.selected {
+  border-color: var(--danger);
+  background: var(--danger-bg);
+}
+
+/* After checking: judged right / wrong */
+.spot-item.ok {
+  border-color: var(--mint);
+  background: var(--mint-bg);
+}
+
+.spot-item.bad {
+  border-color: var(--danger);
+  background: var(--danger-bg);
+}
+
+.spot-feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.9rem;
+}
+
+.spot-verdict {
+  font-weight: 700;
+}
+
+.spot-item.ok .spot-verdict {
+  color: var(--mint);
+}
+
+.spot-item.bad .spot-verdict {
+  color: var(--danger);
+}
+
+.spot-fix {
+  font-weight: 600;
+  color: var(--mint);
+}
+
+.spot-why,
+.spot-de {
+  color: var(--muted);
+}
+
+.spot-de {
+  font-style: italic;
+}
+
 /* ---------- Result screen ---------- */
 
 .screen-done {
   justify-content: center;
   text-align: center;
-}
-
-h2 {
-  font-size: 1.8rem;
-  margin: 0;
 }
 
 .score {

@@ -10,7 +10,7 @@
 </head>
 <body>
   <main>
-    <!-- Three screens; app.js shows exactly one at a time by removing "hidden". -->
+    <!-- Four screens; util.js shows exactly one at a time by removing "hidden". -->
 
     <section id="screen-start" class="screen screen-start">
       <div class="brand">
@@ -18,28 +18,35 @@
         <p class="subtitle">Italienisch für jeden Tag</p>
       </div>
 
-      <!-- Overall progress; numbers are filled in by app.js -->
-      <div class="stats">
-        <div class="stat"><span id="stat-due" class="stat-num">0</span><span class="stat-label">heute fällig</span></div>
-        <div class="stat"><span id="stat-new" class="stat-num">0</span><span class="stat-label">neu</span></div>
-        <div class="stat"><span id="stat-learned" class="stat-num">0</span><span class="stat-label">sicher</span></div>
+      <!-- How much is "sicher" (known 3× in a row); filled in by app.js -->
+      <div class="overview">
+        <div class="overview-row">
+          <span class="overview-head"><span>Vokabeln</span><span id="learned-words" class="overview-num"></span></span>
+          <span class="bar"><span id="learned-words-bar" class="bar-fill"></span></span>
+        </div>
+        <div class="overview-row">
+          <span class="overview-head"><span>Sätze</span><span id="learned-sentences" class="overview-num"></span></span>
+          <span class="bar"><span id="learned-sentences-bar" class="bar-fill"></span></span>
+        </div>
       </div>
 
+      <!-- The app picks the tasks of each round; you just press "Üben". -->
       <div class="start-actions">
-        <button id="btn-start" class="btn btn-primary">Vokabeln üben</button>
-        <p id="word-count" class="muted"></p>
+        <button id="btn-start" class="btn btn-primary">Üben</button>
+        <p class="muted">10 pro Runde</p>
         <p id="error" class="error hidden"></p>
       </div>
 
-      <!-- Only shown before the very first round -->
-      <ol id="howto" class="howto">
+      <ol class="howto">
         <li><span class="howto-icon">👆</span> Tippen – Übersetzung ansehen</li>
         <li><span class="howto-icon yes">→</span> Nach rechts wischen – gewusst</li>
         <li><span class="howto-icon no">←</span> Nach links wischen – nicht gewusst</li>
       </ol>
 
-      <h3 class="section-title">Themen</h3>
-      <div id="topic-list" class="topic-list"></div>
+      <label class="field">
+        <span class="field-label">Thema</span>
+        <span class="select-wrap"><select id="sel-topic"></select></span>
+      </label>
 
       <button id="btn-reset" class="link-btn">Fortschritt zurücksetzen</button>
     </section>
@@ -48,18 +55,18 @@
       <div class="topbar">
         <button id="btn-quit" class="icon-btn" aria-label="Zur Startseite">✕</button>
         <div class="progress"><div id="progress-bar" class="progress-bar"></div></div>
-        <span id="counter" class="counter">1 / 10</span>
+        <span id="counter" class="counter"></span>
       </div>
 
       <div class="card-area">
-        <!-- The card: tap to reveal, then swipe. See swipe.js. -->
+        <!-- The card: tap to reveal, then swipe. See swipe.js and round.js. -->
         <div id="card" class="card" role="button" tabindex="0" aria-label="Karte aufdecken">
           <span class="stamp stamp-yes">Gewusst</span>
           <span class="stamp stamp-no">Nicht gewusst</span>
           <span id="card-cat" class="card-cat"></span>
-          <span id="word-it" class="word-it"></span>
+          <span id="card-front" class="card-front"></span>
           <span class="divider"></span>
-          <span id="word-de" class="word-de"></span>
+          <span id="card-back" class="card-back"></span>
           <span class="hint hint-before">Tippen zum Aufdecken</span>
           <span class="hint hint-after">← nicht gewusst · gewusst →</span>
         </div>
@@ -72,11 +79,29 @@
       </div>
     </section>
 
+    <section id="screen-spot" class="screen screen-spot hidden">
+      <div class="topbar">
+        <button id="btn-spot-quit" class="icon-btn" aria-label="Zur Startseite">✕</button>
+        <div class="progress"><div id="spot-progress-bar" class="progress-bar"></div></div>
+        <span id="spot-counter" class="counter"></span>
+      </div>
+
+      <div class="spot-intro">
+        <h2>Welche Sätze enthalten einen Fehler?</h2>
+        <p class="muted">Tippe alle fehlerhaften Sätze an – mindestens einer ist falsch.</p>
+      </div>
+
+      <!-- Four sentence tiles, built by spot.js -->
+      <div id="spot-list" class="spot-list"></div>
+
+      <button id="btn-spot" class="btn btn-primary">Prüfen</button>
+    </section>
+
     <section id="screen-done" class="screen screen-done hidden">
       <h2>Runde geschafft!</h2>
       <div class="score">
         <span id="score-num" class="score-num"></span>
-        <span class="muted">gewusst · Fortschritt gespeichert</span>
+        <span id="score-label" class="muted"></span>
       </div>
 
       <div id="missed-box" class="missed-box hidden">
@@ -92,8 +117,13 @@
     </section>
   </main>
 
+  <!-- Order matters: helpers first, start screen (app.js) last. -->
+  <script src="util.js"></script>
   <script src="progress.js"></script>
+  <script src="cards.js"></script>
   <script src="swipe.js"></script>
+  <script src="round.js"></script>
+  <script src="spot.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
