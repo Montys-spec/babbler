@@ -1,14 +1,16 @@
 // Babbler – a practice round: a shuffled mix of tasks chosen by the app (see startPractice in app.js).
-// A task is either
-//   { type: "card", card }      – a flashcard: tap to reveal, swipe right (knew it) or left (didn't)
-//   { type: "spot", entries }   – a "Fehler finden" task (see spot.js)
-// Every flashcard answer is saved right away (see progress.js).
+// A task is one of
+//   { type: "card", card }              – a flashcard: tap to reveal, swipe right (knew it) or left (didn't)
+//   { type: "spot", entries }           – a "Fehler finden" task (see spot.js)
+//   { type: "wahl" | "luecke" | "tippen", … } – a quiz task (see quiz.js)
+// Every answer is saved right away (see progress.js).
 
 let tasks = [];        // the tasks of the current round
 let taskIndex = 0;     // index of the current task
 let solved = 0;        // tasks done right so far
-let missedCards = [];  // cards swiped left (for "Fehler wiederholen")
+let missedCards = [];  // word/sentence cards answered wrong (for "Fehler wiederholen")
 let missedSpots = [];  // "Fehler finden" sentences that were judged wrongly
+let missedGaps = [];   // gap sentences answered wrong
 let revealed = false;  // has the hidden side of the current card been shown?
 
 // The swipe gesture; answer() runs once the card has flown off screen.
@@ -23,6 +25,7 @@ function playRound(list) {
   solved = 0;
   missedCards = [];
   missedSpots = [];
+  missedGaps = [];
   showTask();
 }
 
@@ -31,12 +34,12 @@ function playCards(cards) {
   playRound(shuffle(cards).map((card) => ({ type: "card", card: card })));
 }
 
-// Counter and progress bar exist on both task screens; keep both in sync.
+// Every task screen has its own counter and progress bar; keep them all in sync.
 function updateProgress(done) {
   const text = Math.min(taskIndex + 1, tasks.length) + " / " + tasks.length;
   const width = (done / tasks.length) * 100 + "%";
-  $("counter").textContent = $("spot-counter").textContent = text;
-  $("progress-bar").style.width = $("spot-progress-bar").style.width = width;
+  for (const el of document.querySelectorAll(".counter")) el.textContent = text;
+  for (const el of document.querySelectorAll(".progress-bar")) el.style.width = width;
 }
 
 function showTask() {
@@ -45,9 +48,12 @@ function showTask() {
   if (task.type === "card") {
     showScreen("card");
     showCard(task.card);
-  } else {
+  } else if (task.type === "spot") {
     showScreen("spot");
     showSpotTask(task.entries);
+  } else {
+    showScreen("quiz");
+    showQuizTask(task);
   }
 }
 
@@ -124,11 +130,12 @@ function showRoundResult() {
     list.append(item);
   };
   for (const card of missedCards) addItem(card.front, card.back);
+  for (const gap of missedGaps) addItem(gapSolved(gap), gap.why);
   for (const entry of missedSpots) {
     addItem(entry.sentence.it, entry.wrong ? entry.sentence.why : "Dieser Satz war richtig.");
   }
 
-  const anyMissed = missedCards.length + missedSpots.length > 0;
+  const anyMissed = missedCards.length + missedGaps.length + missedSpots.length > 0;
   $("missed-box").classList.toggle("hidden", !anyMissed);
   $("btn-repeat").classList.toggle("hidden", missedCards.length === 0);
   $("btn-repeat").textContent = "Fehler wiederholen (" + missedCards.length + ")";

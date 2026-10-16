@@ -10,7 +10,7 @@
 </head>
 <body>
   <main>
-    <!-- Four screens; util.js shows exactly one at a time by removing "hidden". -->
+    <!-- Five screens; util.js shows exactly one at a time by removing "hidden". -->
 
     <section id="screen-start" class="screen screen-start">
       <div class="brand">
@@ -100,6 +100,29 @@
       <button id="btn-spot" class="btn btn-primary">Prüfen</button>
     </section>
 
+    <!-- Multiple choice, fill the gap and typing tasks – see quiz.js -->
+    <section id="screen-quiz" class="screen screen-quiz hidden">
+      <div class="topbar">
+        <button id="btn-quiz-quit" class="icon-btn" aria-label="Zur Startseite">✕</button>
+        <div class="progress"><div id="quiz-progress-bar" class="progress-bar"></div></div>
+        <span id="quiz-counter" class="counter"></span>
+      </div>
+
+      <div class="quiz-body">
+        <p id="quiz-label" class="quiz-label"></p>
+        <p id="quiz-prompt" class="quiz-prompt"></p>
+        <p id="quiz-hint" class="quiz-hint"></p>
+        <div id="quiz-options" class="quiz-options"></div>
+        <form id="quiz-type-form" class="quiz-type hidden" autocomplete="off">
+          <input id="quiz-input" class="quiz-input" type="text" lang="it" placeholder="Auf Italienisch …"
+                 autocapitalize="off" autocorrect="off" spellcheck="false">
+        </form>
+        <div id="quiz-feedback" class="quiz-feedback hidden"></div>
+      </div>
+
+      <button id="btn-quiz" class="btn btn-primary hidden">Weiter</button>
+    </section>
+
     <section id="screen-done" class="screen screen-done hidden">
       <h2>Runde geschafft!</h2>
       <div class="score">
@@ -123,11 +146,13 @@
   <!-- Order matters: helpers first, start screen (app.js) last. -->
   <script src="util.js"></script>
   <script src="progress.js"></script>
+  <script src="rules.js"></script>
   <script src="cards.js"></script>
   <script src="audio.js"></script>
   <script src="swipe.js"></script>
   <script src="round.js"></script>
   <script src="spot.js"></script>
+  <script src="quiz.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
