@@ -64,6 +64,12 @@ function finishTask(done) {
 
 // ---------- Flashcards ----------
 
+// 🔊 in the card's corner, reads the Italian side. On German→Italian cards it only
+// appears after revealing (otherwise it would give the answer away) – see style.css.
+const cardSpeak = makeSpeakButton(() => tasks[taskIndex].card.item.it);
+cardSpeak.classList.add("card-speak");
+$("card").append(cardSpeak);
+
 // Fill the card, hidden side still covered.
 function showCard(card) {
   revealed = false;
@@ -74,6 +80,7 @@ function showCard(card) {
   $("card-front").textContent = card.front;
   $("card-back").textContent = card.back;
   $("card").classList.toggle("long", card.kind === "satz");  // smaller text for sentences
+  $("card").classList.toggle("italian-hidden", card.dir === "de-it");
   $("card").classList.remove("revealed");
   $("answer-buttons").classList.add("inactive");
   swiper.reset();

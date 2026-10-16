@@ -467,6 +467,34 @@ select:focus-visible {
   display: inline;
 }
 
+/* 🔊 pronunciation button (audio.js) */
+.speak-btn {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface-2);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.speak-btn:active {
+  transform: scale(0.92);
+}
+
+.card-speak {
+  position: absolute;
+  right: 14px;
+  bottom: 12px;
+}
+
+/* German→Italian: no 🔊 before revealing, it would give the answer away */
+.card.italian-hidden:not(.revealed) .card-speak {
+  display: none;
+}
+
 /* "Gewusst" / "Nicht gewusst" stamps fade in while dragging. */
 .stamp {
   position: absolute;
