@@ -18,17 +18,30 @@
         <p class="subtitle">Italienisch für jeden Tag</p>
       </div>
 
-      <ol class="howto">
-        <li><span class="howto-icon">👆</span> Tippen – Übersetzung ansehen</li>
-        <li><span class="howto-icon yes">→</span> Nach rechts wischen – gewusst</li>
-        <li><span class="howto-icon no">←</span> Nach links wischen – nicht gewusst</li>
-      </ol>
+      <!-- Overall progress; numbers are filled in by app.js -->
+      <div class="stats">
+        <div class="stat"><span id="stat-due" class="stat-num">0</span><span class="stat-label">heute fällig</span></div>
+        <div class="stat"><span id="stat-new" class="stat-num">0</span><span class="stat-label">neu</span></div>
+        <div class="stat"><span id="stat-learned" class="stat-num">0</span><span class="stat-label">sicher</span></div>
+      </div>
 
       <div class="start-actions">
         <button id="btn-start" class="btn btn-primary">Vokabeln üben</button>
         <p id="word-count" class="muted"></p>
         <p id="error" class="error hidden"></p>
       </div>
+
+      <!-- Only shown before the very first round -->
+      <ol id="howto" class="howto">
+        <li><span class="howto-icon">👆</span> Tippen – Übersetzung ansehen</li>
+        <li><span class="howto-icon yes">→</span> Nach rechts wischen – gewusst</li>
+        <li><span class="howto-icon no">←</span> Nach links wischen – nicht gewusst</li>
+      </ol>
+
+      <h3 class="section-title">Themen</h3>
+      <div id="topic-list" class="topic-list"></div>
+
+      <button id="btn-reset" class="link-btn">Fortschritt zurücksetzen</button>
     </section>
 
     <section id="screen-card" class="screen screen-card hidden">
@@ -63,7 +76,7 @@
       <h2>Runde geschafft!</h2>
       <div class="score">
         <span id="score-num" class="score-num"></span>
-        <span class="muted">gewusst</span>
+        <span class="muted">gewusst · Fortschritt gespeichert</span>
       </div>
 
       <div id="missed-box" class="missed-box hidden">
@@ -79,6 +92,7 @@
     </section>
   </main>
 
+  <script src="progress.js"></script>
   <script src="swipe.js"></script>
   <script src="app.js"></script>
 </body>

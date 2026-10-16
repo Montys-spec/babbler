@@ -16,24 +16,43 @@
   - Progress bar on top, ✕ button back to the start.
   - New design: dark green + mint, dark mode by default; light version if the device is in light mode.
   - Results are NOT saved yet – they are gone after closing the app.
-  - Status: tested by Claude (phone size, dark + light) and by Monty, works. Committed.
+  - Status: tested by Claude (phone size, dark + light) and by Monty, works. Committed (065783a).
+
+- **Session 3 (2026-10-17, Claude Code):** 537 words + saved progress + topics.
+  - 537 words (≈ A1–A2 basic vocabulary) in 14 topics, incl. verbs (infinitive),
+    adjectives (masculine form) and small words (pronouns, question words, prepositions).
+    Within each topic the most useful words come first.
+  - Progress is saved on the device (localStorage, key `babbler-progress-v1`) – see `progress.js`.
+    Card box system: right → next box (due again after 1, 3, 7, 14, 30 days), wrong → due today again.
+    "sicher" = box 3 or higher (known 3× in a row).
+  - Each round: due words first, then new words (mixed across topics), max. 10.
+  - Start screen: stats (heute fällig / neu / sicher), "Vokabeln üben" = all topics,
+    topic list with progress bar – tap a topic to practise only that one. "Fortschritt zurücksetzen" link.
+  - Card shows "· neu" next to the topic for words never seen before.
+  - Status: tested by Claude in the browser and by Monty, works. Committed.
 
 ## Files
 - `index.html` – the page with three screens (start, card, result)
 - `style.css` – design (colours defined once at the top)
-- `app.js` – round logic: picking words, reveal, scoring, result screen
+- `app.js` – screens and round logic
+- `progress.js` – saving progress and choosing which words come next
 - `swipe.js` – the drag/swipe gesture for the card
-- `data/vocab.json` – word list (`{ "it": "...", "de": "...", "cat": "..." }`)
+- `data/vocab.json` – word list (`{ "it": "...", "de": "...", "cat": "..." }`), order matters (most useful first)
 - `start.command` – local starter (double-click)
 - `.claude/launch.json` – lets Claude Code start the same local server for its own browser tests
 
+## Notes on the word list
+- Progress is keyed by the Italian word (`it`), so every `it` must be unique. Changing an `it`
+  text later resets that word's progress.
+- Months are given without article (Italian normally uses none: "a gennaio"); days with article (il lunedì).
+- Adjectives are listed in the masculine singular form only (e.g. "piccolo", not "piccola").
+- No translation is uncertain; words with several meanings have a note in brackets.
+
 ## Next (ideas, not decided)
-- Save progress on the device (which words you know), and show weak words more often
-- Choose a category before starting
+- iPhone install (PWA, "Zum Home-Bildschirm") and offline mode – progress then lives on the iPhone
+- Practise in the other direction (German → Italian)
 - Sentence exercises (translate a sentence, fill in the missing word)
-- iPhone install (PWA) and offline mode
+- Show feminine/plural forms for adjectives and nouns
 
 ## Open questions
-- Should "gewusst / nicht gewusst" be remembered between sessions (spaced repetition)?
-- Some German translations carry a note in brackets, e.g. "prego" = "bitte (als Antwort auf „danke“)".
-  Is that format OK?
+- None right now.

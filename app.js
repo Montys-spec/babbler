@@ -1,11 +1,14 @@
-// Babbler – flashcard logic.
-// Loads the word list, picks a random round of words, and steps through them.
-// For each card: tap to reveal, then swipe right (knew it) or left (didn't).
+// Babbler – screens and round logic.
+// Loads the word list, picks the words for a round (see pickRound in progress.js),
+// and steps through them. For each card: tap to reveal, then swipe right (knew it)
+// or left (didn't). Every answer is saved on the device right away.
 
 const VOCAB_FILE = "data/vocab.json";
 const ROUND_SIZE = 10;  // words per round
 
 let words = [];        // all words from the JSON file
+let topics = [];       // topic names in file order
+let pool = [];         // the words the current round was picked from (all, or one topic)
 let deck = [];         // the words of the current round
 let position = 0;      // index of the current card in the deck
 let revealed = false;  // has the German side of the current card been shown?
@@ -20,6 +23,7 @@ function showScreen(name) {
   for (const screen of ["start", "card", "done"]) {
     $("screen-" + screen).classList.toggle("hidden", screen !== name);
   }
+  window.scrollTo(0, 0);
 }
 
 // Returns a shuffled copy of the list (Fisher–Yates shuffle).
@@ -38,9 +42,47 @@ const swiper = makeSwipeable($("card"), {
   onSwipe: (direction) => answer(direction === "right"),
 });
 
-// Start a round with up to ROUND_SIZE random words from the given list.
+// ---------- Start screen ----------
+
+function showStart() {
+  const all = statsFor(words);
+  $("stat-due").textContent = all.faellig;
+  $("stat-new").textContent = all.neu;
+  $("stat-learned").textContent = all.sicher + " / " + all.total;
+  $("howto").classList.toggle("hidden", all.neu < all.total);  // hide once anything was practised
+
+  // One row per topic: name, progress bar, and how many words are due.
+  const list = $("topic-list");
+  list.innerHTML = "";
+  for (const topic of topics) {
+    const topicWords = words.filter((w) => w.cat === topic);
+    const s = statsFor(topicWords);
+    const row = document.createElement("button");
+    row.className = "topic";
+    row.innerHTML =
+      '<span class="topic-head"><span class="topic-name"></span><span class="topic-count"></span></span>' +
+      '<span class="topic-bar"><span class="topic-bar-fill"></span></span>';
+    row.querySelector(".topic-name").textContent = topic;
+    row.querySelector(".topic-count").textContent =
+      (s.faellig ? s.faellig + " fällig · " : "") + s.sicher + " / " + s.total;
+    row.querySelector(".topic-bar-fill").style.width = (s.sicher / s.total) * 100 + "%";
+    row.addEventListener("click", () => startRound(topicWords));
+    list.append(row);
+  }
+  showScreen("start");
+}
+
+// ---------- Rounds ----------
+
+// Start a round with the most important words from the given list.
 function startRound(list) {
-  deck = shuffle(list).slice(0, ROUND_SIZE);
+  pool = list;
+  playDeck(pickRound(list, ROUND_SIZE));
+}
+
+// Play exactly these words (in random order).
+function playDeck(list) {
+  deck = shuffle(list);
   position = 0;
   known = [];
   missed = [];
@@ -54,7 +96,7 @@ function showCard() {
   revealed = false;
   $("counter").textContent = (position + 1) + " / " + deck.length;
   $("progress-bar").style.width = (position / deck.length) * 100 + "%";
-  $("card-cat").textContent = word.cat || "";
+  $("card-cat").textContent = word.cat + (wordStatus(word) === "neu" ? " · neu" : "");
   $("word-it").textContent = word.it;
   $("word-de").textContent = word.de;
   $("card").classList.remove("revealed");
@@ -70,9 +112,11 @@ function reveal() {
   $("answer-buttons").classList.remove("inactive");
 }
 
-// Record the answer and move on to the next card (or the result screen).
+// Save the answer and move on to the next card (or the result screen).
 function answer(knewIt) {
-  (knewIt ? known : missed).push(deck[position]);
+  const word = deck[position];
+  recordAnswer(word, knewIt);
+  (knewIt ? known : missed).push(word);
   position++;
   if (position < deck.length) {
     showCard();
@@ -101,6 +145,8 @@ function showResult() {
   showScreen("done");
 }
 
+// ---------- Loading ----------
+
 // Load the word list. The start button stays disabled until it has loaded.
 async function loadWords() {
   $("btn-start").disabled = true;
@@ -109,9 +155,19 @@ async function loadWords() {
     if (!response.ok) throw new Error("HTTP " + response.status);
     words = await response.json();
     if (!Array.isArray(words) || words.length === 0) throw new Error("leere Liste");
+
+    // Remember each word's position inside its topic (used to mix new words fairly).
+    const seen = {};
+    for (const word of words) {
+      seen[word.cat] = (seen[word.cat] || 0) + 1;
+      word.rank = seen[word.cat];
+    }
+    topics = Object.keys(seen);
+
     $("word-count").textContent =
-      words.length + " Vokabeln · " + Math.min(ROUND_SIZE, words.length) + " pro Runde";
+      words.length + " Vokabeln in " + topics.length + " Themen · " + ROUND_SIZE + " pro Runde";
     $("btn-start").disabled = false;
+    showStart();
   } catch (err) {
     // Usually happens when index.html is opened directly instead of via start.command.
     $("error").textContent =
@@ -121,15 +177,23 @@ async function loadWords() {
   }
 }
 
+// ---------- Buttons & keys ----------
+
 // Only treat a click as "reveal" – after revealing, the card is swiped instead.
 $("card").addEventListener("click", reveal);
 $("btn-yes").addEventListener("click", () => swiper.fly("right"));
 $("btn-no").addEventListener("click", () => swiper.fly("left"));
 $("btn-start").addEventListener("click", () => startRound(words));
-$("btn-again").addEventListener("click", () => startRound(words));
-$("btn-repeat").addEventListener("click", () => startRound(missed));
-$("btn-home").addEventListener("click", () => showScreen("start"));
-$("btn-quit").addEventListener("click", () => showScreen("start"));
+$("btn-again").addEventListener("click", () => startRound(pool));
+$("btn-repeat").addEventListener("click", () => playDeck(missed));
+$("btn-home").addEventListener("click", showStart);
+$("btn-quit").addEventListener("click", showStart);
+$("btn-reset").addEventListener("click", () => {
+  if (confirm("Den gesamten Lernfortschritt löschen?")) {
+    resetProgress();
+    showStart();
+  }
+});
 
 // Keyboard (desktop): Space/Enter reveals, arrow keys answer.
 document.addEventListener("keydown", (e) => {
