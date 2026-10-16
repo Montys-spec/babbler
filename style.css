@@ -789,6 +789,15 @@ select:focus-visible {
   border-color: var(--mint);
 }
 
+.quiz-input.ok {
+  border-color: var(--mint);
+}
+
+.quiz-input.bad {
+  border-color: var(--danger);
+  text-decoration: line-through;
+}
+
 .quiz-feedback {
   display: flex;
   flex-direction: column;

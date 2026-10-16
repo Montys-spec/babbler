@@ -1,6 +1,7 @@
 // Babbler – quiz tasks inside a round, all on the same screen (#screen-quiz):
 //   { type: "wahl", card, options }  – multiple choice: pick the right translation out of 4
 //   { type: "luecke", card }         – fill the gap: pick the missing word out of 3
+//   { type: "tippen", card }         – typing: see the German word, type the Italian one
 // Answers count for the card's progress just like a swipe (see progress.js).
 
 let quizTask = null;      // the task on screen
@@ -53,6 +54,7 @@ function showQuizTask(task) {
   $("btn-quiz").classList.add("hidden");
   if (task.type === "wahl") showChoice(task);
   else if (task.type === "luecke") showGap(task);
+  else if (task.type === "tippen") showTyping(task);
 }
 
 function addOption(label, onPick) {
@@ -107,6 +109,97 @@ function showGap(task) {
   }
 }
 
+function showTyping(task) {
+  $("quiz-label").textContent = task.card.item.cat + " · Schreib es auf Italienisch";
+  $("quiz-prompt").className = "quiz-prompt";
+  $("quiz-prompt").textContent = task.card.item.de;
+  $("quiz-hint").textContent = task.card.item.g ? "mit Artikel" : "";
+  const input = $("quiz-input");
+  input.value = "";
+  input.disabled = false;
+  input.classList.remove("ok", "bad");
+  $("quiz-type-form").classList.remove("hidden");
+  $("btn-quiz").textContent = "Prüfen";
+  $("btn-quiz").classList.remove("hidden");
+  input.focus();
+}
+
+// ---------- Checking typed answers ----------
+
+// Lower case, straight apostrophes, no end punctuation, single spaces.
+function normalizeAnswer(text) {
+  return text
+    .toLowerCase()
+    .replace(/[’‘`´]/g, "'")
+    .replace(/[.!?¿¡…,]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function withoutAccents(text) {
+  return text.normalize("NFD").replace(/[̀-ͯ]/g, "");
+}
+
+// How many single-letter edits turn a into b: add, remove, change a letter,
+// or swap two neighbouring letters ("lirbo" → "libro" counts as one).
+function editDistance(a, b) {
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+  for (let j = 1; j <= b.length; j++) d[0][j] = j;
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost);
+      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
+        d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
+      }
+    }
+  }
+  return d[a.length][b.length];
+}
+
+// Compare the typed text with the Italian word. Any word with exactly the same German
+// translation is accepted too. Returns { right, verdict }.
+//   exact                → right
+//   only accents differ  → right, with a hint
+//   article missing      → wrong ("Fast – der Artikel fehlt")
+//   one letter off       → wrong ("Fast – ein Buchstabe stimmt nicht")
+function checkTyped(typed, item) {
+  const got = normalizeAnswer(typed);
+  if (!got) return { right: false, verdict: "✗ Keine Antwort – richtig wäre:" };
+  const accepted = words.filter((w) => w.de === item.de).map((w) => normalizeAnswer(w.it));
+  if (accepted.includes(got)) return { right: true, verdict: "✓ Richtig" };
+
+  const plain = withoutAccents(got);
+  const plainAccepted = accepted.map(withoutAccents);
+  if (plainAccepted.includes(plain)) {
+    return { right: true, verdict: "✓ Richtig – achte auf den Akzent:" };
+  }
+  const nounOnly = plainAccepted.map((a) => a.replace(/^(il |lo |la |i |gli |le |l')/, ""));
+  if (item.g && nounOnly.includes(plain)) {
+    return { right: false, verdict: "✗ Fast – der Artikel fehlt:" };
+  }
+  if (plainAccepted.some((a) => editDistance(plain, a) === 1)) {
+    return { right: false, verdict: "✗ Fast – ein Buchstabe stimmt nicht:" };
+  }
+  return { right: false, verdict: "✗ Richtig wäre:" };
+}
+
+function answerTyping() {
+  const card = quizTask.card;
+  const input = $("quiz-input");
+  const result = checkTyped(input.value, card.item);
+  input.disabled = true;
+  input.blur();  // so Enter now means "Weiter"
+  input.classList.add(result.right ? "ok" : "bad");
+  recordAnswer(card.key, result.right);
+  if (!result.right) missedCards.push(card);
+
+  const answer = document.createElement("span");
+  setItalian(answer, card.item);
+  const note = card.item.pl ? "Mehrzahl: " + card.item.pl : "";
+  showQuizFeedback(result.right, answer, note, card.item.it, result.verdict);
+}
+
 // ---------- Answering ----------
 
 // Colour the options: the right one green, a wrongly picked one red.
@@ -142,7 +235,7 @@ function answerGap(right, picked) {
 }
 
 // The box under the options: verdict, the right answer, a note, and 🔊.
-function showQuizFeedback(right, answer, note, italianToSpeak) {
+function showQuizFeedback(right, answer, note, italianToSpeak, verdictText) {
   quizAnswered = true;
   quizRight = right;
   const box = $("quiz-feedback");
@@ -155,7 +248,7 @@ function showQuizFeedback(right, answer, note, italianToSpeak) {
   head.className = "quiz-feedback-head";
   const verdict = document.createElement("span");
   verdict.className = "quiz-verdict";
-  verdict.textContent = right ? "✓ Richtig" : "✗ Richtig wäre:";
+  verdict.textContent = verdictText || (right ? "✓ Richtig" : "✗ Richtig wäre:");
   head.append(verdict, makeSpeakButton(() => italianToSpeak));
   box.append(head);
 
@@ -182,7 +275,17 @@ function quizNext() {
   finishTask(quizRight);
 }
 
-$("btn-quiz").addEventListener("click", quizNext);
+// The main button: "Prüfen" for an unanswered typing task, otherwise "Weiter".
+$("btn-quiz").addEventListener("click", () => {
+  if (!quizAnswered && quizTask.type === "tippen") answerTyping();
+  else quizNext();
+});
+
+// Enter in the text field checks the answer.
+$("quiz-type-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (!quizAnswered) answerTyping();
+});
 
 // Keyboard (desktop): 1–4 pick an option, Enter continues.
 document.addEventListener("keydown", (e) => {

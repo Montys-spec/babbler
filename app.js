@@ -69,14 +69,14 @@ function fillTopicSelect(topics) {
 // Every task slot of a round is drawn by chance with these weights:
 //   wort   = word flashcard        satz   = sentence flashcard
 //   wahl   = multiple choice       luecke = fill the gap
-//   fehler = "Fehler finden"
+//   tippen = type the Italian word fehler = "Fehler finden"
 // Which words/sentences come is decided by pickRound (due first, then new),
 // and both directions are mixed in (see buildCards).
-const TASK_WEIGHTS = { wort: 35, satz: 20, wahl: 15, luecke: 15, fehler: 15 };
-const TASK_MAX = { fehler: 2, luecke: 3 };  // these take longer – not too many per round
+const TASK_WEIGHTS = { wort: 30, satz: 18, wahl: 13, luecke: 13, tippen: 13, fehler: 13 };
+const TASK_MAX = { fehler: 2, luecke: 3, tippen: 3 };  // these take longer – not too many per round
 
 function drawTaskTypes(count) {
-  const wanted = { wort: 0, satz: 0, wahl: 0, luecke: 0, fehler: 0 };
+  const wanted = { wort: 0, satz: 0, wahl: 0, luecke: 0, tippen: 0, fehler: 0 };
   for (let i = 0; i < count; i++) {
     const open = Object.keys(TASK_WEIGHTS).filter((t) => !(wanted[t] >= TASK_MAX[t]));
     const total = open.reduce((sum, t) => sum + TASK_WEIGHTS[t], 0);
@@ -98,14 +98,22 @@ function startPractice() {
   const onCards = new Set(sentenceCards.map((card) => card.item));
   const spotTasks = makeSpotTasks(topicSentences.filter((s) => !onCards.has(s)), wanted.fehler);
 
+  // Typing only for German→Italian word cards – these exist once a word was
+  // recognised from the Italian side (see buildCards), so beginners get none yet.
+  const allWordCards = buildCards("wort", topicWords);
+  const typingCards = pickRound(allWordCards.filter((c) => c.dir === "de-it"), wanted.tippen);
+  const typed = new Set(typingCards.map((card) => card.item));
+
   // Words fill all remaining slots (also any slot the others could not fill).
-  const wordCount = ROUND_SIZE - sentenceCards.length - gapPicks.length - spotTasks.length;
-  const wordCards = shuffle(pickRound(buildCards("wort", topicWords), wordCount));
+  const used = sentenceCards.length + gapPicks.length + spotTasks.length + typingCards.length;
+  const otherWordCards = allWordCards.filter((card) => !typed.has(card.item));
+  const wordCards = shuffle(pickRound(otherWordCards, ROUND_SIZE - used));
   const choiceCount = Math.min(wanted.wahl, wordCards.length);
 
   const roundTasks = [].concat(
     wordCards.slice(0, choiceCount).map((card) => makeChoiceTask(card, topicWords)),
     wordCards.slice(choiceCount).concat(sentenceCards).map((card) => ({ type: "card", card: card })),
+    typingCards.map((card) => ({ type: "tippen", card: card })),
     gapPicks.map((card) => ({ type: "luecke", card: card })),
     spotTasks
   );
