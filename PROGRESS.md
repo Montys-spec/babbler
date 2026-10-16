@@ -56,19 +56,48 @@
   - Claude's suggestions for next steps (Monty decides): PWA + hosting, pronunciation button,
     new task types (multiple choice, fill the gap), article colours + plural, "Fehler finden" that
     remembers weak rules, progress backup, typing answers for DE → IT.
+    Monty picked: pronunciation, new task types, article colours + plural, rule memory, typing.
+
+- **Session 5 (2026-10-17, Claude Code, overnight):** Monty's five picks. Monty allowed committing
+  without his test this time; each feature was tested by Claude in the browser and committed separately.
+  1. **Pronunciation** (`audio.js`, 2719e9e): 🔊 on flashcards and in quiz feedback reads the Italian
+     with the device's built-in Italian voice (Web Speech API, offline). On DE → IT cards only after revealing.
+  2. **Article colours + plural** (4697247): all 259 nouns in `vocab.json` got `"g"` (m / f / mf) and,
+     where sensible, `"pl"` (irregular plurals checked by hand: le uova, le braccia, gli uomini …;
+     no plural for mass nouns like il latte). Article shown blue (masculine) / pink (feminine),
+     plural shown after revealing. Legend on the start screen.
+  3. **Multiple choice + fill the gap** (`quiz.js`, `data/gaps.json`, c353449): new quiz screen.
+     Multiple choice = right translation out of 4 (same kind of word, same topic).
+     Fill the gap = 70 new sentences (5 per topic, levels like the sentences), 3 options,
+     German translation as hint, rule afterwards.
+  4. **Typing** (af416e4): German word shown, type the Italian. Only for words already recognised
+     IT → DE. Accents missing = right with hint; article missing or one typo (incl. swapped letters)
+     = wrong with a "Fast" hint.
+  5. **Rule memory** (`rules.js`, c1a4a3b): every sentence and gap has a `"rule"` tag. Found/overlooked
+     mistakes and gap answers are counted per rule (`babbler-rules-v1`). "Fehler finden" picks faulty
+     sentences weighted by weakness (up to 8×) and shows "Mehr Übung bei: …" once it knows enough.
+  - Round mix now: each of the 10 slots is drawn by chance – word card 30, sentence card 18,
+    multiple choice 13, gap 13, typing 13, Fehler finden 13 (max. 2 Fehler finden, 3 gaps, 3 typing).
+  - Multiple choice, gap and typing answers count for the card progress like a swipe.
+  - Status: all tested by Claude (dark + light, phone size, many simulated rounds). Committed.
+    **Monty has not tested this version yet.**
 
 ## Files
-- `index.html` – the page with four screens (start, card, spot, result)
+- `index.html` – the page with five screens (start, card, spot, quiz, result)
 - `style.css` – design (colours defined once at the top)
-- `util.js` – small helpers (find element, switch screen, shuffle)
+- `util.js` – small helpers (find element, switch screen, shuffle, random number)
 - `progress.js` – saving progress and choosing which cards come next (card box system)
-- `cards.js` – turns words/sentences into cards (direction, sentence levels)
+- `rules.js` – counting right/wrong per grammar rule, weighted picking
+- `cards.js` – turns words/sentences into cards (direction, sentence levels), coloured articles
+- `audio.js` – pronunciation (🔊)
 - `swipe.js` – the drag/swipe gesture for the card
 - `round.js` – a round: runs the mixed tasks, flashcards, result screen
 - `spot.js` – one "Fehler finden" task
+- `quiz.js` – multiple choice, fill the gap, typing
 - `app.js` – start screen, putting a round together, loading the data
-- `data/vocab.json` – word list (`{ "it", "de", "cat" }`), order matters (most useful first)
-- `data/sentences.json` – sentences (`{ "cat", "level", "it", "de", "wrong", "why" }`)
+- `data/vocab.json` – word list (`{ "it", "de", "cat", "g"?, "pl"? }`), order matters (most useful first)
+- `data/sentences.json` – sentences (`{ "cat", "level", "it", "de", "wrong", "why", "rule" }`)
+- `data/gaps.json` – gap sentences (`{ "cat", "level", "text" with ___, "answer", "options", "de", "why", "rule" }`)
 - `start.command` – local starter (double-click)
 - `.claude/launch.json` – lets Claude Code start the same local server for its own browser tests
 
@@ -81,12 +110,15 @@
   Italian (no colloquial variants that some speakers accept).
 - No translation is uncertain; words with several meanings have a note in brackets.
 
-## Next (ideas, not decided)
-- iPhone install (PWA, "Zum Home-Bildschirm") and offline mode – progress then lives on the iPhone.
-  Needs a decision where the app is hosted (the iPhone cannot reach the Mac's local server on the go).
-- More sentences per level (currently 3 per topic and level) and a level 4
-- "Fehler finden": remember which rules you often miss
-- Show feminine/plural forms for adjectives and nouns
+## Next
+- **Planned for the next session (2026-10-18): iPhone version** – PWA ("Zum Home-Bildschirm"),
+  offline mode, hosting. Needs a decision where the app is hosted (the iPhone cannot reach the
+  Mac's local server on the go).
+  - Note: the local Python server lets browsers cache files for a while, so after an update a
+    browser can briefly show an old version (reload helps). The PWA step should handle updates
+    properly (service worker with versioned cache).
+- Ideas, not decided: progress backup as a file; more sentences/gaps per level and a level 4;
+  feminine/plural forms for adjectives.
 
 ## Open questions
 - None right now.
