@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Babbler</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <!-- Three screens; app.js shows exactly one at a time by removing "hidden". -->
+
+    <section id="screen-start" class="screen">
+      <h1>Babbler</h1>
+      <p class="subtitle">Italienisch lernen</p>
+      <button id="btn-start" class="btn">Vokabeln üben</button>
+      <p id="error" class="error hidden"></p>
+    </section>
+
+    <section id="screen-card" class="screen hidden">
+      <p id="counter" class="counter">1 / 10</p>
+      <button id="card" class="card" aria-label="Karte aufdecken">
+        <span id="word-it" class="word-it"></span>
+        <span id="word-de" class="word-de hidden"></span>
+        <span id="hint" class="hint">Tippen zum Aufdecken</span>
+      </button>
+      <button id="btn-next" class="btn hidden">Weiter</button>
+    </section>
+
+    <section id="screen-done" class="screen hidden">
+      <h2>Fertig!</h2>
+      <p id="done-text"></p>
+      <button id="btn-again" class="btn">Nochmal</button>
+      <button id="btn-home" class="btn btn-secondary">Zur Startseite</button>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

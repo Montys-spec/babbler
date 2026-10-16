@@ -1,0 +1,12 @@
+[
+  { "it": "ciao", "de": "hallo / tschüss" },
+  { "it": "buongiorno", "de": "guten Morgen / guten Tag" },
+  { "it": "grazie", "de": "danke" },
+  { "it": "il pane", "de": "das Brot" },
+  { "it": "l'acqua", "de": "das Wasser" },
+  { "it": "la mela", "de": "der Apfel" },
+  { "it": "lo zucchero", "de": "der Zucker" },
+  { "it": "il formaggio", "de": "der Käse" },
+  { "it": "uno", "de": "eins" },
+  { "it": "due", "de": "zwei" }
+]
