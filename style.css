@@ -594,6 +594,17 @@ select:focus-visible {
   font-size: 0.9rem;
 }
 
+.spot-focus {
+  margin: 6px 0 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--mint);
+}
+
+.spot-focus:empty {
+  display: none;
+}
+
 .spot-list {
   flex: 1;
   display: flex;

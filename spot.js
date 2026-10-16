@@ -19,13 +19,17 @@ function makeSpotTasks(sentences, count) {
   }
 
   // Draw sentences without repeats until the pool is used up, then start again.
+  // The faulty ones are picked with memory: rules you often miss come more often (rules.js).
   let queue = [];
   const result = [];
   for (let t = 0; t < count; t++) {
-    if (queue.length < SPOT_SIZE) queue = queue.concat(shuffle(usable));
-    const picked = queue.splice(0, SPOT_SIZE);
+    if (queue.length < SPOT_SIZE) queue = queue.concat(shuffle(usable.filter((s) => !queue.includes(s))));
     const mistakes = randomInt(1, 2);  // 1 or 2 faulty sentences
-    const entries = picked.map((s, i) => ({ sentence: s, wrong: i < mistakes, selected: false }));
+    const faulty = takeByRule(queue, mistakes);
+    const correct = queue.splice(0, SPOT_SIZE - faulty.length);
+    const entries = faulty
+      .map((s) => ({ sentence: s, wrong: true, selected: false }))
+      .concat(correct.map((s) => ({ sentence: s, wrong: false, selected: false })));
     result.push({ type: "spot", entries: shuffle(entries) });
   }
   return result;
@@ -35,6 +39,9 @@ function showSpotTask(entries) {
   spotEntries = entries;
   spotChecked = false;
   $("btn-spot").textContent = "Prüfen";
+  // Small hint which rule the app is focusing on (only once it knows enough)
+  const weak = weakestRuleName();
+  $("spot-focus").textContent = weak ? "Mehr Übung bei: " + weak : "";
 
   const list = $("spot-list");
   list.innerHTML = "";
@@ -66,6 +73,8 @@ function checkSpot() {
   spotEntries.forEach((entry, i) => {
     const judgedRight = entry.selected === entry.wrong;
     tiles[i].classList.add(judgedRight ? "ok" : "bad");
+    // Memory: was the mistake of this rule found or overlooked?
+    if (entry.wrong) recordRule(entry.sentence.rule, entry.selected);
 
     let verdict;
     if (entry.wrong) verdict = entry.selected ? "✓ Fehler gefunden" : "✗ Fehler übersehen";
