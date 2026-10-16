@@ -28,6 +28,23 @@ function makeCard(kind, item, dir) {
   };
 }
 
+// Write an Italian word into an element, with its article coloured by gender
+// (blue = masculine, pink = feminine; see .art-m / .art-f in style.css).
+// Items without "g" (sentences, verbs, adjectives …) are written as plain text.
+const ARTICLE_START = /^(il |lo |la |i |gli |le |l')/;
+function setItalian(el, item) {
+  el.textContent = "";
+  const match = item.g && item.it.match(ARTICLE_START);
+  if (!match) {
+    el.textContent = item.it;
+    return;
+  }
+  const article = document.createElement("span");
+  article.className = "art art-" + item.g;
+  article.textContent = match[1];
+  el.append(article, item.it.slice(match[1].length));
+}
+
 // Has the item been answered right at least once (in either direction)?
 function itemPractised(kind, item) {
   return boxOf(cardKey(kind, item, "it-de")) >= 1 || boxOf(cardKey(kind, item, "de-it")) >= 1;

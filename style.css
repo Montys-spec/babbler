@@ -17,6 +17,8 @@
   --danger: #f28b82;
   --danger-bg: rgba(242, 139, 130, 0.1);
   --mint-bg: rgba(126, 231, 183, 0.08);
+  --masc: #8ab4ff;  /* article colour: masculine */
+  --fem: #f59ac0;   /* article colour: feminine */
   --shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
 }
 
@@ -34,6 +36,8 @@
     --danger: #d64545;
     --danger-bg: rgba(214, 69, 69, 0.08);
     --mint-bg: rgba(43, 179, 128, 0.08);
+    --masc: #2f6fd6;
+    --fem: #c2417a;
     --shadow: 0 12px 32px rgba(16, 38, 30, 0.12);
   }
 }
@@ -423,6 +427,35 @@ select:focus-visible {
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 0.25s, transform 0.25s;
+}
+
+/* Article coloured by gender (setItalian in cards.js) */
+.art-m {
+  color: var(--masc);
+}
+
+.art-f {
+  color: var(--fem);
+}
+
+.art-mf {
+  color: var(--mint);  /* e.g. l'insegnante: both */
+}
+
+/* Plural line under the answer, appears with it */
+.card-extra {
+  font-size: 0.95rem;
+  color: var(--muted);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.card-extra:empty {
+  display: none;
+}
+
+.card.revealed .card-extra {
+  opacity: 1;
 }
 
 /* Sentences are longer → smaller text */

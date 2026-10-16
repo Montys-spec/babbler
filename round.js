@@ -77,8 +77,12 @@ function showCard(card) {
   const direction = card.dir === "it-de" ? "IT → DE" : "DE → IT";
   const isNew = boxOf(card.key) < 0;
   $("card-cat").textContent = card.item.cat + " · " + direction + (isNew ? " · neu" : "");
-  $("card-front").textContent = card.front;
-  $("card-back").textContent = card.back;
+  const italianFace = card.dir === "it-de" ? $("card-front") : $("card-back");
+  const germanFace = card.dir === "it-de" ? $("card-back") : $("card-front");
+  setItalian(italianFace, card.item);
+  germanFace.textContent = card.item.de;
+  // Plural, shown after revealing (only for nouns that have one)
+  $("card-extra").textContent = card.item.pl ? "Mehrzahl: " + card.item.pl : "";
   $("card").classList.toggle("long", card.kind === "satz");  // smaller text for sentences
   $("card").classList.toggle("italian-hidden", card.dir === "de-it");
   $("card").classList.remove("revealed");
