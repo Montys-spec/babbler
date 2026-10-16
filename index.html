@@ -2,7 +2,9 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0c1a15">
   <title>Babbler</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -10,31 +12,74 @@
   <main>
     <!-- Three screens; app.js shows exactly one at a time by removing "hidden". -->
 
-    <section id="screen-start" class="screen">
-      <h1>Babbler</h1>
-      <p class="subtitle">Italienisch lernen</p>
-      <button id="btn-start" class="btn">Vokabeln üben</button>
-      <p id="error" class="error hidden"></p>
+    <section id="screen-start" class="screen screen-start">
+      <div class="brand">
+        <h1>Babbler<span class="dot">.</span></h1>
+        <p class="subtitle">Italienisch für jeden Tag</p>
+      </div>
+
+      <ol class="howto">
+        <li><span class="howto-icon">👆</span> Tippen – Übersetzung ansehen</li>
+        <li><span class="howto-icon yes">→</span> Nach rechts wischen – gewusst</li>
+        <li><span class="howto-icon no">←</span> Nach links wischen – nicht gewusst</li>
+      </ol>
+
+      <div class="start-actions">
+        <button id="btn-start" class="btn btn-primary">Vokabeln üben</button>
+        <p id="word-count" class="muted"></p>
+        <p id="error" class="error hidden"></p>
+      </div>
     </section>
 
-    <section id="screen-card" class="screen hidden">
-      <p id="counter" class="counter">1 / 10</p>
-      <button id="card" class="card" aria-label="Karte aufdecken">
-        <span id="word-it" class="word-it"></span>
-        <span id="word-de" class="word-de hidden"></span>
-        <span id="hint" class="hint">Tippen zum Aufdecken</span>
-      </button>
-      <button id="btn-next" class="btn hidden">Weiter</button>
+    <section id="screen-card" class="screen screen-card hidden">
+      <div class="topbar">
+        <button id="btn-quit" class="icon-btn" aria-label="Zur Startseite">✕</button>
+        <div class="progress"><div id="progress-bar" class="progress-bar"></div></div>
+        <span id="counter" class="counter">1 / 10</span>
+      </div>
+
+      <div class="card-area">
+        <!-- The card: tap to reveal, then swipe. See swipe.js. -->
+        <div id="card" class="card" role="button" tabindex="0" aria-label="Karte aufdecken">
+          <span class="stamp stamp-yes">Gewusst</span>
+          <span class="stamp stamp-no">Nicht gewusst</span>
+          <span id="card-cat" class="card-cat"></span>
+          <span id="word-it" class="word-it"></span>
+          <span class="divider"></span>
+          <span id="word-de" class="word-de"></span>
+          <span class="hint hint-before">Tippen zum Aufdecken</span>
+          <span class="hint hint-after">← nicht gewusst · gewusst →</span>
+        </div>
+      </div>
+
+      <!-- Buttons do the same as swiping (handy on desktop). -->
+      <div id="answer-buttons" class="answer-buttons inactive">
+        <button id="btn-no" class="btn btn-no">✗ Nicht gewusst</button>
+        <button id="btn-yes" class="btn btn-yes">✓ Gewusst</button>
+      </div>
     </section>
 
-    <section id="screen-done" class="screen hidden">
-      <h2>Fertig!</h2>
-      <p id="done-text"></p>
-      <button id="btn-again" class="btn">Nochmal</button>
-      <button id="btn-home" class="btn btn-secondary">Zur Startseite</button>
+    <section id="screen-done" class="screen screen-done hidden">
+      <h2>Runde geschafft!</h2>
+      <div class="score">
+        <span id="score-num" class="score-num"></span>
+        <span class="muted">gewusst</span>
+      </div>
+
+      <div id="missed-box" class="missed-box hidden">
+        <h3>Das übst du nochmal</h3>
+        <ul id="missed-list" class="missed-list"></ul>
+      </div>
+
+      <div class="done-actions">
+        <button id="btn-repeat" class="btn btn-primary hidden">Fehler wiederholen</button>
+        <button id="btn-again" class="btn btn-primary">Neue Runde</button>
+        <button id="btn-home" class="btn btn-ghost">Zur Startseite</button>
+      </div>
     </section>
   </main>
 
+  <script src="swipe.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

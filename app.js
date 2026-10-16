@@ -1,11 +1,16 @@
 // Babbler – flashcard logic.
-// Loads the word list, shuffles it, and steps through the cards one by one.
+// Loads the word list, picks a random round of words, and steps through them.
+// For each card: tap to reveal, then swipe right (knew it) or left (didn't).
 
 const VOCAB_FILE = "data/vocab.json";
+const ROUND_SIZE = 10;  // words per round
 
-let words = [];    // all words from the JSON file
-let deck = [];     // shuffled copy for the current round
-let position = 0;  // index of the current card in the deck
+let words = [];        // all words from the JSON file
+let deck = [];         // the words of the current round
+let position = 0;      // index of the current card in the deck
+let revealed = false;  // has the German side of the current card been shown?
+let known = [];        // words swiped right this round
+let missed = [];       // words swiped left this round
 
 // Shortcut for finding elements by their id in index.html
 const $ = (id) => document.getElementById(id);
@@ -27,39 +32,73 @@ function shuffle(list) {
   return copy;
 }
 
+// The swipe gesture; answer() runs once the card has flown off screen.
+const swiper = makeSwipeable($("card"), {
+  canSwipe: () => revealed,
+  onSwipe: (direction) => answer(direction === "right"),
+});
+
+// Start a round with up to ROUND_SIZE random words from the given list.
+function startRound(list) {
+  deck = shuffle(list).slice(0, ROUND_SIZE);
+  position = 0;
+  known = [];
+  missed = [];
+  showScreen("card");
+  showCard();
+}
+
 // Fill the card with the current word, German side still covered.
 function showCard() {
   const word = deck[position];
+  revealed = false;
   $("counter").textContent = (position + 1) + " / " + deck.length;
+  $("progress-bar").style.width = (position / deck.length) * 100 + "%";
+  $("card-cat").textContent = word.cat || "";
   $("word-it").textContent = word.it;
   $("word-de").textContent = word.de;
-  $("word-de").classList.add("hidden");
-  $("hint").classList.remove("hidden");
-  $("btn-next").classList.add("hidden");
+  $("card").classList.remove("revealed");
+  $("answer-buttons").classList.add("inactive");
+  swiper.reset();
 }
 
-// Uncover the German translation and offer the "Weiter" button.
+// Uncover the German translation and allow swiping.
 function reveal() {
-  $("word-de").classList.remove("hidden");
-  $("hint").classList.add("hidden");
-  $("btn-next").classList.remove("hidden");
+  if (revealed) return;
+  revealed = true;
+  $("card").classList.add("revealed");
+  $("answer-buttons").classList.remove("inactive");
 }
 
-function startRound() {
-  deck = shuffle(words);
-  position = 0;
-  showCard();
-  showScreen("card");
-}
-
-function nextCard() {
+// Record the answer and move on to the next card (or the result screen).
+function answer(knewIt) {
+  (knewIt ? known : missed).push(deck[position]);
   position++;
   if (position < deck.length) {
     showCard();
   } else {
-    $("done-text").textContent = "Du hast alle " + deck.length + " Vokabeln geübt.";
-    showScreen("done");
+    showResult();
   }
+}
+
+function showResult() {
+  $("progress-bar").style.width = "100%";
+  $("score-num").textContent = known.length + " / " + deck.length;
+
+  // List the words that were swiped left.
+  const list = $("missed-list");
+  list.innerHTML = "";
+  for (const word of missed) {
+    const item = document.createElement("li");
+    const it = document.createElement("strong");
+    it.textContent = word.it;
+    item.append(it, " – " + word.de);
+    list.append(item);
+  }
+  $("missed-box").classList.toggle("hidden", missed.length === 0);
+  $("btn-repeat").classList.toggle("hidden", missed.length === 0);
+  $("btn-repeat").textContent = "Fehler wiederholen (" + missed.length + ")";
+  showScreen("done");
 }
 
 // Load the word list. The start button stays disabled until it has loaded.
@@ -70,6 +109,8 @@ async function loadWords() {
     if (!response.ok) throw new Error("HTTP " + response.status);
     words = await response.json();
     if (!Array.isArray(words) || words.length === 0) throw new Error("leere Liste");
+    $("word-count").textContent =
+      words.length + " Vokabeln · " + Math.min(ROUND_SIZE, words.length) + " pro Runde";
     $("btn-start").disabled = false;
   } catch (err) {
     // Usually happens when index.html is opened directly instead of via start.command.
@@ -80,10 +121,27 @@ async function loadWords() {
   }
 }
 
-$("btn-start").addEventListener("click", startRound);
+// Only treat a click as "reveal" – after revealing, the card is swiped instead.
 $("card").addEventListener("click", reveal);
-$("btn-next").addEventListener("click", nextCard);
-$("btn-again").addEventListener("click", startRound);
+$("btn-yes").addEventListener("click", () => swiper.fly("right"));
+$("btn-no").addEventListener("click", () => swiper.fly("left"));
+$("btn-start").addEventListener("click", () => startRound(words));
+$("btn-again").addEventListener("click", () => startRound(words));
+$("btn-repeat").addEventListener("click", () => startRound(missed));
 $("btn-home").addEventListener("click", () => showScreen("start"));
+$("btn-quit").addEventListener("click", () => showScreen("start"));
+
+// Keyboard (desktop): Space/Enter reveals, arrow keys answer.
+document.addEventListener("keydown", (e) => {
+  if ($("screen-card").classList.contains("hidden")) return;
+  if (!revealed && (e.key === " " || e.key === "Enter")) {
+    e.preventDefault();
+    reveal();
+  } else if (revealed && e.key === "ArrowRight") {
+    swiper.fly("right");
+  } else if (revealed && e.key === "ArrowLeft") {
+    swiper.fly("left");
+  }
+});
 
 loadWords();
