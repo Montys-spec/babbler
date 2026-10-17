@@ -6,6 +6,14 @@
   <meta name="color-scheme" content="dark light">
   <meta name="theme-color" content="#0c1a15">
   <title>Babbler</title>
+  <!-- iPhone app (PWA): name, icon, full screen when opened from the home screen -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Babbler">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -59,7 +67,13 @@
         <div id="topic-list" class="topic-list hidden" role="listbox"></div>
       </div>
 
-      <button id="btn-reset" class="link-btn">Fortschritt zurücksetzen</button>
+      <!-- Backup & transfer (backup.js), e.g. Mac → iPhone via AirDrop -->
+      <div class="data-links">
+        <button id="btn-backup-save" class="link-btn">Sicherung speichern</button>
+        <button id="btn-backup-load" class="link-btn">Sicherung laden</button>
+        <input id="backup-file" type="file" accept="application/json,.json" hidden>
+      </div>
+      <button id="btn-reset" class="link-btn link-reset">Fortschritt zurücksetzen</button>
     </section>
 
     <section id="screen-card" class="screen screen-card hidden">
@@ -170,6 +184,7 @@
   <script src="round.js"></script>
   <script src="spot.js"></script>
   <script src="quiz.js"></script>
+  <script src="backup.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

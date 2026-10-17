@@ -113,6 +113,29 @@
   - Status: tested by Claude in the browser (unlocking simulated for all Stufen, 30 mixed rounds)
     and by Monty, works. Committed.
 
+- **Session 8 (2026-10-17, Claude Code):** iPhone version (PWA) + backup/transfer.
+  - Hosting decision (Monty): **GitHub Pages**, with his existing GitHub account. GitHub CLI (`gh`)
+    installed via Homebrew with his OK; Homebrew had to build it from source and installed Go
+    (~250 MB) as a build tool – Claude offered to remove Go afterwards.
+  - `manifest.json` + `icons/` (512, 192, 180 px; "B." on dark green) + iPhone meta tags in
+    `index.html` → "Zum Home-Bildschirm" opens Babbler full screen with its own icon.
+  - `sw.js` (service worker) = offline mode, strategy "network first": online every file is fetched
+    fresh (so updates arrive immediately – this also fixes the old browser-cache problem), offline the
+    stored copy is used. All app files are stored on install. **New files must be added to FILES in sw.js.**
+  - `backup.js`: "Sicherung speichern" (share sheet on iPhone/Mac Safari → AirDrop/Dateien; download
+    elsewhere) and "Sicherung laden" (file picker, checks the file, asks before replacing, reloads).
+    The file contains all `babbler-…` keys (progress, rule memory, Etappen, topic).
+    Transfer Mac → iPhone: on the Mac "Sicherung speichern" → AirDrop → on the iPhone app "Sicherung laden".
+  - `.claude/launch.json`: extra test server "babbler-test" on port 8002 (the in-app browser only allows
+    service workers on servers it started itself).
+  - Tested by Claude: all 24 files stored; with the server switched off the app loads and a round starts;
+    backup saved and restored on an empty device; foreign files are refused.
+  - Status: tested by Monty on the Mac, works. Committed.
+  - Publishing: GitHub account "Montys-spec", public repository "babbler", GitHub Pages from `main`.
+    Commits use GitHub's private address (343699428+Montys-spec@users.noreply.github.com, set only for
+    this repository); the email in all earlier commits was replaced before the first upload (Monty's choice).
+    To publish an update later: commit, then `git push` – GitHub Pages updates within about a minute.
+
 ## Files
 - `index.html` – the page with five screens (start, card, spot, quiz, result)
 - `style.css` – design (colours defined once at the top)
@@ -126,7 +149,10 @@
 - `round.js` – a round: runs the mixed tasks, flashcards, result screen
 - `spot.js` – one "Fehler finden" task
 - `quiz.js` – multiple choice, fill the gap, typing
-- `app.js` – start screen, putting a round together, loading the data
+- `app.js` – start screen, putting a round together, loading the data, registers the service worker
+- `backup.js` – backup & transfer of the progress (file)
+- `sw.js` – service worker: offline mode (list of all app files inside)
+- `manifest.json`, `icons/` – iPhone app name and icons
 - `data/vocab.json`, `data/vocab-2.json`, `data/vocab-3.json` – words of Stufe 1 / 2 / 3
   (`{ "it", "de", "cat", "g"?, "pl"? }`), order matters (most useful first); every `it` unique across all three
 - `data/sentences.json` – sentences (`{ "cat", "level", "it", "de", "wrong", "why", "rule" }`)
@@ -151,12 +177,7 @@
   - "la Borsa" (stock exchange) is written with a capital B, unlike "la borsa" (bag).
 
 ## Next
-- **Planned for the next session (2026-10-18): iPhone version** – PWA ("Zum Home-Bildschirm"),
-  offline mode, hosting. Needs a decision where the app is hosted (the iPhone cannot reach the
-  Mac's local server on the go).
-  - Note: the local Python server lets browsers cache files for a while, so after an update a
-    browser can briefly show an old version (reload helps). The PWA step should handle updates
-    properly (service worker with versioned cache).
+- Publish on GitHub Pages and install on the iPhone (session 8, in progress).
 - Ideas, not decided: progress backup as a file; more sentences/gaps per level and a level 4;
   feminine/plural forms for adjectives.
 - Other ideas from session 6, not decided: progress backup/transfer (do with the PWA),

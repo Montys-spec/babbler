@@ -277,4 +277,9 @@ $("btn-reset").addEventListener("click", () => {
   }
 });
 
+// Offline support for the iPhone app (sw.js). Browsers only allow it over https or on localhost.
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js").catch((err) => console.warn("Offline-Modus nicht verfügbar", err));
+}
+
 init();

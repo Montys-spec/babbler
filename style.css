@@ -132,6 +132,22 @@ h2 {
   cursor: pointer;
 }
 
+/* "Sicherung speichern · Sicherung laden" */
+.data-links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.data-links .link-btn {
+  margin-top: 0;
+}
+
+.link-reset {
+  margin-top: -12px !important;  /* sits close under the backup links */
+}
+
 .link-btn {
   align-self: center;
   margin-top: 8px;
