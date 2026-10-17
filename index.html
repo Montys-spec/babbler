@@ -18,15 +18,17 @@
         <p class="subtitle">Italienisch für jeden Tag</p>
       </div>
 
-      <!-- How much is "sicher" (known 3× in a row); filled in by app.js -->
+      <!-- Progress in Etappen (journey.js) plus one thin overall bar; filled in by app.js -->
       <div class="overview">
-        <div class="overview-row">
-          <span class="overview-head"><span>Vokabeln</span><span id="learned-words" class="overview-num"></span></span>
-          <span class="bar"><span id="learned-words-bar" class="bar-fill"></span></span>
+        <div class="journey-head">
+          <span id="etappe-title" class="journey-title"></span>
+          <span id="etappe-count" class="overview-num"></span>
         </div>
-        <div class="overview-row">
-          <span class="overview-head"><span>Sätze</span><span id="learned-sentences" class="overview-num"></span></span>
-          <span class="bar"><span id="learned-sentences-bar" class="bar-fill"></span></span>
+        <div id="etappe-segments" class="segments"></div>
+        <p id="etappe-hint" class="journey-hint"></p>
+        <div class="overview-row overview-total">
+          <span class="overview-head"><span>Gesamt</span><span id="total-count" class="total-num"></span></span>
+          <span class="bar bar-thin"><span id="total-bar" class="bar-fill"></span></span>
         </div>
       </div>
 
@@ -45,10 +47,15 @@
           <span>Artikel: <span class="art art-m">männlich</span> · <span class="art art-f">weiblich</span></span></li>
       </ol>
 
-      <label class="field">
-        <span class="field-label">Thema</span>
-        <span class="select-wrap"><select id="sel-topic"></select></span>
-      </label>
+      <!-- Topic: one row that folds out into the list of all topics (app.js) -->
+      <div class="topic-picker">
+        <button id="topic-toggle" class="topic-toggle" aria-expanded="false" aria-controls="topic-list">
+          <span class="field-label">Thema</span>
+          <span id="topic-current" class="topic-current"></span>
+          <span class="chevron" aria-hidden="true"></span>
+        </button>
+        <div id="topic-list" class="topic-list hidden" role="listbox"></div>
+      </div>
 
       <button id="btn-reset" class="link-btn">Fortschritt zurücksetzen</button>
     </section>
@@ -131,6 +138,12 @@
         <span id="score-label" class="muted"></span>
       </div>
 
+      <!-- Where you are in the current Etappe after this round -->
+      <div class="etappe-result">
+        <span id="etappe-result-text" class="etappe-result-text"></span>
+        <span class="bar bar-thin"><span id="etappe-result-bar" class="bar-fill"></span></span>
+      </div>
+
       <div id="missed-box" class="missed-box hidden">
         <h3>Das übst du nochmal</h3>
         <ul id="missed-list" class="missed-list"></ul>
@@ -148,6 +161,7 @@
   <script src="util.js"></script>
   <script src="progress.js"></script>
   <script src="rules.js"></script>
+  <script src="journey.js"></script>
   <script src="cards.js"></script>
   <script src="audio.js"></script>
   <script src="swipe.js"></script>

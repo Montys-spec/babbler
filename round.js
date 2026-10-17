@@ -12,6 +12,7 @@ let missedCards = [];  // word/sentence cards answered wrong (for "Fehler wieder
 let missedSpots = [];  // "Fehler finden" sentences that were judged wrongly
 let missedGaps = [];   // gap sentences answered wrong
 let revealed = false;  // has the hidden side of the current card been shown?
+let etappeAtStart = 1; // to notice when an Etappe was completed during the round
 
 // The swipe gesture; answer() runs once the card has flown off screen.
 const swiper = makeSwipeable($("card"), {
@@ -26,6 +27,7 @@ function playRound(list) {
   missedCards = [];
   missedSpots = [];
   missedGaps = [];
+  etappeAtStart = etappeInfo().number;
   showTask();
 }
 
@@ -59,7 +61,10 @@ function showTask() {
 
 // Called by both task types when a task is finished.
 function finishTask(done) {
-  if (done) solved++;
+  if (done) {
+    solved++;
+    addStep();  // one step forward in the current Etappe (journey.js)
+  }
   taskIndex++;
   if (taskIndex < tasks.length) {
     showTask();
@@ -118,6 +123,14 @@ function showRoundResult() {
   updateProgress(tasks.length);
   $("score-num").textContent = solved + " / " + tasks.length;
   $("score-label").textContent = "Aufgaben gelöst · Fortschritt gespeichert";
+
+  // Etappe: completed during this round, or how far into it you are now
+  const etappe = etappeInfo();
+  $("etappe-result-text").textContent =
+    etappe.number > etappeAtStart
+      ? "Etappe " + (etappe.number - 1) + " geschafft – weiter mit Etappe " + etappe.number
+      : "Etappe " + etappe.number + " · " + etappe.done + " / " + etappe.size;
+  $("etappe-result-bar").style.width = (etappe.done / etappe.size) * 100 + "%";
 
   // Everything that went wrong: missed cards, then misjudged "Fehler finden" sentences.
   const list = $("missed-list");

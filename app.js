@@ -39,27 +39,79 @@ function inTopic(list) {
 
 // ---------- Start screen ----------
 
-// One progress line: "12 / 537 sicher" plus bar.
-function showLearned(id, kind, list) {
-  const learned = list.filter((item) => itemLearned(kind, item)).length;
-  $(id).textContent = learned + " / " + list.length + " sicher";
-  $(id + "-bar").style.width = (learned / list.length) * 100 + "%";
+const SEGMENTS = 10;  // the Etappe bar is drawn as 10 small blocks
+
+// The current Etappe as 10 blocks; the block you are working on fills partly.
+function showEtappe() {
+  const etappe = etappeInfo();
+  $("etappe-title").textContent = "Etappe " + etappe.number;
+  $("etappe-count").textContent = etappe.done + " / " + etappe.size;
+  const left = etappe.size - etappe.done;
+  $("etappe-hint").textContent =
+    "Noch " + left + (left === 1 ? " gelöste Aufgabe" : " gelöste Aufgaben") + " bis Etappe " + (etappe.number + 1);
+
+  const perSegment = etappe.size / SEGMENTS;
+  const segments = $("etappe-segments");
+  segments.innerHTML = "";
+  for (let i = 0; i < SEGMENTS; i++) {
+    const fill = Math.min(Math.max((etappe.done - i * perSegment) / perSegment, 0), 1);
+    const segment = document.createElement("span");
+    segment.className = "segment";
+    const inner = document.createElement("span");
+    inner.className = "segment-fill";
+    inner.style.width = fill * 100 + "%";
+    segment.append(inner);
+    segments.append(segment);
+  }
+}
+
+// Overall: how many words and sentences you have answered right at least once.
+function showTotal() {
+  const all = words.length + sentences.length;
+  const known =
+    words.filter((item) => itemPractised("wort", item)).length +
+    sentences.filter((item) => itemPractised("satz", item)).length;
+  $("total-count").textContent = known + " / " + all + " Wörter & Sätze";
+  $("total-bar").style.width = (known / all) * 100 + "%";
 }
 
 function showStart() {
-  showLearned("learned-words", "wort", words);
-  showLearned("learned-sentences", "satz", sentences);
-  $("sel-topic").value = settings.topic;
+  showEtappe();
+  showTotal();
+  showTopicPicker(false);
   showScreen("start");
 }
 
-function fillTopicSelect(topics) {
-  const select = $("sel-topic");
-  for (const topic of ["alle"].concat(topics)) {
-    const option = document.createElement("option");
-    option.value = topic;
-    option.textContent = topic === "alle" ? "Alle Themen" : topic;
-    select.append(option);
+// ---------- Topic fold-out ----------
+
+let topicNames = [];  // filled when the data has loaded
+
+function topicLabel(topic) {
+  return topic === "alle" ? "Alle Themen" : topic;
+}
+
+// Closed: one row "Thema · <current> ⌄". Open: the list of all topics below it.
+function showTopicPicker(open) {
+  $("topic-current").textContent = topicLabel(settings.topic);
+  $("topic-toggle").setAttribute("aria-expanded", String(open));
+  $("topic-toggle").classList.toggle("open", open);
+  const list = $("topic-list");
+  list.classList.toggle("hidden", !open);
+  if (!open) return;
+
+  list.innerHTML = "";
+  for (const topic of ["alle"].concat(topicNames)) {
+    const row = document.createElement("button");
+    row.className = "topic-option";
+    row.setAttribute("role", "option");
+    row.setAttribute("aria-selected", String(topic === settings.topic));
+    row.textContent = topicLabel(topic);
+    row.addEventListener("click", () => {
+      settings.topic = topic;
+      saveSettings();
+      showTopicPicker(false);
+    });
+    list.append(row);
   }
 }
 
@@ -147,11 +199,10 @@ async function init() {
       loadJson(SENTENCES_FILE),
       loadJson(GAPS_FILE),
     ]);
-    const topics = addRanks(words);
+    topicNames = addRanks(words);
     addRanks(sentences);
     addRanks(gaps);
-    fillTopicSelect(topics);
-    if (!topics.includes(settings.topic)) settings.topic = "alle";
+    if (!topicNames.includes(settings.topic)) settings.topic = "alle";
     $("btn-start").disabled = false;
     showStart();
   } catch (err) {
@@ -163,11 +214,10 @@ async function init() {
   }
 }
 
-// ---------- Buttons & dropdown ----------
+// ---------- Buttons ----------
 
-$("sel-topic").addEventListener("change", (e) => {
-  settings.topic = e.target.value;
-  saveSettings();
+$("topic-toggle").addEventListener("click", () => {
+  showTopicPicker($("topic-list").classList.contains("hidden"));
 });
 
 $("btn-start").addEventListener("click", startPractice);
@@ -180,6 +230,7 @@ $("btn-reset").addEventListener("click", () => {
   if (confirm("Den gesamten Lernfortschritt löschen?")) {
     resetProgress();
     resetRuleStats();
+    resetJourney();
     showStart();
   }
 });

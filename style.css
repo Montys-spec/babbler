@@ -170,11 +170,11 @@ h1 {
   color: var(--muted);
 }
 
-/* "Vokabeln 12 / 537 sicher" + bar, same for sentences */
+/* Etappe (10 blocks) + overall bar */
 .overview {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   padding: 18px 20px;
   background: var(--surface);
   border: 1px solid var(--border);
@@ -195,6 +195,60 @@ h1 {
 
 .overview-num {
   color: var(--mint);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.journey-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.journey-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* The Etappe as 10 blocks; the one in progress fills partly */
+.segments {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 5px;
+}
+
+.segment {
+  height: 12px;
+  border-radius: 4px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.segment-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--green-2), var(--mint));
+  transition: width 0.4s;
+}
+
+.journey-hint {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.overview-total {
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.overview-total .overview-head {
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.total-num {
   font-variant-numeric: tabular-nums;
 }
 
@@ -216,11 +270,30 @@ h1 {
   transition: width 0.4s;
 }
 
-/* Topic dropdown */
-.field {
+.bar-thin {
+  height: 4px;
+}
+
+/* Topic fold-out: one row, opens into the list of all topics */
+.topic-picker {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.topic-toggle {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .field-label {
@@ -230,42 +303,61 @@ h1 {
   color: var(--muted);
 }
 
-.select-wrap {
-  position: relative;
-  display: block;
+.topic-current {
+  flex: 1;
+  font-weight: 600;
 }
 
-/* Our own mint chevron instead of the browser's arrow */
-.select-wrap::after {
-  content: "";
-  position: absolute;
-  right: 20px;
-  top: 50%;
+.chevron {
   width: 8px;
   height: 8px;
+  margin-right: 4px;
   border-right: 2px solid var(--mint);
   border-bottom: 2px solid var(--mint);
-  transform: translateY(-70%) rotate(45deg);
-  pointer-events: none;
+  transform: translateY(-25%) rotate(45deg);
+  transition: transform 0.2s;
 }
 
-select {
-  width: 100%;
-  padding: 14px 48px 14px 16px;
+.topic-toggle.open .chevron {
+  transform: translateY(25%) rotate(-135deg);
+}
+
+.topic-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border);
+}
+
+.topic-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 16px;
   font: inherit;
-  font-size: 1rem;  /* 16px or more stops iPhone from zooming in */
-  color: var(--text);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  appearance: none;
-  -webkit-appearance: none;
+  color: inherit;
+  text-align: left;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border);
   cursor: pointer;
 }
 
-select:focus-visible {
-  outline: 2px solid var(--mint);
-  outline-offset: 2px;
+.topic-option:last-child {
+  border-bottom: none;
+}
+
+.topic-option:active {
+  background: var(--surface-2);
+}
+
+/* The chosen topic: mint text and a check mark */
+.topic-option[aria-selected="true"] {
+  color: var(--mint);
+  font-weight: 600;
+}
+
+.topic-option[aria-selected="true"]::after {
+  content: "✓";
 }
 
 .start-actions {
@@ -873,6 +965,14 @@ select:focus-visible {
   font-size: 3.5rem;
   font-weight: 800;
   color: var(--mint);
+}
+
+.etappe-result {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--muted);
 }
 
 .missed-box {

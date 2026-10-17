@@ -80,7 +80,18 @@
     multiple choice 13, gap 13, typing 13, Fehler finden 13 (max. 2 Fehler finden, 3 gaps, 3 typing).
   - Multiple choice, gap and typing answers count for the card progress like a swipe.
   - Status: all tested by Claude (dark + light, phone size, many simulated rounds). Committed.
-    **Monty has not tested this version yet.**
+    Monty clicked through it afterwards and liked it.
+
+- **Session 6 (2026-10-18, Claude Code):** Etappen + topic fold-out (Monty's feedback).
+  - The "0 / 537 sicher" overview is replaced by **Etappen** (`journey.js`): every solved task is one
+    step, 30 steps = one Etappe, shown as 10 blocks ("Etappe 3 · 18 / 30", "Noch 12 gelöste Aufgaben
+    bis Etappe 4"). Below it one thin overall bar: words & sentences answered right at least once.
+    On first start, earlier practice is counted (sum of all card boxes), so nobody starts at zero.
+    Result screen shows the Etappe after the round, or "Etappe 2 geschafft – weiter mit Etappe 3".
+    Kept calm on purpose: no points, badges or streaks (AGENTS.md: no gamification).
+  - **Topic fold-out** instead of the native dropdown: one row "Thema · Alle Themen ⌄"; tapping opens
+    the list of all topics inline, tapping a topic selects it and closes the list.
+  - Status: tested by Claude in the browser and by Monty, works. Committed.
 
 ## Files
 - `index.html` – the page with five screens (start, card, spot, quiz, result)
@@ -88,6 +99,7 @@
 - `util.js` – small helpers (find element, switch screen, shuffle, random number)
 - `progress.js` – saving progress and choosing which cards come next (card box system)
 - `rules.js` – counting right/wrong per grammar rule, weighted picking
+- `journey.js` – Etappen: counting solved tasks
 - `cards.js` – turns words/sentences into cards (direction, sentence levels), coloured articles
 - `audio.js` – pronunciation (🔊)
 - `swipe.js` – the drag/swipe gesture for the card
@@ -119,6 +131,9 @@
     properly (service worker with versioned cache).
 - Ideas, not decided: progress backup as a file; more sentences/gaps per level and a level 4;
   feminine/plural forms for adjectives.
+- Monty's wish (2026-10-18): more words (537 is too few) and specialist vocabulary for
+  regulation, finance and technology – but only once he has reached a certain level.
+  Claude proposed a plan with vocabulary "Stufen" (see session 6 chat); waiting for Monty's decision.
 
 ## Open questions
 - None right now.
