@@ -93,6 +93,26 @@
     the list of all topics inline, tapping a topic selects it and closes the list.
   - Status: tested by Claude in the browser and by Monty, works. Committed.
 
+- **Session 7 (2026-10-18, Claude Code):** vocabulary Stufen (Monty's wish).
+  - Words now in three files: `data/vocab.json` = Stufe 1 Grundwortschatz (537, unchanged),
+    `data/vocab-2.json` = Stufe 2 Alltag (625: extends the 14 topics + new topics
+    Gefühle & Charakter, Freizeit & Hobbys, Einkaufen), `data/vocab-3.json` = Stufe 3
+    Fachwortschatz (336: Finanzen, Recht & Regulierung, Technik & IT). Total 1,498 words.
+    The Stufe comes from the file (set when loading); all nouns have gender/plural.
+  - Specialist topics got 9 sentences (3 levels) and 5 gaps each (in `sentences.json` / `gaps.json`).
+    Sentences and gaps belong to the Stufe of their topic.
+  - Unlocking (`unlockedStufe` in `cards.js`): with "Alle Themen", Stufe 2 opens once 70 % of the
+    Stufe 1 words were answered right at least once (376 words); Stufe 3 likewise after Stufe 2 (438).
+    **A topic picked in the fold-out is fully open** (all Stufen), so specialist topics can be
+    practised any time. Fold-out shows tags "Stufe 2" / "Fachwortschatz".
+  - New cards: two queues (first-time items / German→Italian of known items), each sorted by
+    Stufe → level → rank, merged 2 : 1 (`mixNewCards` in `progress.js`), so reversed old words
+    never block new ones. Ranks are counted per topic *and* Stufe, so a new Stufe mixes all topics.
+  - Start screen: the "Gesamt" bar is replaced by "Stufe 1 · Grundwortschatz · 12 / 376" with
+    "Noch 364 Wörter bis Stufe 2".
+  - Status: tested by Claude in the browser (unlocking simulated for all Stufen, 30 mixed rounds)
+    and by Monty, works. Committed.
+
 ## Files
 - `index.html` – the page with five screens (start, card, spot, quiz, result)
 - `style.css` – design (colours defined once at the top)
@@ -107,7 +127,8 @@
 - `spot.js` – one "Fehler finden" task
 - `quiz.js` – multiple choice, fill the gap, typing
 - `app.js` – start screen, putting a round together, loading the data
-- `data/vocab.json` – word list (`{ "it", "de", "cat", "g"?, "pl"? }`), order matters (most useful first)
+- `data/vocab.json`, `data/vocab-2.json`, `data/vocab-3.json` – words of Stufe 1 / 2 / 3
+  (`{ "it", "de", "cat", "g"?, "pl"? }`), order matters (most useful first); every `it` unique across all three
 - `data/sentences.json` – sentences (`{ "cat", "level", "it", "de", "wrong", "why", "rule" }`)
 - `data/gaps.json` – gap sentences (`{ "cat", "level", "text" with ___, "answer", "options", "de", "why", "rule" }`)
 - `start.command` – local starter (double-click)
@@ -121,6 +142,13 @@
 - Each "wrong" sentence contains exactly one mistake, chosen so that it is clearly wrong in standard
   Italian (no colloquial variants that some speakers accept).
 - No translation is uncertain; words with several meanings have a note in brackets.
+- Stufe 3 – worth knowing / please double-check if it matters professionally:
+  - English loanwords used in Italian: la compliance, il rating, la privacy, il budget, il backup,
+    il cloud, la mail (also "l'e-mail"), i social media (colloquially "i social").
+  - "il consiglio di amministrazione" is translated "Verwaltungsrat / Vorstand"; Italian and
+    German/Swiss board structures don't map one to one.
+  - "il codice fiscale" is the Italian personal tax code, translated "Steuernummer".
+  - "la Borsa" (stock exchange) is written with a capital B, unlike "la borsa" (bag).
 
 ## Next
 - **Planned for the next session (2026-10-18): iPhone version** – PWA ("Zum Home-Bildschirm"),
@@ -131,9 +159,8 @@
     properly (service worker with versioned cache).
 - Ideas, not decided: progress backup as a file; more sentences/gaps per level and a level 4;
   feminine/plural forms for adjectives.
-- Monty's wish (2026-10-18): more words (537 is too few) and specialist vocabulary for
-  regulation, finance and technology – but only once he has reached a certain level.
-  Claude proposed a plan with vocabulary "Stufen" (see session 6 chat); waiting for Monty's decision.
+- Other ideas from session 6, not decided: progress backup/transfer (do with the PWA),
+  verb trainer (present tense), listening task, more sentences/gaps and a level 4.
 
 ## Open questions
 - None right now.

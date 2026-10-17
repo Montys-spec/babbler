@@ -5,7 +5,7 @@
 // Each card has its own progress, so you can know a word one way but not the other.
 
 const UNLOCK_SHARE = 0.7;  // a sentence level opens once 70 % of the level below were answered right
-const REVERSE_DELAY = 1;   // German→Italian cards queue a bit later, so they mix with new words
+const STUFE_UNLOCK = 0.7;  // a vocabulary Stufe opens once 70 % of the Stufe below were answered right
 
 // The storage key of a card. Italian→German words keep the plain Italian word as key,
 // so the progress saved before directions existed stays valid.
@@ -24,7 +24,8 @@ function makeCard(kind, item, dir) {
     front: dir === "it-de" ? item.it : item.de,
     back: dir === "it-de" ? item.de : item.it,
     level: item.level || 1,  // words have no level → all count as level 1
-    rank: dir === "it-de" ? item.rank : item.rank + REVERSE_DELAY,
+    stufe: item.stufe || 1,  // vocabulary Stufe (1 basics, 2 everyday, 3 specialist) – set in app.js
+    rank: item.rank,
   };
 }
 
@@ -56,6 +57,24 @@ function itemLearned(kind, item) {
     boxOf(cardKey(kind, item, "it-de")) >= LEARNED_BOX ||
     boxOf(cardKey(kind, item, "de-it")) >= LEARNED_BOX
   );
+}
+
+// Has the item been shown at least once (any direction; for gaps: the gap card)?
+function itemStarted(kind, item) {
+  if (kind === "luecke") return boxOf("luecke|" + item.text) >= 0;
+  return boxOf(cardKey(kind, item, "it-de")) >= 0 || boxOf(cardKey(kind, item, "de-it")) >= 0;
+}
+
+// The highest vocabulary Stufe that is open: Stufe 2 opens once 70 % of the Stufe 1 words
+// were answered right at least once, Stufe 3 likewise after Stufe 2.
+function unlockedStufe(allWords) {
+  const maxStufe = Math.max(1, ...allWords.map((w) => w.stufe));
+  for (let stufe = 1; stufe < maxStufe; stufe++) {
+    const atStufe = allWords.filter((w) => w.stufe === stufe);
+    const practised = atStufe.filter((w) => itemPractised("wort", w)).length;
+    if (atStufe.length && practised / atStufe.length < STUFE_UNLOCK) return stufe;
+  }
+  return maxStufe;
 }
 
 // The highest sentence level that may bring in new sentences.

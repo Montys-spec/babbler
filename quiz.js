@@ -33,7 +33,9 @@ function makeChoiceTask(card, topicWords) {
 function gapCards(topicGaps, topicSentences) {
   const maxLevel = unlockedLevel(topicSentences);
   return topicGaps
-    .map((gap) => ({ kind: "luecke", item: gap, key: "luecke|" + gap.text, level: gap.level, rank: gap.rank }))
+    .map((gap) => ({
+      kind: "luecke", item: gap, key: "luecke|" + gap.text, level: gap.level, rank: gap.rank, stufe: gap.stufe,
+    }))
     .filter((card) => card.level <= maxLevel || boxOf(card.key) >= 0);
 }
 

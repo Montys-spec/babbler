@@ -1,15 +1,18 @@
 // Babbler – start screen, building a round, loading the lesson data.
 // Loaded last: the round itself lives in round.js, "Fehler finden" in spot.js.
 
-const VOCAB_FILE = "data/vocab.json";
+// Vocabulary in three Stufen, one file each: 1 = basics, 2 = everyday, 3 = specialist.
+const VOCAB_FILES = ["data/vocab.json", "data/vocab-2.json", "data/vocab-3.json"];
+const STUFE_NAMES = { 1: "Grundwortschatz", 2: "Alltag", 3: "Fachwortschatz" };
 const SENTENCES_FILE = "data/sentences.json";
 const GAPS_FILE = "data/gaps.json";
 const SETTINGS_KEY = "babbler-settings-v1";
 const ROUND_SIZE = 10;  // tasks per round
 
-let words = [];      // from data/vocab.json
-let sentences = [];  // from data/sentences.json
-let gaps = [];       // from data/gaps.json
+let words = [];       // all vocab files together; each word gets "stufe" (1–3) when loading
+let sentences = [];   // from data/sentences.json
+let gaps = [];        // from data/gaps.json
+let topicStufe = {};  // topic → the Stufe it starts in (sentences and gaps follow their topic)
 
 // The only choice on the start screen: the topic ("alle" or a topic name).
 // Remembered on this device.
@@ -32,9 +35,12 @@ function saveSettings() {
   }
 }
 
-// Only the items of the chosen topic.
-function inTopic(list) {
-  return settings.topic === "alle" ? list : list.filter((item) => item.cat === settings.topic);
+// The items to practise. A topic you pick yourself is fully open (all Stufen).
+// With "Alle Themen", only items up to your open Stufe – plus anything already started.
+function practiceItems(list, kind) {
+  if (settings.topic !== "alle") return list.filter((item) => item.cat === settings.topic);
+  const open = unlockedStufe(words);
+  return list.filter((item) => item.stufe <= open || itemStarted(kind, item));
 }
 
 // ---------- Start screen ----------
@@ -65,19 +71,33 @@ function showEtappe() {
   }
 }
 
-// Overall: how many words and sentences you have answered right at least once.
-function showTotal() {
-  const all = words.length + sentences.length;
-  const known =
-    words.filter((item) => itemPractised("wort", item)).length +
-    sentences.filter((item) => itemPractised("satz", item)).length;
-  $("total-count").textContent = known + " / " + all + " Wörter & Sätze";
-  $("total-bar").style.width = (known / all) * 100 + "%";
+// Your vocabulary Stufe and how far it is to the next one
+// (words answered right at least once, out of the 70 % needed).
+function showStufe() {
+  const open = unlockedStufe(words);
+  const maxStufe = Math.max(...words.map((w) => w.stufe));
+  $("stufe-title").textContent = "Stufe " + open + " · " + STUFE_NAMES[open];
+
+  let have, need, hint;
+  if (open < maxStufe) {
+    const atStufe = words.filter((w) => w.stufe === open);
+    need = Math.ceil(atStufe.length * STUFE_UNLOCK);
+    have = Math.min(atStufe.filter((w) => itemPractised("wort", w)).length, need);
+    const left = need - have;
+    hint = "Noch " + left + (left === 1 ? " Wort" : " Wörter") + " bis Stufe " + (open + 1);
+  } else {
+    need = words.length;
+    have = words.filter((w) => itemPractised("wort", w)).length;
+    hint = "Alle Stufen offen";
+  }
+  $("stufe-count").textContent = have + " / " + need;
+  $("stufe-hint").textContent = hint;
+  $("stufe-bar").style.width = (have / need) * 100 + "%";
 }
 
 function showStart() {
   showEtappe();
-  showTotal();
+  showStufe();
   showTopicPicker(false);
   showScreen("start");
 }
@@ -105,7 +125,17 @@ function showTopicPicker(open) {
     row.className = "topic-option";
     row.setAttribute("role", "option");
     row.setAttribute("aria-selected", String(topic === settings.topic));
-    row.textContent = topicLabel(topic);
+    const label = document.createElement("span");
+    label.className = "topic-option-label";
+    label.textContent = topicLabel(topic);
+    row.append(label);
+    // Topics that start in a higher Stufe get a small tag (choosing them opens them right away)
+    if (topicStufe[topic] > 1) {
+      const tag = document.createElement("span");
+      tag.className = "topic-tag";
+      tag.textContent = topicStufe[topic] === 3 ? "Fachwortschatz" : "Stufe " + topicStufe[topic];
+      row.append(tag);
+    }
     row.addEventListener("click", () => {
       settings.topic = topic;
       saveSettings();
@@ -140,12 +170,12 @@ function drawTaskTypes(count) {
 }
 
 function startPractice() {
-  const topicWords = inTopic(words);
-  const topicSentences = inTopic(sentences);
+  const topicWords = practiceItems(words, "wort");
+  const topicSentences = practiceItems(sentences, "satz");
   const wanted = drawTaskTypes(ROUND_SIZE);
 
   const sentenceCards = pickRound(buildCards("satz", topicSentences), wanted.satz);
-  const gapPicks = pickRound(gapCards(inTopic(gaps), topicSentences), wanted.luecke);
+  const gapPicks = pickRound(gapCards(practiceItems(gaps, "luecke"), topicSentences), wanted.luecke);
   // Sentences already on a card this round are left out of "Fehler finden".
   const onCards = new Set(sentenceCards.map((card) => card.item));
   const spotTasks = makeSpotTasks(topicSentences.filter((s) => !onCards.has(s)), wanted.fehler);
@@ -180,28 +210,40 @@ async function loadJson(file) {
   return response.json();
 }
 
-// Number the items inside each topic (1, 2, 3 …) – the file lists the most useful first.
+// Number the items inside each topic and Stufe (1, 2, 3 …) – the files list the most useful
+// first. So when a new Stufe opens, its words are mixed evenly across all topics.
 // Returns the topic names in file order.
 function addRanks(list) {
   const count = {};
+  const topics = [];
   for (const item of list) {
-    count[item.cat] = (count[item.cat] || 0) + 1;
-    item.rank = count[item.cat];
+    const group = item.cat + "|" + (item.stufe || 1);
+    count[group] = (count[group] || 0) + 1;
+    item.rank = count[group];
+    if (!topics.includes(item.cat)) topics.push(item.cat);
   }
-  return Object.keys(count);
+  return topics;
 }
 
 async function init() {
   $("btn-start").disabled = true;
   try {
-    [words, sentences, gaps] = await Promise.all([
-      loadJson(VOCAB_FILE),
+    let vocabLists;
+    [vocabLists, sentences, gaps] = await Promise.all([
+      Promise.all(VOCAB_FILES.map(loadJson)),
       loadJson(SENTENCES_FILE),
       loadJson(GAPS_FILE),
     ]);
+    // File 1 → Stufe 1, file 2 → Stufe 2, …
+    words = vocabLists.flatMap((list, i) => list.map((word) => Object.assign(word, { stufe: i + 1 })));
     topicNames = addRanks(words);
     addRanks(sentences);
     addRanks(gaps);
+
+    // A topic belongs to the first Stufe it appears in; its sentences and gaps follow it.
+    topicStufe = {};
+    for (const word of words) if (!(word.cat in topicStufe)) topicStufe[word.cat] = word.stufe;
+    for (const item of sentences.concat(gaps)) item.stufe = topicStufe[item.cat] || 1;
     if (!topicNames.includes(settings.topic)) settings.topic = "alle";
     $("btn-start").disabled = false;
     showStart();

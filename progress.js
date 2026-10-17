@@ -62,7 +62,7 @@ function cardStatus(key) {
 }
 
 // Pick the cards for the next round, most important first:
-// 1. due cards (lowest box first), 2. new cards (easiest level, most useful first),
+// 1. due cards (lowest box first), 2. new cards (see below),
 // 3. if nothing else is left: the cards that are due soonest.
 function pickRound(cards, size) {
   const due = [], fresh = [], later = [];
@@ -73,9 +73,23 @@ function pickRound(cards, size) {
     else later.push(card);
   }
   due.sort((a, b) => boxOf(a.key) - boxOf(b.key));
-  fresh.sort((a, b) => a.level - b.level || a.rank - b.rank);
   later.sort((a, b) => (progress[a.key].due < progress[b.key].due ? -1 : 1));
-  return due.concat(fresh, later).slice(0, size);
+  return due.concat(mixNewCards(fresh), later).slice(0, size);
+}
+
+// New cards come in two queues: items seen for the first time, and German→Italian cards of
+// items you already recognise. Each queue is sorted (lowest Stufe and level first, most useful
+// first) and they are merged 2 : 1 – so recalling old words never blocks new ones, and the
+// other way round.
+function mixNewCards(fresh) {
+  const order = (a, b) => (a.stufe || 1) - (b.stufe || 1) || a.level - b.level || a.rank - b.rank;
+  const firstTime = fresh.filter((card) => card.dir !== "de-it").sort(order);
+  const reverse = fresh.filter((card) => card.dir === "de-it").sort(order);
+  const mixed = [];
+  while (firstTime.length || reverse.length) {
+    mixed.push(...firstTime.splice(0, 2), ...reverse.splice(0, 1));
+  }
+  return mixed;
 }
 
 function resetProgress() {
