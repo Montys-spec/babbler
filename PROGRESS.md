@@ -135,6 +135,18 @@
     Commits use GitHub's private address (343699428+Montys-spec@users.noreply.github.com, set only for
     this repository); the email in all earlier commits was replaced before the first upload (Monty's choice).
     To publish an update later: commit, then `git push` – GitHub Pages updates within about a minute.
+  - **Live: https://montys-spec.github.io/babbler/** (repo: https://github.com/Montys-spec/babbler).
+    Checked by Claude: all files online, service worker active on the live site, 24 files stored for offline use.
+  - Local leftovers on Monty's Mac only (not uploaded): tag `backup-before-email-change` and
+    `refs/original/…` from the email rewrite – they still contain the old email; can be deleted later.
+
+## iPhone: install & transfer progress
+1. On the iPhone open **Safari** → https://montys-spec.github.io/babbler/ → Teilen (□↑) →
+   **"Zum Home-Bildschirm"** → Hinzufügen. Then always start Babbler from the home-screen icon.
+2. Transfer from the Mac: open Babbler on the Mac as before (start.command) → **"Sicherung speichern"**
+   → AirDrop to the iPhone (in Chrome the file is downloaded; then Finder → right-click → Teilen → AirDrop).
+3. On the iPhone, **in the home-screen app** (not in a Safari tab – they have separate storage):
+   **"Sicherung laden"** → choose the file (Dateien → Downloads) → confirm.
 
 ## Files
 - `index.html` – the page with five screens (start, card, spot, quiz, result)
@@ -177,7 +189,7 @@
   - "la Borsa" (stock exchange) is written with a capital B, unlike "la borsa" (bag).
 
 ## Next
-- Publish on GitHub Pages and install on the iPhone (session 8, in progress).
+- Monty: install on the iPhone and transfer the progress (see "iPhone: install & transfer progress").
 - Ideas, not decided: progress backup as a file; more sentences/gaps per level and a level 4;
   feminine/plural forms for adjectives.
 - Other ideas from session 6, not decided: progress backup/transfer (do with the PWA),
