@@ -18,7 +18,7 @@
 </head>
 <body>
   <main>
-    <!-- Five screens; util.js shows exactly one at a time by removing "hidden". -->
+    <!-- Seven screens; util.js shows exactly one at a time by removing "hidden". -->
 
     <section id="screen-start" class="screen screen-start">
       <div class="brand">
@@ -42,10 +42,10 @@
         </div>
       </div>
 
-      <!-- The app picks the tasks of each round; you just press "Üben". -->
+      <!-- The app puts the session together; you just press "Üben". -->
       <div class="start-actions">
         <button id="btn-start" class="btn btn-primary">Üben</button>
-        <p class="muted">10 pro Runde</p>
+        <p class="muted">5 Abschnitte · Vokabeln, Check, Sätze, Grammatik, Fehler finden</p>
         <p id="error" class="error hidden"></p>
       </div>
 
@@ -67,6 +67,13 @@
         <div id="topic-list" class="topic-list hidden" role="listbox"></div>
       </div>
 
+      <!-- Grammar: current unit, opens the list of all explanations (grammar.js) -->
+      <button id="btn-grammar" class="grammar-entry">
+        <span class="field-label">Grammatik</span>
+        <span id="grammar-current" class="grammar-current"></span>
+        <span class="chevron chevron-right" aria-hidden="true"></span>
+      </button>
+
       <!-- Backup & transfer (backup.js), e.g. Mac → iPhone via AirDrop -->
       <div class="data-links">
         <button id="btn-backup-save" class="link-btn">Sicherung speichern</button>
@@ -74,6 +81,35 @@
         <input id="backup-file" type="file" accept="application/json,.json" hidden>
       </div>
       <button id="btn-reset" class="link-btn link-reset">Fortschritt zurücksetzen</button>
+    </section>
+
+    <!-- Title screen of a session section; for "Grammatik" with the explanation (round.js) -->
+    <section id="screen-intro" class="screen screen-intro hidden">
+      <div class="topbar">
+        <button id="btn-intro-quit" class="icon-btn" aria-label="Zur Startseite">✕</button>
+        <div class="progress"><div id="intro-progress-bar" class="progress-bar"></div></div>
+        <span id="intro-counter" class="counter"></span>
+      </div>
+      <div class="intro-body">
+        <p id="intro-step" class="intro-step"></p>
+        <h2 id="intro-title" class="intro-title"></h2>
+        <p id="intro-text" class="intro-text"></p>
+        <div id="intro-explanation" class="explanation hidden"></div>
+      </div>
+      <button id="btn-intro" class="btn btn-primary">Los geht's</button>
+    </section>
+
+    <!-- Grammatik: list of all units and their explanations (grammar.js) -->
+    <section id="screen-grammar" class="screen screen-grammar hidden">
+      <div class="topbar">
+        <button id="btn-grammar-close" class="icon-btn" aria-label="Zur Startseite">✕</button>
+        <h2 class="topbar-title">Grammatik</h2>
+      </div>
+      <div id="grammar-list" class="grammar-list"></div>
+      <div id="grammar-detail" class="grammar-detail hidden">
+        <div id="grammar-detail-body" class="explanation"></div>
+        <button id="btn-grammar-back" class="btn btn-ghost">Zurück zur Übersicht</button>
+      </div>
     </section>
 
     <section id="screen-card" class="screen screen-card hidden">
@@ -154,6 +190,9 @@
         <span id="score-label" class="muted"></span>
       </div>
 
+      <!-- How each section went (round.js) -->
+      <ul id="section-results" class="section-results hidden"></ul>
+
       <!-- Where you are in the current Etappe after this round -->
       <div class="etappe-result">
         <span id="etappe-result-text" class="etappe-result-text"></span>
@@ -184,6 +223,7 @@
   <script src="round.js"></script>
   <script src="spot.js"></script>
   <script src="quiz.js"></script>
+  <script src="grammar.js"></script>
   <script src="backup.js"></script>
   <script src="app.js"></script>
 </body>

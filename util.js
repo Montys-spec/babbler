@@ -3,7 +3,7 @@
 // Shortcut for finding elements by their id in index.html
 const $ = (id) => document.getElementById(id);
 
-const SCREENS = ["start", "card", "spot", "quiz", "done"];
+const SCREENS = ["start", "intro", "card", "spot", "quiz", "done", "grammar"];
 
 // Show one screen and hide all others.
 function showScreen(name) {

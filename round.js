@@ -1,13 +1,16 @@
-// Babbler – a practice round: a shuffled mix of tasks chosen by the app (see startPractice in app.js).
-// A task is one of
+// Babbler – a practice session, put together by the app (see startPractice in app.js).
+// A session consists of sections ("Vokabeln", "Sätze", …); each section starts with a short
+// title screen and then has tasks of one kind only. A task is one of
+//   { type: "intro", … }                – the title screen of a section (not counted as a task)
 //   { type: "card", card }              – a flashcard: tap to reveal, swipe right (knew it) or left (didn't)
 //   { type: "spot", entries }           – a "Fehler finden" task (see spot.js)
 //   { type: "wahl" | "luecke" | "tippen", … } – a quiz task (see quiz.js)
 // Every answer is saved right away (see progress.js).
 
-let tasks = [];        // the tasks of the current round
+let tasks = [];        // the tasks of the current session (including the section title screens)
 let taskIndex = 0;     // index of the current task
 let solved = 0;        // tasks done right so far
+let sectionScores = []; // [{ name, done, total }] for the result screen
 let missedCards = [];  // word/sentence cards answered wrong (for "Fehler wiederholen")
 let missedSpots = [];  // "Fehler finden" sentences that were judged wrongly
 let missedGaps = [];   // gap sentences answered wrong
@@ -24,11 +27,23 @@ function playRound(list) {
   tasks = list;
   taskIndex = 0;
   solved = 0;
+  sectionScores = [];
   missedCards = [];
   missedSpots = [];
   missedGaps = [];
   etappeAtStart = etappeInfo().number;
   showTask();
+}
+
+// A session made of sections: [{ name, text, unit?, tasks }]. Each section gets a title screen.
+function playSections(sections) {
+  const list = [];
+  sections.forEach((section, i) => {
+    list.push({ type: "intro", section: section, step: i + 1, steps: sections.length });
+    for (const task of section.tasks) list.push(Object.assign(task, { sectionName: section.name }));
+  });
+  playRound(list);
+  sectionScores = sections.map((section) => ({ name: section.name, done: 0, total: section.tasks.length }));
 }
 
 // Play only these cards again (used by "Fehler wiederholen").
@@ -37,17 +52,23 @@ function playCards(cards) {
 }
 
 // Every task screen has its own counter and progress bar; keep them all in sync.
-function updateProgress(done) {
-  const text = Math.min(taskIndex + 1, tasks.length) + " / " + tasks.length;
-  const width = (done / tasks.length) * 100 + "%";
+// Section title screens do not count as tasks.
+function updateProgress() {
+  const real = tasks.filter((task) => task.type !== "intro");
+  const before = tasks.slice(0, taskIndex).filter((task) => task.type !== "intro").length;
+  const text = Math.min(before + 1, real.length) + " / " + real.length;
+  const width = (before / real.length) * 100 + "%";
   for (const el of document.querySelectorAll(".counter")) el.textContent = text;
   for (const el of document.querySelectorAll(".progress-bar")) el.style.width = width;
 }
 
 function showTask() {
-  updateProgress(taskIndex);
+  updateProgress();
   const task = tasks[taskIndex];
-  if (task.type === "card") {
+  if (task.type === "intro") {
+    showScreen("intro");
+    showIntro(task);
+  } else if (task.type === "card") {
     showScreen("card");
     showCard(task.card);
   } else if (task.type === "spot") {
@@ -59,11 +80,13 @@ function showTask() {
   }
 }
 
-// Called by both task types when a task is finished.
+// Called by every task type when it is finished (done = true / false; null for a title screen).
 function finishTask(done) {
   if (done) {
     solved++;
     addStep();  // one step forward in the current Etappe (journey.js)
+    const score = sectionScores.find((s) => s.name === tasks[taskIndex].sectionName);
+    if (score) score.done++;
   }
   taskIndex++;
   if (taskIndex < tasks.length) {
@@ -72,6 +95,33 @@ function finishTask(done) {
     showRoundResult();
   }
 }
+
+// ---------- Section title screens ----------
+
+// "Abschnitt 2 von 5 · Vokabel-Check" with a one-line explanation of the task type.
+// The grammar section shows the explanation of its unit here.
+function showIntro(task) {
+  const section = task.section;
+  $("intro-step").textContent = "Abschnitt " + task.step + " von " + task.steps;
+  $("intro-title").textContent = section.name;
+  $("intro-text").textContent = section.text;
+  const box = $("intro-explanation");
+  box.classList.toggle("hidden", !section.unit);
+  if (section.unit) renderExplanation(box, section.unit);
+  $("btn-intro").textContent = section.unit ? "Übungen starten" : "Los geht's";
+}
+
+function leaveIntro() {
+  if (tasks[taskIndex] && tasks[taskIndex].type === "intro") finishTask(null);
+}
+
+$("btn-intro").addEventListener("click", leaveIntro);
+document.addEventListener("keydown", (e) => {
+  if ($("screen-intro").classList.contains("hidden") || e.key !== "Enter") return;
+  e.preventDefault();
+  e.stopImmediatePropagation();  // otherwise the same Enter would also reveal the first card
+  leaveIntro();
+});
 
 // ---------- Flashcards ----------
 
@@ -120,9 +170,25 @@ function answer(knewIt) {
 // ---------- Result ----------
 
 function showRoundResult() {
-  updateProgress(tasks.length);
-  $("score-num").textContent = solved + " / " + tasks.length;
+  updateProgress();
+  const total = tasks.filter((task) => task.type !== "intro").length;
+  $("score-num").textContent = solved + " / " + total;
   $("score-label").textContent = "Aufgaben gelöst · Fortschritt gespeichert";
+
+  // How each section went, e.g. "Vokabeln 7 / 8"
+  const sectionList = $("section-results");
+  sectionList.innerHTML = "";
+  for (const score of sectionScores) {
+    const row = document.createElement("li");
+    const name = document.createElement("span");
+    name.textContent = score.name;
+    const value = document.createElement("span");
+    value.className = "section-score";
+    value.textContent = score.done + " / " + score.total;
+    row.append(name, value);
+    sectionList.append(row);
+  }
+  sectionList.classList.toggle("hidden", sectionScores.length === 0);
 
   // Etappe: completed during this round, or how far into it you are now
   const etappe = etappeInfo();

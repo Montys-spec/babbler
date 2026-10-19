@@ -1,5 +1,6 @@
-// Babbler – start screen, building a round, loading the lesson data.
-// Loaded last: the round itself lives in round.js, "Fehler finden" in spot.js.
+// Babbler – start screen, building a session, loading the lesson data.
+// Loaded last: the session itself lives in round.js, "Fehler finden" in spot.js,
+// grammar in grammar.js.
 
 // Vocabulary in three Stufen, one file each: 1 = basics, 2 = everyday, 3 = specialist.
 const VOCAB_FILES = ["data/vocab.json", "data/vocab-2.json", "data/vocab-3.json"];
@@ -7,7 +8,6 @@ const STUFE_NAMES = { 1: "Grundwortschatz", 2: "Alltag", 3: "Fachwortschatz" };
 const SENTENCES_FILE = "data/sentences.json";
 const GAPS_FILE = "data/gaps.json";
 const SETTINGS_KEY = "babbler-settings-v1";
-const ROUND_SIZE = 10;  // tasks per round
 
 let words = [];       // all vocab files together; each word gets "stufe" (1–3) when loading
 let sentences = [];   // from data/sentences.json
@@ -99,6 +99,7 @@ function showStart() {
   showEtappe();
   showStufe();
   showTopicPicker(false);
+  $("grammar-current").textContent = grammarStatusText();
   showScreen("start");
 }
 
@@ -148,58 +149,76 @@ function showTopicPicker(open) {
 // ---------- Building a round ----------
 
 // The app decides what comes next – you just press "Üben".
-// Every task slot of a round is drawn by chance with these weights:
-//   wort   = word flashcard        satz   = sentence flashcard
-//   wahl   = multiple choice       luecke = fill the gap
-//   tippen = type the Italian word fehler = "Fehler finden"
-// Which words/sentences come is decided by pickRound (due first, then new),
-// and both directions are mixed in (see buildCards).
-const TASK_WEIGHTS = { wort: 30, satz: 18, wahl: 13, luecke: 13, tippen: 13, fehler: 13 };
-const TASK_MAX = { fehler: 2, luecke: 3, tippen: 3 };  // these take longer – not too many per round
-
-function drawTaskTypes(count) {
-  const wanted = { wort: 0, satz: 0, wahl: 0, luecke: 0, tippen: 0, fehler: 0 };
-  for (let i = 0; i < count; i++) {
-    const open = Object.keys(TASK_WEIGHTS).filter((t) => !(wanted[t] >= TASK_MAX[t]));
-    const total = open.reduce((sum, t) => sum + TASK_WEIGHTS[t], 0);
-    let roll = Math.random() * total;
-    const type = open.find((t) => (roll -= TASK_WEIGHTS[t]) < 0) || "wort";
-    wanted[type]++;
-  }
-  return wanted;
-}
+// A session has five sections in a fixed order, each with one kind of task, so you only
+// switch the kind of exercise between sections:
+//   1. Vokabeln        8 word flashcards
+//   2. Vokabel-Check   4 tasks: multiple choice, plus up to 2 typing tasks once words are known
+//   3. Sätze           3 sentence flashcards
+//   4. Grammatik       explanation of the current grammar unit + 3 exercises + 1 topic gap
+//   5. Fehler finden   1 task
+// Which words/sentences come is decided by pickRound (due first, then new), and both
+// directions are mixed in (see buildCards). Empty sections are left out.
+const SESSION = { vokabeln: 8, check: 4, maxTyping: 2, saetze: 3, grammatik: 3, luecken: 1, fehler: 1 };
 
 function startPractice() {
   const topicWords = practiceItems(words, "wort");
   const topicSentences = practiceItems(sentences, "satz");
-  const wanted = drawTaskTypes(ROUND_SIZE);
-
-  const sentenceCards = pickRound(buildCards("satz", topicSentences), wanted.satz);
-  const gapPicks = pickRound(gapCards(practiceItems(gaps, "luecke"), topicSentences), wanted.luecke);
-  // Sentences already on a card this round are left out of "Fehler finden".
-  const onCards = new Set(sentenceCards.map((card) => card.item));
-  const spotTasks = makeSpotTasks(topicSentences.filter((s) => !onCards.has(s)), wanted.fehler);
-
-  // Typing only for German→Italian word cards – these exist once a word was
-  // recognised from the Italian side (see buildCards), so beginners get none yet.
   const allWordCards = buildCards("wort", topicWords);
-  const typingCards = pickRound(allWordCards.filter((c) => c.dir === "de-it"), wanted.tippen);
+
+  // Vokabel-Check: typing only for German→Italian cards – these exist once a word was
+  // recognised from the Italian side, so beginners get multiple choice only.
+  const typingCards = pickRound(allWordCards.filter((c) => c.dir === "de-it"), SESSION.maxTyping);
   const typed = new Set(typingCards.map((card) => card.item));
-
-  // Words fill all remaining slots (also any slot the others could not fill).
-  const used = sentenceCards.length + gapPicks.length + spotTasks.length + typingCards.length;
-  const otherWordCards = allWordCards.filter((card) => !typed.has(card.item));
-  const wordCards = shuffle(pickRound(otherWordCards, ROUND_SIZE - used));
-  const choiceCount = Math.min(wanted.wahl, wordCards.length);
-
-  const roundTasks = [].concat(
-    wordCards.slice(0, choiceCount).map((card) => makeChoiceTask(card, topicWords)),
-    wordCards.slice(choiceCount).concat(sentenceCards).map((card) => ({ type: "card", card: card })),
-    typingCards.map((card) => ({ type: "tippen", card: card })),
-    gapPicks.map((card) => ({ type: "luecke", card: card })),
-    spotTasks
+  const wordCards = pickRound(
+    allWordCards.filter((card) => !typed.has(card.item)),
+    SESSION.vokabeln + SESSION.check - typingCards.length
   );
-  playRound(shuffle(roundTasks));
+  const flashCards = wordCards.slice(0, SESSION.vokabeln);
+  const choiceCards = wordCards.slice(SESSION.vokabeln);
+
+  const sentenceCards = pickRound(buildCards("satz", topicSentences), SESSION.saetze);
+
+  const grammar = grammarForSession(SESSION.grammatik);
+  const topicGaps = pickRound(gapCards(practiceItems(gaps, "luecke"), topicSentences), SESSION.luecken);
+
+  // Sentences already on a card this session are left out of "Fehler finden".
+  const onCards = new Set(sentenceCards.map((card) => card.item));
+  const spotTasks = makeSpotTasks(topicSentences.filter((s) => !onCards.has(s)), SESSION.fehler);
+
+  const asCards = (cards) => cards.map((card) => ({ type: "card", card: card }));
+  const sections = [
+    {
+      name: "Vokabeln",
+      text: "Tippen zum Aufdecken, dann wischen: rechts = gewusst, links = nicht gewusst.",
+      tasks: shuffle(asCards(flashCards)),
+    },
+    {
+      name: "Vokabel-Check",
+      text: "Wähle die richtige Übersetzung" + (typingCards.length ? " oder schreib das Wort auf Italienisch." : "."),
+      tasks: choiceCards
+        .map((card) => makeChoiceTask(card, topicWords))
+        .concat(typingCards.map((card) => ({ type: "tippen", card: card }))),
+    },
+    {
+      name: "Sätze",
+      text: "Ganze Sätze: tippen zum Aufdecken, dann wischen.",
+      tasks: shuffle(asCards(sentenceCards)),
+    },
+    {
+      name: "Grammatik",
+      text: grammar.allDone
+        ? "Wiederholung · Thema " + (grammar.index + 1) + " von " + grammarUnits.length
+        : "Thema " + (grammar.index + 1) + " von " + grammarUnits.length + " · erst lesen, dann üben.",
+      unit: grammar.unit,
+      tasks: grammar.cards.concat(topicGaps).map((card) => ({ type: "luecke", card: card })),
+    },
+    {
+      name: "Fehler finden",
+      text: "Welche Sätze enthalten einen Fehler? Tippe sie an und prüfe dann.",
+      tasks: spotTasks,
+    },
+  ];
+  playSections(sections.filter((section) => section.tasks.length));
 }
 
 // ---------- Loading ----------
@@ -228,12 +247,14 @@ function addRanks(list) {
 async function init() {
   $("btn-start").disabled = true;
   try {
-    let vocabLists;
-    [vocabLists, sentences, gaps] = await Promise.all([
+    let vocabLists, grammarData;
+    [vocabLists, sentences, gaps, grammarData] = await Promise.all([
       Promise.all(VOCAB_FILES.map(loadJson)),
       loadJson(SENTENCES_FILE),
       loadJson(GAPS_FILE),
+      loadJson(GRAMMAR_FILE),
     ]);
+    prepareGrammar(grammarData);
     // File 1 → Stufe 1, file 2 → Stufe 2, …
     words = vocabLists.flatMap((list, i) => list.map((word) => Object.assign(word, { stufe: i + 1 })));
     topicNames = addRanks(words);
@@ -268,6 +289,7 @@ $("btn-home").addEventListener("click", showStart);
 $("btn-quit").addEventListener("click", showStart);
 $("btn-spot-quit").addEventListener("click", showStart);
 $("btn-quiz-quit").addEventListener("click", showStart);
+$("btn-intro-quit").addEventListener("click", showStart);
 $("btn-reset").addEventListener("click", () => {
   if (confirm("Den gesamten Lernfortschritt löschen?")) {
     resetProgress();

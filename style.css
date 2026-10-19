@@ -67,6 +67,7 @@ main {
 
 .screen {
   flex: 1;
+  min-width: 0;  /* never wider than the phone screen, even with wide content */
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -130,6 +131,190 @@ h2 {
   color: var(--muted);
   font-size: 1rem;
   cursor: pointer;
+}
+
+/* Start screen row "Grammatik · Thema 3 von 19 · … ›" */
+.grammar-entry {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 16px;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.grammar-current {
+  flex: 1;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.chevron.chevron-right {
+  transform: rotate(-45deg);  /* points right: opens a page instead of folding out */
+}
+
+/* ---------- Section title screen ---------- */
+
+.intro-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 6vh;
+}
+
+.intro-step {
+  margin: 0;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--mint);
+}
+
+.intro-title {
+  font-size: 2.2rem;
+  letter-spacing: -0.02em;
+}
+
+.intro-text {
+  margin: 0 0 8px;
+  color: var(--muted);
+}
+
+/* ---------- Grammar explanation (session + Grammatik screen) ---------- */
+
+.explanation {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+}
+
+.explanation-title {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.explanation-intro {
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* Wide tables (e.g. a + il = al …) scroll sideways instead of breaking the layout */
+.explanation-table {
+  min-width: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.explanation table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.explanation th,
+.explanation td {
+  padding: 7px 8px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+}
+
+.explanation-table.wide th,
+.explanation-table.wide td {
+  padding: 6px 3px;
+  font-size: 0.82rem;
+}
+
+.explanation tr:first-child th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.explanation td {
+  color: var(--mint);
+  font-weight: 600;
+}
+
+.explanation-tips {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* ---------- Grammatik screen ---------- */
+
+.topbar-title {
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.grammar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.grammar-group {
+  margin: 12px 0 2px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.grammar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 14px;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+.grammar-number {
+  width: 22px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.grammar-title {
+  flex: 1;
+}
+
+.grammar-status {
+  color: var(--mint);
+  font-weight: 700;
+}
+
+.grammar-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 /* "Sicherung speichern · Sicherung laden" */
@@ -1001,6 +1186,31 @@ h1 {
   font-size: 3.5rem;
   font-weight: 800;
   color: var(--mint);
+}
+
+/* "Vokabeln 7 / 8" … per section */
+.section-results {
+  margin: 0;
+  padding: 12px 18px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.section-results li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.section-score {
+  color: var(--mint);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
 .etappe-result {

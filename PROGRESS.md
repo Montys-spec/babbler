@@ -140,6 +140,27 @@
   - Local leftovers on Monty's Mac only (not uploaded): tag `backup-before-email-change` and
     `refs/original/…` from the email rewrite – they still contain the old email; can be deleted later.
 
+- **Session 9 (2026-10-19, Claude Code):** grammar + sessions in sections (Monty's wish).
+  - **Sessions in 5 sections** instead of a random mix, fixed order, one kind of task per section,
+    each with a title screen ("Abschnitt 2 von 5 · Vokabel-Check" + one line what to do):
+    1 Vokabeln (8 word cards) · 2 Vokabel-Check (4: multiple choice + up to 2 typing) ·
+    3 Sätze (3 sentence cards) · 4 Grammatik (explanation + 3 unit exercises + 1 topic gap) ·
+    5 Fehler finden (1). 20 tasks ≈ 10 minutes. Sizes in `SESSION` in `app.js`; empty sections are skipped.
+    Result screen shows the score per section. Title screens don't count as tasks.
+  - **Grammar** (`data/grammar.json`, `grammar.js`): 19 units in learning order, 152 exercises (gap with
+    3 options, German translation as hint, rule afterwards). Topics: Substantive & Adjektive (Geschlecht,
+    Artikel, Mehrzahl, Adjektive), Pronomen (Subjekt, Possessiv, reflexiv, Objekt direkt/indirekt + piacere),
+    Verben & Adverbien (essere/avere, Präsens -are/-ere/-ire, andare/fare/stare/venire, Modalverben,
+    Perfekt mit avere/essere, Adverbien -mente/bene/male), Präpositionen (Gebrauch, + Artikel).
+    Each unit: short German explanation, table, tips. A unit is done at 70 % of its exercises answered
+    right once; then the next one is current (≈ 3–4 sessions per unit). One due exercise of an earlier
+    unit replaces one exercise. After all units: random repetition.
+  - Start screen: row "Grammatik · Thema 3 von 19 · …" opens the Grammatik screen (all units by topic,
+    ✓ done / ● current; tap = explanation). Text under "Üben": the 5 sections.
+  - `sw.js`: cache "babbler-v2", new files grammar.js and data/grammar.json in FILES.
+  - Status: tested by Claude in the browser (structure, explanations on phone width, unit progression,
+    15 simulated sessions without errors) and by Monty, works. Committed and published.
+
 ## iPhone: install & transfer progress
 1. On the iPhone open **Safari** → https://montys-spec.github.io/babbler/ → Teilen (□↑) →
    **"Zum Home-Bildschirm"** → Hinzufügen. Then always start Babbler from the home-screen icon.
@@ -161,6 +182,7 @@
 - `round.js` – a round: runs the mixed tasks, flashcards, result screen
 - `spot.js` – one "Fehler finden" task
 - `quiz.js` – multiple choice, fill the gap, typing
+- `grammar.js` – grammar units: current unit, explanations, Grammatik screen
 - `app.js` – start screen, putting a round together, loading the data, registers the service worker
 - `backup.js` – backup & transfer of the progress (file)
 - `sw.js` – service worker: offline mode (list of all app files inside)
@@ -169,6 +191,8 @@
   (`{ "it", "de", "cat", "g"?, "pl"? }`), order matters (most useful first); every `it` unique across all three
 - `data/sentences.json` – sentences (`{ "cat", "level", "it", "de", "wrong", "why", "rule" }`)
 - `data/gaps.json` – gap sentences (`{ "cat", "level", "text" with ___, "answer", "options", "de", "why", "rule" }`)
+- `data/grammar.json` – grammar units in learning order (`{ "id", "topic", "rule", "title", "intro",
+  "table": { "head", "rows" }, "tips", "exercises": [gap-like objects] }`); progress keys `gram|<id>|<text>`
 - `start.command` – local starter (double-click)
 - `.claude/launch.json` – lets Claude Code start the same local server for its own browser tests
 
