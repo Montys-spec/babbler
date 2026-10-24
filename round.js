@@ -16,6 +16,7 @@ let missedSpots = [];  // "Fehler finden" sentences that were judged wrongly
 let missedGaps = [];   // gap sentences answered wrong
 let revealed = false;  // has the hidden side of the current card been shown?
 let etappeAtStart = 1; // to notice when an Etappe was completed during the round
+let levelAtStart = 1;  // to notice when a new Niveau was reached (level.js)
 
 // The swipe gesture; answer() runs once the card has flown off screen.
 const swiper = makeSwipeable($("card"), {
@@ -32,6 +33,7 @@ function playRound(list) {
   missedSpots = [];
   missedGaps = [];
   etappeAtStart = etappeInfo().number;
+  levelAtStart = currentLevel();
   showTask();
 }
 
@@ -127,28 +129,56 @@ document.addEventListener("keydown", (e) => {
 
 // 🔊 in the card's corner, reads the Italian side. On German→Italian cards it only
 // appears after revealing (otherwise it would give the answer away) – see style.css.
-const cardSpeak = makeSpeakButton(() => tasks[taskIndex].card.item.it);
+// On speaking cards it reads the question first and the model answer after revealing.
+const cardSpeak = makeSpeakButton(() => {
+  const card = tasks[taskIndex].card;
+  return card.kind === "sprechen" && !revealed ? card.item.q : card.item.it;
+});
 cardSpeak.classList.add("card-speak");
 $("card").append(cardSpeak);
 
 // Fill the card, hidden side still covered.
 function showCard(card) {
   revealed = false;
-  // Small line on top, e.g. "Zahlen · IT → DE · neu"
-  const direction = card.dir === "it-de" ? "IT → DE" : "DE → IT";
   const isNew = boxOf(card.key) < 0;
-  $("card-cat").textContent = card.item.cat + " · " + direction + (isNew ? " · neu" : "");
-  const italianFace = card.dir === "it-de" ? $("card-front") : $("card-back");
-  const germanFace = card.dir === "it-de" ? $("card-back") : $("card-front");
-  setItalian(italianFace, card.item);
-  germanFace.textContent = card.item.de;
-  // Plural, shown after revealing (only for nouns that have one)
-  $("card-extra").textContent = card.item.pl ? "Mehrzahl: " + card.item.pl : "";
-  $("card").classList.toggle("long", card.kind === "satz");  // smaller text for sentences
+  if (card.kind === "sprechen") {
+    showSpeakingCard(card, isNew);
+  } else {
+    // Small line on top, e.g. "Zahlen · IT → DE · neu"
+    const direction = card.dir === "it-de" ? "IT → DE" : "DE → IT";
+    $("card-cat").textContent = card.item.cat + " · " + direction + (isNew ? " · neu" : "");
+    const italianFace = card.dir === "it-de" ? $("card-front") : $("card-back");
+    const germanFace = card.dir === "it-de" ? $("card-back") : $("card-front");
+    setItalian(italianFace, card.item);
+    germanFace.textContent = card.item.de;
+    // Plural, shown after revealing (only for nouns that have one)
+    $("card-extra").textContent = card.item.pl ? "Mehrzahl: " + card.item.pl : "";
+    $("card-hint").textContent = "";
+    $("hint-before").textContent = "Tippen zum Aufdecken";
+  }
+  // Speaking is judged differently: did you manage to say it?
+  const speaking = card.kind === "sprechen";
+  $("btn-yes").textContent = speaking ? "✓ Konnte ich" : "✓ Gewusst";
+  $("btn-no").textContent = speaking ? "✗ Noch nicht" : "✗ Nicht gewusst";
+  $("card").classList.toggle("long", card.kind !== "wort");  // smaller text for sentences
   $("card").classList.toggle("italian-hidden", card.dir === "de-it");
   $("card").classList.remove("revealed");
   $("answer-buttons").classList.add("inactive");
   swiper.reset();
+}
+
+// A conversation turn (speak.js): question + German hint what to say; after tapping
+// the model answer, the German meaning of the question and other possible answers.
+function showSpeakingCard(card, isNew) {
+  const turn = card.item;
+  $("card-cat").textContent = turn.cat + " · " + turn.step + (isNew ? " · neu" : "");
+  $("card-front").textContent = turn.q;
+  $("card-hint").textContent = "🗣 " + turn.hint;
+  $("card-back").textContent = turn.answers[0];
+  const others = turn.answers.slice(1);
+  $("card-extra").textContent = "„" + turn.qDe + "“" + (others.length ? " · auch: " + others.join(" / ") : "");
+  $("hint-before").textContent = "Laut antworten, dann tippen";
+  speak(turn.q);
 }
 
 // Uncover the hidden side and allow swiping.
@@ -197,6 +227,15 @@ function showRoundResult() {
       ? "Etappe " + (etappe.number - 1) + " geschafft – weiter mit Etappe " + etappe.number
       : "Etappe " + etappe.number + " · " + etappe.done + " / " + etappe.size;
   $("etappe-result-bar").style.width = (etappe.done / etappe.size) * 100 + "%";
+
+  // New Niveau reached during this session? Say what it brings.
+  const level = currentLevel();
+  $("level-up").classList.toggle("hidden", level <= levelAtStart);
+  if (level > levelAtStart) {
+    const step = LEVELS[level - 1];
+    $("level-up").textContent =
+      "Niveau " + level + " erreicht: " + step.name + (step.unlocks ? " · neu: " + step.unlocks : "");
+  }
 
   // Everything that went wrong: missed cards, then misjudged "Fehler finden" sentences.
   const list = $("missed-list");

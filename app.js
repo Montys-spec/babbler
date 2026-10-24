@@ -4,7 +4,6 @@
 
 // Vocabulary in three Stufen, one file each: 1 = basics, 2 = everyday, 3 = specialist.
 const VOCAB_FILES = ["data/vocab.json", "data/vocab-2.json", "data/vocab-3.json"];
-const STUFE_NAMES = { 1: "Grundwortschatz", 2: "Alltag", 3: "Fachwortschatz" };
 const SENTENCES_FILE = "data/sentences.json";
 const GAPS_FILE = "data/gaps.json";
 const SETTINGS_KEY = "babbler-settings-v1";
@@ -71,33 +70,39 @@ function showEtappe() {
   }
 }
 
-// Your vocabulary Stufe and how far it is to the next one
-// (words answered right at least once, out of the 70 % needed).
-function showStufe() {
-  const open = unlockedStufe(words);
-  const maxStufe = Math.max(...words.map((w) => w.stufe));
-  $("stufe-title").textContent = "Stufe " + open + " · " + STUFE_NAMES[open];
-
-  let have, need, hint;
-  if (open < maxStufe) {
-    const atStufe = words.filter((w) => w.stufe === open);
-    need = Math.ceil(atStufe.length * STUFE_UNLOCK);
-    have = Math.min(atStufe.filter((w) => itemPractised("wort", w)).length, need);
-    const left = need - have;
-    hint = "Noch " + left + (left === 1 ? " Wort" : " Wörter") + " bis Stufe " + (open + 1);
-  } else {
-    need = words.length;
-    have = words.filter((w) => itemPractised("wort", w)).length;
-    hint = "Alle Stufen offen";
+// Your Niveau (level.js) and the way to the next one: words and grammar topics needed,
+// and what the next Niveau brings. (The vocabulary Stufen still open by themselves – cards.js.)
+function showLevel() {
+  const info = levelInfo();
+  $("level-title").textContent = "Niveau " + info.level + " · " + info.name;
+  $("level-count").textContent = info.level + " / " + LEVELS.length;
+  if (!info.next) {
+    $("level-hint").textContent = "Höchstes Niveau erreicht";
+    $("level-bar").style.width = "100%";
+    return;
   }
-  $("stufe-count").textContent = have + " / " + need;
-  $("stufe-hint").textContent = hint;
-  $("stufe-bar").style.width = (have / need) * 100 + "%";
+  const { words: w, grammar: g } = info.next;
+  $("level-hint").textContent =
+    "Für Niveau " + info.next.level + ": " + w.have + " / " + w.need + " Wörter · " +
+    g.have + " / " + g.need + " Grammatik-Themen · neu: " + info.next.unlocks;
+  $("level-bar").style.width = ((w.have / w.need + g.have / g.need) / 2) * 100 + "%";
+}
+
+// The line under "Üben": which sections a session has at this Niveau.
+function sessionSummary() {
+  const plan = sessionPlan();
+  const names = ["Vokabeln", "Check"];
+  if (plan.hoeren.length && CAN_SPEAK) names.push("Hören");
+  names.push("Sätze", "Grammatik");
+  if (plan.sprechen) names.push("Sprechen");
+  names.push("Fehler finden");
+  return names.length + " Abschnitte · " + names.join(", ");
 }
 
 function showStart() {
   showEtappe();
-  showStufe();
+  showLevel();
+  $("session-summary").textContent = sessionSummary();
   showTopicPicker(false);
   $("grammar-current").textContent = grammarStatusText();
   showScreen("start");
@@ -149,41 +154,44 @@ function showTopicPicker(open) {
 // ---------- Building a round ----------
 
 // The app decides what comes next – you just press "Üben".
-// A session has five sections in a fixed order, each with one kind of task, so you only
-// switch the kind of exercise between sections:
-//   1. Vokabeln        8 word flashcards
-//   2. Vokabel-Check   4 tasks: multiple choice, plus up to 2 typing tasks once words are known
-//   3. Sätze           3 sentence flashcards
-//   4. Grammatik       explanation of the current grammar unit + 3 exercises + 1 topic gap
-//   5. Fehler finden   1 task
+// A session has sections in a fixed order, each with one kind of task, so you only switch
+// the kind of exercise between sections. How big each section is – and whether Hören and
+// Sprechen are part of it – depends on your Niveau (SESSION_PLANS in level.js):
+//   Vokabeln → Vokabel-Check → Hören → Sätze → Grammatik → Sprechen → Fehler finden
 // Which words/sentences come is decided by pickRound (due first, then new), and both
 // directions are mixed in (see buildCards). Empty sections are left out.
-const SESSION = { vokabeln: 8, check: 4, maxTyping: 2, saetze: 3, grammatik: 3, luecken: 1, fehler: 1 };
+const GRAMMAR_EXERCISES = 3;  // + 1 gap sentence of the topic
+const TOPIC_GAPS = 1;
+const SPOT_TASKS_PER_SESSION = 1;
 
 function startPractice() {
+  const plan = sessionPlan();
   const topicWords = practiceItems(words, "wort");
   const topicSentences = practiceItems(sentences, "satz");
   const allWordCards = buildCards("wort", topicWords);
 
   // Vokabel-Check: typing only for German→Italian cards – these exist once a word was
   // recognised from the Italian side, so beginners get multiple choice only.
-  const typingCards = pickRound(allWordCards.filter((c) => c.dir === "de-it"), SESSION.maxTyping);
+  const typingCards = pickRound(allWordCards.filter((c) => c.dir === "de-it"), Math.min(plan.typing, plan.check));
   const typed = new Set(typingCards.map((card) => card.item));
   const wordCards = pickRound(
     allWordCards.filter((card) => !typed.has(card.item)),
-    SESSION.vokabeln + SESSION.check - typingCards.length
+    plan.vokabeln + plan.check - typingCards.length
   );
-  const flashCards = wordCards.slice(0, SESSION.vokabeln);
-  const choiceCards = wordCards.slice(SESSION.vokabeln);
+  const flashCards = wordCards.slice(0, plan.vokabeln);
+  const choiceCards = wordCards.slice(plan.vokabeln);
 
-  const sentenceCards = pickRound(buildCards("satz", topicSentences), SESSION.saetze);
+  const listeningTasks = makeListeningTasks(plan.hoeren, topicWords, topicSentences);
+  const sentenceCards = pickRound(buildCards("satz", topicSentences), plan.saetze);
 
-  const grammar = grammarForSession(SESSION.grammatik);
-  const topicGaps = pickRound(gapCards(practiceItems(gaps, "luecke"), topicSentences), SESSION.luecken);
+  const grammar = grammarForSession(GRAMMAR_EXERCISES);
+  const topicGaps = pickRound(gapCards(practiceItems(gaps, "luecke"), topicSentences), TOPIC_GAPS);
+
+  const speaking = plan.sprechen ? dialogueForSession(plan.sprechen) : null;
 
   // Sentences already on a card this session are left out of "Fehler finden".
   const onCards = new Set(sentenceCards.map((card) => card.item));
-  const spotTasks = makeSpotTasks(topicSentences.filter((s) => !onCards.has(s)), SESSION.fehler);
+  const spotTasks = makeSpotTasks(topicSentences.filter((s) => !onCards.has(s)), SPOT_TASKS_PER_SESSION);
 
   const asCards = (cards) => cards.map((card) => ({ type: "card", card: card }));
   const sections = [
@@ -200,6 +208,13 @@ function startPractice() {
         .concat(typingCards.map((card) => ({ type: "tippen", card: card }))),
     },
     {
+      name: "Hören",
+      text: listeningTasks.some((t) => t.type === "diktat")
+        ? "Hör genau hin: Was bedeutet das? Beim Diktat schreibst du auf, was du hörst."
+        : "Hör genau hin und wähle, was es bedeutet. Mit 🐢 hörst du es langsamer.",
+      tasks: listeningTasks,
+    },
+    {
       name: "Sätze",
       text: "Ganze Sätze: tippen zum Aufdecken, dann wischen.",
       tasks: shuffle(asCards(sentenceCards)),
@@ -211,6 +226,14 @@ function startPractice() {
         : "Thema " + (grammar.index + 1) + " von " + grammarUnits.length + " · erst lesen, dann üben.",
       unit: grammar.unit,
       tasks: grammar.cards.concat(topicGaps).map((card) => ({ type: "luecke", card: card })),
+    },
+    {
+      name: "Sprechen",
+      text: speaking
+        ? speaking.dialogue.title + ": " + speaking.dialogue.situation +
+          " Antworte laut auf Italienisch, dann tippen und vergleichen."
+        : "",
+      tasks: speaking ? asCards(speaking.cards) : [],  // in order – it is a conversation
     },
     {
       name: "Fehler finden",
@@ -247,14 +270,16 @@ function addRanks(list) {
 async function init() {
   $("btn-start").disabled = true;
   try {
-    let vocabLists, grammarData;
-    [vocabLists, sentences, gaps, grammarData] = await Promise.all([
+    let vocabLists, grammarData, dialogueData;
+    [vocabLists, sentences, gaps, grammarData, dialogueData] = await Promise.all([
       Promise.all(VOCAB_FILES.map(loadJson)),
       loadJson(SENTENCES_FILE),
       loadJson(GAPS_FILE),
       loadJson(GRAMMAR_FILE),
+      loadJson(DIALOGUES_FILE),
     ]);
     prepareGrammar(grammarData);
+    prepareDialogues(dialogueData);
     // File 1 → Stufe 1, file 2 → Stufe 2, …
     words = vocabLists.flatMap((list, i) => list.map((word) => Object.assign(word, { stufe: i + 1 })));
     topicNames = addRanks(words);

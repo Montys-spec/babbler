@@ -11,14 +11,15 @@ function italianVoice() {
 }
 
 // Read an Italian text out loud. Stops anything that is still speaking first.
-function speak(text) {
+// rate: 0.9 = a little slower than normal (default), 0.6 = slow for listening tasks.
+function speak(text, rate) {
   if (!CAN_SPEAK) return;
   speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text.replace(/…/g, ""));
   utterance.lang = "it-IT";
   const voice = italianVoice();
   if (voice) utterance.voice = voice;
-  utterance.rate = 0.9;  // a little slower than normal, easier to follow
+  utterance.rate = rate || 0.9;
   speechSynthesis.speak(utterance);
 }
 

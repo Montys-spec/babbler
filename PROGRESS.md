@@ -161,6 +161,32 @@
   - Status: tested by Claude in the browser (structure, explanations on phone width, unit progression,
     15 simulated sessions without errors) and by Monty, works. Committed and published.
 
+- **Session 10 (2026-10-24, Claude Code):** listening, speaking, Niveau (Monty's ideas + Claude's plan).
+  Monty's decisions: speaking is **self-check** (no speech recognition – offline, nothing leaves the
+  phone); sessions stay **about 20 tasks** (fewer plain word cards at higher levels).
+  - **Niveau 1–5** (`level.js`): from known words (answered right once) + finished grammar units –
+    1 Einstieg (0/0) · 2 Grundlagen (80 words, 2 units) · 3 Aufbau (200, 5) · 4 Fortgeschritten (400, 9)
+    · 5 Sicher (700, 14). `SESSION_PLANS` sets per Niveau: word cards 8→4, check 4→3, typing 1→3,
+    listening tasks, sentence cards 3→2, highest conversation level (0 → 1 → 2 → 3).
+    Start screen: "Niveau 2 · Grundlagen", bar, "Für Niveau 3: x/200 Wörter · y/5 Grammatik-Themen ·
+    neu: Sprechen" (replaces the Stufe line; Stufen still open by themselves). Line under "Üben" lists
+    the sections. Result screen: "Niveau 3 erreicht: Aufbau · neu: Sprechen" when it happens.
+  - **Hören** (`listen.js`, from Niveau 2): ▶ Anhören / 🐢 Langsam instead of the text; only known items.
+    N2: 3 words → choose meaning · N3: 1 word + 2 sentences · N4: 2 sentences + dictation of a word ·
+    N5: 1 sentence + dictation of a word and a short sentence. Dictation check: accents optional,
+    small slips in a sentence count as right ("Fast perfekt"). Own progress keys `hoeren|…`.
+    Skipped automatically if the device has no speech output.
+  - **Sprechen** (`speak.js`, `data/dialogues.json`, from Niveau 3): 12 conversations, 44 turns,
+    levels 1–3 (Kennenlernen, Café, Verabredung, Über dich · Restaurant, Bahnhof, Weg, Arzt ·
+    Wochenende, Vorstellungsgespräch, Meinung, Hotel). One conversation per session, turns in order,
+    on the card screen: question read aloud + German hint → answer out loud → tap: model answer,
+    meaning of the question, other possible answers → "✓ Konnte ich / ✗ Noch nicht". Due conversations
+    first, then the next new one. Progress keys `sprechen|<id>|<turn>`.
+  - Session order: Vokabeln → Vokabel-Check → Hören → Sätze → Grammatik → Sprechen → Fehler finden.
+  - `sw.js`: cache "babbler-v3" with the new files.
+  - Status: tested by Claude in the browser (all 5 Niveaus, 40 random sessions, level-up, dictation
+    check, screens at phone width) and by Monty, works. Committed and published.
+
 ## iPhone: install & transfer progress
 1. On the iPhone open **Safari** → https://montys-spec.github.io/babbler/ → Teilen (□↑) →
    **"Zum Home-Bildschirm"** → Hinzufügen. Then always start Babbler from the home-screen icon.
@@ -183,6 +209,9 @@
 - `spot.js` – one "Fehler finden" task
 - `quiz.js` – multiple choice, fill the gap, typing
 - `grammar.js` – grammar units: current unit, explanations, Grammatik screen
+- `level.js` – Niveau 1–5 and the session plan per Niveau
+- `listen.js` – listening tasks (hear → choose, dictation)
+- `speak.js` – speaking: conversations as self-check cards
 - `app.js` – start screen, putting a round together, loading the data, registers the service worker
 - `backup.js` – backup & transfer of the progress (file)
 - `sw.js` – service worker: offline mode (list of all app files inside)
@@ -191,6 +220,8 @@
   (`{ "it", "de", "cat", "g"?, "pl"? }`), order matters (most useful first); every `it` unique across all three
 - `data/sentences.json` – sentences (`{ "cat", "level", "it", "de", "wrong", "why", "rule" }`)
 - `data/gaps.json` – gap sentences (`{ "cat", "level", "text" with ___, "answer", "options", "de", "why", "rule" }`)
+- `data/dialogues.json` – conversations (`{ "id", "level", "title", "situation",
+  "turns": [{ "q", "qDe", "hint", "answers": [model answer, alternatives…] }] }`)
 - `data/grammar.json` – grammar units in learning order (`{ "id", "topic", "rule", "title", "intro",
   "table": { "head", "rows" }, "tips", "exercises": [gap-like objects] }`); progress keys `gram|<id>|<text>`
 - `start.command` – local starter (double-click)

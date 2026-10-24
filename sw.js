@@ -6,7 +6,7 @@
 //
 // When you add a new file to the app, add it to FILES below.
 
-const CACHE = "babbler-v2";
+const CACHE = "babbler-v3";
 const NETWORK_TIMEOUT = 4000;  // ms – after this, use the kept copy instead of waiting
 
 const FILES = [
@@ -25,6 +25,9 @@ const FILES = [
   "spot.js",
   "quiz.js",
   "grammar.js",
+  "listen.js",
+  "speak.js",
+  "level.js",
   "backup.js",
   "app.js",
   "data/vocab.json",
@@ -33,6 +36,7 @@ const FILES = [
   "data/sentences.json",
   "data/gaps.json",
   "data/grammar.json",
+  "data/dialogues.json",
   "icons/icon-192.png",
   "icons/icon-512.png",
   "icons/apple-touch-icon.png",

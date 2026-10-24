@@ -2,6 +2,7 @@
 //   { type: "wahl", card, options }  – multiple choice: pick the right translation out of 4
 //   { type: "luecke", card }         – fill the gap: pick the missing word out of 3
 //   { type: "tippen", card }         – typing: see the German word, type the Italian one
+//   { type: "hoeren" | "diktat" … }  – the same, but you hear the Italian instead (listen.js)
 // Answers count for the card's progress just like a swipe (see progress.js).
 
 let quizTask = null;      // the task on screen
@@ -54,9 +55,17 @@ function showQuizTask(task) {
   $("quiz-feedback").classList.add("hidden");
   $("quiz-type-form").classList.add("hidden");
   $("btn-quiz").classList.add("hidden");
-  if (task.type === "wahl") showChoice(task);
+  if (task.type === "wahl" || task.type === "hoeren") showChoice(task);
   else if (task.type === "luecke") showGap(task);
-  else if (task.type === "tippen") showTyping(task);
+  else if (task.type === "tippen" || task.type === "diktat") showTyping(task);
+}
+
+// Listening tasks (listen.js): ▶ buttons instead of the text, read out right away.
+function showAudioPrompt(item) {
+  $("quiz-prompt").className = "quiz-prompt";
+  $("quiz-prompt").textContent = "";
+  $("quiz-prompt").append(audioPrompt(item.it));
+  speak(item.it);
 }
 
 function addOption(label, onPick) {
@@ -73,9 +82,13 @@ function addOption(label, onPick) {
 
 function showChoice(task) {
   const card = task.card;
-  $("quiz-label").textContent = card.item.cat + " · Wähle die Übersetzung";
+  const listening = task.type === "hoeren";
+  $("quiz-label").textContent = listening
+    ? "Hören · Was bedeutet das?"
+    : card.item.cat + " · Wähle die Übersetzung";
   $("quiz-prompt").className = "quiz-prompt";
-  if (card.dir === "it-de") setItalian($("quiz-prompt"), card.item);
+  if (listening) showAudioPrompt(card.item);
+  else if (card.dir === "it-de") setItalian($("quiz-prompt"), card.item);
   else $("quiz-prompt").textContent = card.item.de;
   $("quiz-hint").textContent = "";
 
@@ -112,10 +125,16 @@ function showGap(task) {
 }
 
 function showTyping(task) {
-  $("quiz-label").textContent = task.card.item.cat + " · Schreib es auf Italienisch";
-  $("quiz-prompt").className = "quiz-prompt";
-  $("quiz-prompt").textContent = task.card.item.de;
-  $("quiz-hint").textContent = task.card.item.g ? "mit Artikel" : "";
+  if (task.type === "diktat") {
+    $("quiz-label").textContent = "Diktat · Schreib auf, was du hörst";
+    showAudioPrompt(task.card.item);
+    $("quiz-hint").textContent = "auf Italienisch";
+  } else {
+    $("quiz-label").textContent = task.card.item.cat + " · Schreib es auf Italienisch";
+    $("quiz-prompt").className = "quiz-prompt";
+    $("quiz-prompt").textContent = task.card.item.de;
+    $("quiz-hint").textContent = task.card.item.g ? "mit Artikel" : "";
+  }
   const input = $("quiz-input");
   input.value = "";
   input.disabled = false;
@@ -189,7 +208,8 @@ function checkTyped(typed, item) {
 function answerTyping() {
   const card = quizTask.card;
   const input = $("quiz-input");
-  const result = checkTyped(input.value, card.item);
+  const dictation = quizTask.type === "diktat";
+  const result = dictation ? checkDictation(input.value, card.item) : checkTyped(input.value, card.item);
   input.disabled = true;
   input.blur();  // so Enter now means "Weiter"
   input.classList.add(result.right ? "ok" : "bad");
@@ -198,7 +218,8 @@ function answerTyping() {
 
   const answer = document.createElement("span");
   setItalian(answer, card.item);
-  const note = card.item.pl ? "Mehrzahl: " + card.item.pl : "";
+  // Dictation: show what it means; typing: show the plural of nouns
+  const note = dictation ? card.item.de : card.item.pl ? "Mehrzahl: " + card.item.pl : "";
   showQuizFeedback(result.right, answer, note, card.item.it, result.verdict);
 }
 
@@ -220,6 +241,12 @@ function answerChoice(right, picked) {
   if (!right) missedCards.push(card);
 
   const answer = document.createElement("span");
+  if (quizTask.type === "hoeren") {
+    // Listening: now show what was said, and what it means
+    setItalian(answer, card.item);
+    showQuizFeedback(right, answer, card.item.de, card.item.it);
+    return;
+  }
   if (card.dir === "de-it") setItalian(answer, card.item);
   else answer.textContent = card.item.de;
   showQuizFeedback(right, answer, card.item.pl ? "Mehrzahl: " + card.item.pl : "", card.item.it);
@@ -279,7 +306,7 @@ function quizNext() {
 
 // The main button: "Prüfen" for an unanswered typing task, otherwise "Weiter".
 $("btn-quiz").addEventListener("click", () => {
-  if (!quizAnswered && quizTask.type === "tippen") answerTyping();
+  if (!quizAnswered && (quizTask.type === "tippen" || quizTask.type === "diktat")) answerTyping();
   else quizNext();
 });
 
