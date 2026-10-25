@@ -1,118 +1,667 @@
 [
   {
-    "id": "kennenlernen", "level": 1, "title": "Kennenlernen",
+    "id": "kennenlernen",
+    "level": 1,
+    "title": "Kennenlernen",
     "situation": "Auf einer Party lernst du jemanden kennen.",
     "turns": [
-      { "q": "Ciao! Come ti chiami?", "qDe": "Hallo! Wie heißt du?", "hint": "Sag, wie du heißt (Beispiel: Marco).", "answers": ["Mi chiamo Marco."] },
-      { "q": "Piacere! Di dove sei?", "qDe": "Freut mich! Woher kommst du?", "hint": "Sag, dass du aus Deutschland kommst.", "answers": ["Vengo dalla Germania.", "Sono tedesco.", "Sono tedesca."] },
-      { "q": "Parli italiano?", "qDe": "Sprichst du Italienisch?", "hint": "Sag, dass du ein bisschen Italienisch sprichst.", "answers": ["Sì, parlo un po' d'italiano."] },
-      { "q": "Che lavoro fai?", "qDe": "Was arbeitest du?", "hint": "Sag, dass du in einem Büro arbeitest.", "answers": ["Lavoro in un ufficio."] }
+      {
+        "q": "Ciao! Come ti chiami?",
+        "qDe": "Hallo! Wie heißt du?",
+        "hint": "Sag, wie du heißt (Beispiel: Marco).",
+        "answers": [
+          "Mi chiamo Marco."
+        ]
+      },
+      {
+        "q": "Piacere! Di dove sei?",
+        "qDe": "Freut mich! Woher kommst du?",
+        "hint": "Sag, dass du aus Deutschland kommst.",
+        "answers": [
+          "Vengo dalla Germania.",
+          "Sono tedesco.",
+          "Sono tedesca."
+        ]
+      },
+      {
+        "q": "Parli italiano?",
+        "qDe": "Sprichst du Italienisch?",
+        "hint": "Sag, dass du ein bisschen Italienisch sprichst.",
+        "answers": [
+          "Sì, parlo un po' d'italiano."
+        ]
+      },
+      {
+        "q": "Che lavoro fai?",
+        "qDe": "Was arbeitest du?",
+        "hint": "Sag, dass du in einem Büro arbeitest.",
+        "answers": [
+          "Lavoro in un ufficio."
+        ]
+      }
     ]
   },
   {
-    "id": "caffe", "level": 1, "title": "Im Café",
+    "id": "caffe",
+    "level": 1,
+    "title": "Im Café",
     "situation": "Du stehst an der Theke einer Bar und bestellst.",
     "turns": [
-      { "q": "Buongiorno! Cosa prende?", "qDe": "Guten Tag! Was nehmen Sie?", "hint": "Bestell einen Cappuccino.", "answers": ["Un cappuccino, per favore."] },
-      { "q": "Qualcos'altro?", "qDe": "Sonst noch etwas?", "hint": "Bestell noch ein Hörnchen dazu.", "answers": ["Sì, anche un cornetto, per favore."] },
-      { "q": "Ecco a Lei. Altro?", "qDe": "Bitte schön. Noch etwas?", "hint": "Sag nein danke und frag, was es kostet.", "answers": ["No, grazie. Quanto costa?"] },
-      { "q": "Sono tre euro e cinquanta.", "qDe": "Das macht drei Euro fünfzig.", "hint": "Bedank dich und verabschiede dich.", "answers": ["Grazie, arrivederci!"] }
+      {
+        "q": "Buongiorno! Cosa prende?",
+        "qDe": "Guten Tag! Was nehmen Sie?",
+        "hint": "Bestell einen Cappuccino.",
+        "answers": [
+          "Un cappuccino, per favore."
+        ]
+      },
+      {
+        "q": "Qualcos'altro?",
+        "qDe": "Sonst noch etwas?",
+        "hint": "Bestell noch ein Hörnchen dazu.",
+        "answers": [
+          "Sì, anche un cornetto, per favore."
+        ]
+      },
+      {
+        "q": "Ecco a Lei. Altro?",
+        "qDe": "Bitte schön. Noch etwas?",
+        "hint": "Sag nein danke und frag, was es kostet.",
+        "answers": [
+          "No, grazie. Quanto costa?"
+        ]
+      },
+      {
+        "q": "Sono tre euro e cinquanta.",
+        "qDe": "Das macht drei Euro fünfzig.",
+        "hint": "Bedank dich und verabschiede dich.",
+        "answers": [
+          "Grazie, arrivederci!"
+        ]
+      }
     ]
   },
   {
-    "id": "verabredung", "level": 1, "title": "Eine Verabredung",
+    "id": "verabredung",
+    "level": 1,
+    "title": "Eine Verabredung",
     "situation": "Eine Freundin ruft an.",
     "turns": [
-      { "q": "Ciao, come stai?", "qDe": "Hallo, wie geht es dir?", "hint": "Sag, dass es dir gut geht, und frag zurück.", "answers": ["Sto bene, grazie. E tu?"] },
-      { "q": "Bene, grazie. Cosa fai stasera?", "qDe": "Gut, danke. Was machst du heute Abend?", "hint": "Sag, dass du zu Hause bleibst.", "answers": ["Resto a casa.", "Sto a casa."] },
-      { "q": "Vuoi venire al cinema?", "qDe": "Willst du mit ins Kino kommen?", "hint": "Sag: ja, gern!", "answers": ["Sì, volentieri!"] },
-      { "q": "Perfetto! A che ora?", "qDe": "Super! Um wie viel Uhr?", "hint": "Schlag acht Uhr vor.", "answers": ["Alle otto."] }
+      {
+        "q": "Ciao, come stai?",
+        "qDe": "Hallo, wie geht es dir?",
+        "hint": "Sag, dass es dir gut geht, und frag zurück.",
+        "answers": [
+          "Sto bene, grazie. E tu?"
+        ]
+      },
+      {
+        "q": "Bene, grazie. Cosa fai stasera?",
+        "qDe": "Gut, danke. Was machst du heute Abend?",
+        "hint": "Sag, dass du zu Hause bleibst.",
+        "answers": [
+          "Resto a casa.",
+          "Sto a casa."
+        ]
+      },
+      {
+        "q": "Vuoi venire al cinema?",
+        "qDe": "Willst du mit ins Kino kommen?",
+        "hint": "Sag: ja, gern!",
+        "answers": [
+          "Sì, volentieri!"
+        ]
+      },
+      {
+        "q": "Perfetto! A che ora?",
+        "qDe": "Super! Um wie viel Uhr?",
+        "hint": "Schlag acht Uhr vor.",
+        "answers": [
+          "Alle otto."
+        ]
+      }
     ]
   },
   {
-    "id": "ueber-dich", "level": 1, "title": "Über dich",
+    "id": "ueber-dich",
+    "level": 1,
+    "title": "Über dich",
     "situation": "Eine neue Bekannte möchte mehr über dich wissen.",
     "turns": [
-      { "q": "Quanti anni hai?", "qDe": "Wie alt bist du?", "hint": "Sag, dass du dreißig bist.", "answers": ["Ho trent'anni."] },
-      { "q": "Dove abiti?", "qDe": "Wo wohnst du?", "hint": "Sag, dass du in Berlin wohnst.", "answers": ["Abito a Berlino."] },
-      { "q": "Hai fratelli?", "qDe": "Hast du Geschwister?", "hint": "Sag, dass du einen Bruder hast.", "answers": ["Sì, ho un fratello."] },
-      { "q": "Hai un cane?", "qDe": "Hast du einen Hund?", "hint": "Sag nein, aber du hast eine Katze.", "answers": ["No, ma ho un gatto."] }
+      {
+        "q": "Quanti anni hai?",
+        "qDe": "Wie alt bist du?",
+        "hint": "Sag, dass du dreißig bist.",
+        "answers": [
+          "Ho trent'anni."
+        ]
+      },
+      {
+        "q": "Dove abiti?",
+        "qDe": "Wo wohnst du?",
+        "hint": "Sag, dass du in Berlin wohnst.",
+        "answers": [
+          "Abito a Berlino."
+        ]
+      },
+      {
+        "q": "Hai fratelli?",
+        "qDe": "Hast du Geschwister?",
+        "hint": "Sag, dass du einen Bruder hast.",
+        "answers": [
+          "Sì, ho un fratello."
+        ]
+      },
+      {
+        "q": "Hai un cane?",
+        "qDe": "Hast du einen Hund?",
+        "hint": "Sag nein, aber du hast eine Katze.",
+        "answers": [
+          "No, ma ho un gatto."
+        ]
+      }
     ]
   },
   {
-    "id": "restaurant", "level": 2, "title": "Im Restaurant",
+    "id": "markt",
+    "level": 1,
+    "title": "Auf dem Markt",
+    "situation": "Du kaufst Obst und Gemüse an einem Marktstand.",
+    "turns": [
+      {
+        "q": "Buongiorno, desidera?",
+        "qDe": "Guten Tag, was möchten Sie?",
+        "hint": "Bitte um ein Kilo Tomaten.",
+        "answers": [
+          "Un chilo di pomodori, per favore."
+        ]
+      },
+      {
+        "q": "Altro?",
+        "qDe": "Noch etwas?",
+        "hint": "Nimm noch zwei Äpfel.",
+        "answers": [
+          "Anche due mele, per favore."
+        ]
+      },
+      {
+        "q": "Ecco. Sono quattro euro.",
+        "qDe": "Bitte. Das macht vier Euro.",
+        "hint": "Frag, ob du mit Karte zahlen kannst.",
+        "answers": [
+          "Posso pagare con la carta?"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "familie",
+    "level": 1,
+    "title": "Deine Familie",
+    "situation": "Eine Kollegin fragt nach deiner Familie.",
+    "turns": [
+      {
+        "q": "Hai una famiglia grande?",
+        "qDe": "Hast du eine große Familie?",
+        "hint": "Sag nein, sie ist klein.",
+        "answers": [
+          "No, è piccola."
+        ]
+      },
+      {
+        "q": "Come si chiama tua madre?",
+        "qDe": "Wie heißt deine Mutter?",
+        "hint": "Sag, dass sie Maria heißt.",
+        "answers": [
+          "Si chiama Maria."
+        ]
+      },
+      {
+        "q": "E tuo padre cosa fa?",
+        "qDe": "Und was macht dein Vater?",
+        "hint": "Sag, dass er Lehrer ist.",
+        "answers": [
+          "Fa l'insegnante.",
+          "È insegnante."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "restaurant",
+    "level": 2,
+    "title": "Im Restaurant",
     "situation": "Du gehst abends mit einer Freundin essen.",
     "turns": [
-      { "q": "Buonasera, avete prenotato?", "qDe": "Guten Abend, haben Sie reserviert?", "hint": "Sag, dass du einen Tisch für zwei reserviert hast.", "answers": ["Sì, ho prenotato un tavolo per due."] },
-      { "q": "Cosa desiderate da bere?", "qDe": "Was möchten Sie trinken?", "hint": "Bestell eine Flasche stilles Wasser.", "answers": ["Una bottiglia d'acqua naturale, per favore."] },
-      { "q": "E da mangiare?", "qDe": "Und zu essen?", "hint": "Bestell Spaghetti und einen Salat.", "answers": ["Vorrei gli spaghetti e un'insalata.", "Per me gli spaghetti e un'insalata."] },
-      { "q": "Tutto bene?", "qDe": "Ist alles in Ordnung?", "hint": "Sag, dass alles sehr gut ist, und bitte um die Rechnung.", "answers": ["Sì, tutto buonissimo. Il conto, per favore."] }
+      {
+        "q": "Buonasera, avete prenotato?",
+        "qDe": "Guten Abend, haben Sie reserviert?",
+        "hint": "Sag, dass du einen Tisch für zwei reserviert hast.",
+        "answers": [
+          "Sì, ho prenotato un tavolo per due."
+        ]
+      },
+      {
+        "q": "Cosa desiderate da bere?",
+        "qDe": "Was möchten Sie trinken?",
+        "hint": "Bestell eine Flasche stilles Wasser.",
+        "answers": [
+          "Una bottiglia d'acqua naturale, per favore."
+        ]
+      },
+      {
+        "q": "E da mangiare?",
+        "qDe": "Und zu essen?",
+        "hint": "Bestell Spaghetti und einen Salat.",
+        "answers": [
+          "Vorrei gli spaghetti e un'insalata.",
+          "Per me gli spaghetti e un'insalata."
+        ]
+      },
+      {
+        "q": "Tutto bene?",
+        "qDe": "Ist alles in Ordnung?",
+        "hint": "Sag, dass alles sehr gut ist, und bitte um die Rechnung.",
+        "answers": [
+          "Sì, tutto buonissimo. Il conto, per favore."
+        ]
+      }
     ]
   },
   {
-    "id": "bahnhof", "level": 2, "title": "Am Bahnhof",
+    "id": "bahnhof",
+    "level": 2,
+    "title": "Am Bahnhof",
     "situation": "Du kaufst am Schalter eine Fahrkarte.",
     "turns": [
-      { "q": "Buongiorno, mi dica.", "qDe": "Guten Tag, was darf es sein?", "hint": "Bitte um eine Fahrkarte nach Florenz.", "answers": ["Un biglietto per Firenze, per favore."] },
-      { "q": "Solo andata?", "qDe": "Nur Hinfahrt?", "hint": "Sag: nein, hin und zurück.", "answers": ["No, andata e ritorno."] },
-      { "q": "Sono quaranta euro.", "qDe": "Das macht vierzig Euro.", "hint": "Frag, von welchem Gleis der Zug abfährt.", "answers": ["Da quale binario parte il treno?"] },
-      { "q": "Dal binario tre, alle dieci e mezza.", "qDe": "Von Gleis drei, um halb elf.", "hint": "Bedank dich herzlich.", "answers": ["Grazie mille!"] }
+      {
+        "q": "Buongiorno, mi dica.",
+        "qDe": "Guten Tag, was darf es sein?",
+        "hint": "Bitte um eine Fahrkarte nach Florenz.",
+        "answers": [
+          "Un biglietto per Firenze, per favore."
+        ]
+      },
+      {
+        "q": "Solo andata?",
+        "qDe": "Nur Hinfahrt?",
+        "hint": "Sag: nein, hin und zurück.",
+        "answers": [
+          "No, andata e ritorno."
+        ]
+      },
+      {
+        "q": "Sono quaranta euro.",
+        "qDe": "Das macht vierzig Euro.",
+        "hint": "Frag, von welchem Gleis der Zug abfährt.",
+        "answers": [
+          "Da quale binario parte il treno?"
+        ]
+      },
+      {
+        "q": "Dal binario tre, alle dieci e mezza.",
+        "qDe": "Von Gleis drei, um halb elf.",
+        "hint": "Bedank dich herzlich.",
+        "answers": [
+          "Grazie mille!"
+        ]
+      }
     ]
   },
   {
-    "id": "weg", "level": 2, "title": "Nach dem Weg fragen",
+    "id": "weg",
+    "level": 2,
+    "title": "Nach dem Weg fragen",
     "situation": "Du hast dich in der Stadt verlaufen. Jemand spricht dich an.",
     "turns": [
-      { "q": "Posso aiutarLa?", "qDe": "Kann ich Ihnen helfen?", "hint": "Sag ja danke und frag, wo der Bahnhof ist.", "answers": ["Sì, grazie. Dov'è la stazione?"] },
-      { "q": "Vada sempre dritto e poi giri a destra.", "qDe": "Gehen Sie immer geradeaus und dann rechts.", "hint": "Frag, ob es weit ist.", "answers": ["È lontano?"] },
-      { "q": "No, sono cinque minuti a piedi.", "qDe": "Nein, das sind fünf Minuten zu Fuß.", "hint": "Bedank dich: sehr freundlich!", "answers": ["Grazie, molto gentile!"] }
+      {
+        "q": "Posso aiutarLa?",
+        "qDe": "Kann ich Ihnen helfen?",
+        "hint": "Sag ja danke und frag, wo der Bahnhof ist.",
+        "answers": [
+          "Sì, grazie. Dov'è la stazione?"
+        ]
+      },
+      {
+        "q": "Vada sempre dritto e poi giri a destra.",
+        "qDe": "Gehen Sie immer geradeaus und dann rechts.",
+        "hint": "Frag, ob es weit ist.",
+        "answers": [
+          "È lontano?"
+        ]
+      },
+      {
+        "q": "No, sono cinque minuti a piedi.",
+        "qDe": "Nein, das sind fünf Minuten zu Fuß.",
+        "hint": "Bedank dich: sehr freundlich!",
+        "answers": [
+          "Grazie, molto gentile!"
+        ]
+      }
     ]
   },
   {
-    "id": "arzt", "level": 2, "title": "Beim Arzt",
+    "id": "arzt",
+    "level": 2,
+    "title": "Beim Arzt",
     "situation": "Du fühlst dich krank und gehst zum Arzt.",
     "turns": [
-      { "q": "Buongiorno, come si sente?", "qDe": "Guten Tag, wie fühlen Sie sich?", "hint": "Sag: nicht so gut – du hast Kopfschmerzen und Fieber.", "answers": ["Non molto bene. Ho mal di testa e la febbre."] },
-      { "q": "Da quanto tempo?", "qDe": "Seit wann?", "hint": "Sag: seit zwei Tagen.", "answers": ["Da due giorni."] },
-      { "q": "Prende qualche medicina?", "qDe": "Nehmen Sie Medikamente?", "hint": "Sag, dass du nichts nimmst.", "answers": ["No, non prendo niente."] },
-      { "q": "Le scrivo una ricetta.", "qDe": "Ich schreibe Ihnen ein Rezept.", "hint": "Bedank dich und frag nach der nächsten Apotheke.", "answers": ["Grazie. Dov'è la farmacia più vicina?"] }
+      {
+        "q": "Buongiorno, come si sente?",
+        "qDe": "Guten Tag, wie fühlen Sie sich?",
+        "hint": "Sag: nicht so gut – du hast Kopfschmerzen und Fieber.",
+        "answers": [
+          "Non molto bene. Ho mal di testa e la febbre."
+        ]
+      },
+      {
+        "q": "Da quanto tempo?",
+        "qDe": "Seit wann?",
+        "hint": "Sag: seit zwei Tagen.",
+        "answers": [
+          "Da due giorni."
+        ]
+      },
+      {
+        "q": "Prende qualche medicina?",
+        "qDe": "Nehmen Sie Medikamente?",
+        "hint": "Sag, dass du nichts nimmst.",
+        "answers": [
+          "No, non prendo niente."
+        ]
+      },
+      {
+        "q": "Le scrivo una ricetta.",
+        "qDe": "Ich schreibe Ihnen ein Rezept.",
+        "hint": "Bedank dich und frag nach der nächsten Apotheke.",
+        "answers": [
+          "Grazie. Dov'è la farmacia più vicina?"
+        ]
+      }
     ]
   },
   {
-    "id": "wochenende", "level": 3, "title": "Das Wochenende",
+    "id": "hotel-ankunft",
+    "level": 2,
+    "title": "Ankunft im Hotel",
+    "situation": "Du kommst abends im Hotel an.",
+    "turns": [
+      {
+        "q": "Buonasera, ha una prenotazione?",
+        "qDe": "Guten Abend, haben Sie eine Reservierung?",
+        "hint": "Sag ja, auf den Namen Weber.",
+        "answers": [
+          "Sì, a nome Weber."
+        ]
+      },
+      {
+        "q": "Per quante notti?",
+        "qDe": "Für wie viele Nächte?",
+        "hint": "Sag: für drei Nächte.",
+        "answers": [
+          "Per tre notti."
+        ]
+      },
+      {
+        "q": "La colazione è dalle sette alle dieci.",
+        "qDe": "Frühstück gibt es von sieben bis zehn.",
+        "hint": "Frag, ob es WLAN gibt.",
+        "answers": [
+          "C'è il Wi-Fi?"
+        ]
+      },
+      {
+        "q": "Sì, la password è sulla chiave.",
+        "qDe": "Ja, das Passwort steht auf dem Schlüssel.",
+        "hint": "Bedank dich: perfekt, danke!",
+        "answers": [
+          "Perfetto, grazie!"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "kleidergeschaeft",
+    "level": 2,
+    "title": "Im Kleidergeschäft",
+    "situation": "Du suchst eine neue Jacke.",
+    "turns": [
+      {
+        "q": "Posso aiutarLa?",
+        "qDe": "Kann ich Ihnen helfen?",
+        "hint": "Sag ja, du suchst eine Jacke.",
+        "answers": [
+          "Sì, cerco una giacca."
+        ]
+      },
+      {
+        "q": "Che taglia porta?",
+        "qDe": "Welche Größe haben Sie?",
+        "hint": "Sag: Größe 50.",
+        "answers": [
+          "Porto la cinquanta.",
+          "La cinquanta."
+        ]
+      },
+      {
+        "q": "Le piace questa?",
+        "qDe": "Gefällt Ihnen diese?",
+        "hint": "Sag ja und frag, ob du sie anprobieren kannst.",
+        "answers": [
+          "Sì, posso provarla?"
+        ]
+      },
+      {
+        "q": "Certo, il camerino è lì.",
+        "qDe": "Natürlich, die Umkleide ist dort.",
+        "hint": "Bedank dich und frag, was sie kostet.",
+        "answers": [
+          "Grazie. Quanto costa?"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "wochenende",
+    "level": 3,
+    "title": "Das Wochenende",
     "situation": "Am Montag fragt dich eine Kollegin nach deinem Wochenende.",
     "turns": [
-      { "q": "Cosa hai fatto il fine settimana?", "qDe": "Was hast du am Wochenende gemacht?", "hint": "Sag, dass du ans Meer gefahren bist.", "answers": ["Sono andato al mare.", "Sono andata al mare."] },
-      { "q": "Con chi?", "qDe": "Mit wem?", "hint": "Sag: mit ein paar Freunden.", "answers": ["Con alcuni amici."] },
-      { "q": "Ti è piaciuto?", "qDe": "Hat es dir gefallen?", "hint": "Sag, dass es dir sehr gefallen hat, aber das Wetter schlecht war.", "answers": ["Sì, mi è piaciuto molto, ma il tempo era brutto."] }
+      {
+        "q": "Cosa hai fatto il fine settimana?",
+        "qDe": "Was hast du am Wochenende gemacht?",
+        "hint": "Sag, dass du ans Meer gefahren bist.",
+        "answers": [
+          "Sono andato al mare.",
+          "Sono andata al mare."
+        ]
+      },
+      {
+        "q": "Con chi?",
+        "qDe": "Mit wem?",
+        "hint": "Sag: mit ein paar Freunden.",
+        "answers": [
+          "Con alcuni amici."
+        ]
+      },
+      {
+        "q": "Ti è piaciuto?",
+        "qDe": "Hat es dir gefallen?",
+        "hint": "Sag, dass es dir sehr gefallen hat, aber das Wetter schlecht war.",
+        "answers": [
+          "Sì, mi è piaciuto molto, ma il tempo era brutto."
+        ]
+      }
     ]
   },
   {
-    "id": "vorstellungsgespraech", "level": 3, "title": "Vorstellungsgespräch",
+    "id": "vorstellungsgespraech",
+    "level": 3,
+    "title": "Vorstellungsgespräch",
     "situation": "Du hast ein Vorstellungsgespräch bei einer italienischen Firma.",
     "turns": [
-      { "q": "Mi parli un po' di Lei.", "qDe": "Erzählen Sie mir etwas über sich.", "hint": "Sag, dass du in der Finanzbranche arbeitest.", "answers": ["Lavoro nel settore finanziario."] },
-      { "q": "Da quanto tempo lavora lì?", "qDe": "Seit wann arbeiten Sie dort?", "hint": "Sag: seit fünf Jahren.", "answers": ["Ci lavoro da cinque anni.", "Lavoro lì da cinque anni."] },
-      { "q": "Perché vuole cambiare lavoro?", "qDe": "Warum möchten Sie die Stelle wechseln?", "hint": "Sag, dass du neue Erfahrungen machen möchtest.", "answers": ["Vorrei fare nuove esperienze."] },
-      { "q": "Parla altre lingue?", "qDe": "Sprechen Sie andere Sprachen?", "hint": "Sag, dass du Deutsch und Englisch sprichst und gerade Italienisch lernst.", "answers": ["Parlo tedesco e inglese, e sto imparando l'italiano."] }
+      {
+        "q": "Mi parli un po' di Lei.",
+        "qDe": "Erzählen Sie mir etwas über sich.",
+        "hint": "Sag, dass du in der Finanzbranche arbeitest.",
+        "answers": [
+          "Lavoro nel settore finanziario."
+        ]
+      },
+      {
+        "q": "Da quanto tempo lavora lì?",
+        "qDe": "Seit wann arbeiten Sie dort?",
+        "hint": "Sag: seit fünf Jahren.",
+        "answers": [
+          "Ci lavoro da cinque anni.",
+          "Lavoro lì da cinque anni."
+        ]
+      },
+      {
+        "q": "Perché vuole cambiare lavoro?",
+        "qDe": "Warum möchten Sie die Stelle wechseln?",
+        "hint": "Sag, dass du neue Erfahrungen machen möchtest.",
+        "answers": [
+          "Vorrei fare nuove esperienze."
+        ]
+      },
+      {
+        "q": "Parla altre lingue?",
+        "qDe": "Sprechen Sie andere Sprachen?",
+        "hint": "Sag, dass du Deutsch und Englisch sprichst und gerade Italienisch lernst.",
+        "answers": [
+          "Parlo tedesco e inglese, e sto imparando l'italiano."
+        ]
+      }
     ]
   },
   {
-    "id": "meinung", "level": 3, "title": "Deine Meinung",
+    "id": "meinung",
+    "level": 3,
+    "title": "Deine Meinung",
     "situation": "Ein Freund aus Mailand fragt, wie dir seine Stadt gefällt.",
     "turns": [
-      { "q": "Cosa pensi di Milano?", "qDe": "Was hältst du von Mailand?", "hint": "Sag, dass du sie schön, aber teuer findest.", "answers": ["Secondo me è bella, ma cara."] },
-      { "q": "Preferisci la città o la campagna?", "qDe": "Magst du lieber die Stadt oder das Land?", "hint": "Sag, dass du lieber in der Stadt lebst.", "answers": ["Preferisco vivere in città."] },
-      { "q": "Perché?", "qDe": "Warum?", "hint": "Sag: weil es mehr zu tun gibt.", "answers": ["Perché ci sono più cose da fare."] }
+      {
+        "q": "Cosa pensi di Milano?",
+        "qDe": "Was hältst du von Mailand?",
+        "hint": "Sag, dass du sie schön, aber teuer findest.",
+        "answers": [
+          "Secondo me è bella, ma cara."
+        ]
+      },
+      {
+        "q": "Preferisci la città o la campagna?",
+        "qDe": "Magst du lieber die Stadt oder das Land?",
+        "hint": "Sag, dass du lieber in der Stadt lebst.",
+        "answers": [
+          "Preferisco vivere in città."
+        ]
+      },
+      {
+        "q": "Perché?",
+        "qDe": "Warum?",
+        "hint": "Sag: weil es mehr zu tun gibt.",
+        "answers": [
+          "Perché ci sono più cose da fare."
+        ]
+      }
     ]
   },
   {
-    "id": "hotel", "level": 3, "title": "Ein Problem im Hotel",
+    "id": "hotel",
+    "level": 3,
+    "title": "Ein Problem im Hotel",
     "situation": "In deinem Hotelzimmer funktioniert etwas nicht. Du gehst zur Rezeption.",
     "turns": [
-      { "q": "Buonasera, posso aiutarLa?", "qDe": "Guten Abend, kann ich Ihnen helfen?", "hint": "Sag, dass das WLAN in deinem Zimmer nicht funktioniert.", "answers": ["Il Wi-Fi nella mia camera non funziona."] },
-      { "q": "Mi dispiace. Ha già provato a riavviare il telefono?", "qDe": "Das tut mir leid. Haben Sie schon versucht, das Handy neu zu starten?", "hint": "Sag, dass du es schon versucht hast.", "answers": ["Sì, ho già provato."] },
-      { "q": "Allora mando subito un tecnico.", "qDe": "Dann schicke ich sofort einen Techniker.", "hint": "Bedank dich und frag, um wie viel Uhr es Frühstück gibt.", "answers": ["Grazie. A che ora è la colazione?"] }
+      {
+        "q": "Buonasera, posso aiutarLa?",
+        "qDe": "Guten Abend, kann ich Ihnen helfen?",
+        "hint": "Sag, dass das WLAN in deinem Zimmer nicht funktioniert.",
+        "answers": [
+          "Il Wi-Fi nella mia camera non funziona."
+        ]
+      },
+      {
+        "q": "Mi dispiace. Ha già provato a riavviare il telefono?",
+        "qDe": "Das tut mir leid. Haben Sie schon versucht, das Handy neu zu starten?",
+        "hint": "Sag, dass du es schon versucht hast.",
+        "answers": [
+          "Sì, ho già provato."
+        ]
+      },
+      {
+        "q": "Allora mando subito un tecnico.",
+        "qDe": "Dann schicke ich sofort einen Techniker.",
+        "hint": "Bedank dich und frag, um wie viel Uhr es Frühstück gibt.",
+        "answers": [
+          "Grazie. A che ora è la colazione?"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "urlaub",
+    "level": 3,
+    "title": "Vom Urlaub erzählen",
+    "situation": "Nach dem Urlaub fragt dich ein Freund aus.",
+    "turns": [
+      {
+        "q": "Dove hai passato le vacanze?",
+        "qDe": "Wo hast du die Ferien verbracht?",
+        "hint": "Sag, dass du nach Sizilien gefahren bist.",
+        "answers": [
+          "Sono andato in Sicilia.",
+          "Sono andata in Sicilia."
+        ]
+      },
+      {
+        "q": "Che cosa hai visto?",
+        "qDe": "Was hast du gesehen?",
+        "hint": "Sag, dass du Palermo und das Meer gesehen hast.",
+        "answers": [
+          "Ho visto Palermo e il mare."
+        ]
+      },
+      {
+        "q": "Com'era il cibo?",
+        "qDe": "Wie war das Essen?",
+        "hint": "Sag, dass das Essen fantastisch war.",
+        "answers": [
+          "Il cibo era fantastico."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "besprechung",
+    "level": 3,
+    "title": "Eine Besprechung",
+    "situation": "Du leitest eine kurze Besprechung im Büro.",
+    "turns": [
+      {
+        "q": "Possiamo cominciare?",
+        "qDe": "Können wir anfangen?",
+        "hint": "Sag ja, alle sind da.",
+        "answers": [
+          "Sì, ci sono tutti."
+        ]
+      },
+      {
+        "q": "Com'è andato il progetto?",
+        "qDe": "Wie ist das Projekt gelaufen?",
+        "hint": "Sag, dass es gut gelaufen ist, aber es Verspätungen gab.",
+        "answers": [
+          "È andato bene, ma ci sono stati dei ritardi."
+        ]
+      },
+      {
+        "q": "Quando possiamo finire?",
+        "qDe": "Wann können wir fertig werden?",
+        "hint": "Sag: bis Ende des Monats.",
+        "answers": [
+          "Entro la fine del mese."
+        ]
+      }
     ]
   }
 ]

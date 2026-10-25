@@ -1,511 +1,3538 @@
 [
   {
-    "id": "geschlecht", "topic": "Substantive & Adjektive", "rule": "artikel",
+    "id": "geschlecht",
+    "topic": "Substantive & Adjektive",
+    "rule": "artikel",
     "title": "Geschlecht der Nomen",
     "intro": "Jedes italienische Nomen ist männlich oder weiblich – ein Neutrum gibt es nicht. Meist verrät die Endung das Geschlecht.",
-    "table": { "head": ["Endung", "Geschlecht", "Beispiel"], "rows": [
-      ["-o", "meist männlich", "il libro"],
-      ["-a", "meist weiblich", "la casa"],
-      ["-e", "beides möglich", "il pane · la chiave"],
-      ["-zione, -tà", "weiblich", "la stazione · la città"]
-    ] },
+    "table": {
+      "head": [
+        "Endung",
+        "Geschlecht",
+        "Beispiel"
+      ],
+      "rows": [
+        [
+          "-o",
+          "meist männlich",
+          "il libro"
+        ],
+        [
+          "-a",
+          "meist weiblich",
+          "la casa"
+        ],
+        [
+          "-e",
+          "beides möglich",
+          "il pane · la chiave"
+        ],
+        [
+          "-zione, -tà",
+          "weiblich",
+          "la stazione · la città"
+        ]
+      ]
+    },
     "tips": [
       "Ausnahmen: la mano, la foto, la radio sind weiblich; il problema, il sistema, il programma sind männlich.",
       "Das Deutsche hilft nicht: das Haus = la casa (weiblich), die Tomate = il pomodoro (männlich). Wörter auf -e immer mit Artikel lernen."
     ],
     "exercises": [
-      { "text": "___ libro è sul tavolo.", "answer": "Il", "options": ["Il", "La", "Lo"], "de": "Das Buch liegt auf dem Tisch.", "why": "„libro“ endet auf -o → männlich: „il“." },
-      { "text": "___ casa è piccola.", "answer": "La", "options": ["La", "Il", "Lo"], "de": "Das Haus ist klein.", "why": "„casa“ endet auf -a → weiblich: „la“." },
-      { "text": "___ stazione è lontana.", "answer": "La", "options": ["La", "Il", "Lo"], "de": "Der Bahnhof ist weit weg.", "why": "Wörter auf -zione sind weiblich." },
-      { "text": "___ città è bellissima.", "answer": "La", "options": ["La", "Il", "Lo"], "de": "Die Stadt ist wunderschön.", "why": "Wörter auf -tà sind weiblich." },
-      { "text": "___ problema è grave.", "answer": "Il", "options": ["Il", "La", "Lo"], "de": "Das Problem ist ernst.", "why": "Ausnahme: „problema“ ist männlich (trotz -a)." },
-      { "text": "Mi fa male ___ mano.", "answer": "la", "options": ["la", "il", "lo"], "de": "Mir tut die Hand weh.", "why": "Ausnahme: „mano“ ist weiblich (trotz -o)." },
-      { "text": "___ chiave è nella borsa.", "answer": "La", "options": ["La", "Il", "Lo"], "de": "Der Schlüssel ist in der Tasche.", "why": "„chiave“ (-e) ist weiblich – Wörter auf -e mit Artikel lernen." },
-      { "text": "___ pane è fresco.", "answer": "Il", "options": ["Il", "La", "Lo"], "de": "Das Brot ist frisch.", "why": "„pane“ (-e) ist männlich." }
+      {
+        "text": "___ libro è sul tavolo.",
+        "answer": "Il",
+        "options": [
+          "Il",
+          "La",
+          "Lo"
+        ],
+        "de": "Das Buch liegt auf dem Tisch.",
+        "why": "„libro“ endet auf -o → männlich: „il“."
+      },
+      {
+        "text": "___ casa è piccola.",
+        "answer": "La",
+        "options": [
+          "La",
+          "Il",
+          "Lo"
+        ],
+        "de": "Das Haus ist klein.",
+        "why": "„casa“ endet auf -a → weiblich: „la“."
+      },
+      {
+        "text": "___ stazione è lontana.",
+        "answer": "La",
+        "options": [
+          "La",
+          "Il",
+          "Lo"
+        ],
+        "de": "Der Bahnhof ist weit weg.",
+        "why": "Wörter auf -zione sind weiblich."
+      },
+      {
+        "text": "___ città è bellissima.",
+        "answer": "La",
+        "options": [
+          "La",
+          "Il",
+          "Lo"
+        ],
+        "de": "Die Stadt ist wunderschön.",
+        "why": "Wörter auf -tà sind weiblich."
+      },
+      {
+        "text": "___ problema è grave.",
+        "answer": "Il",
+        "options": [
+          "Il",
+          "La",
+          "Lo"
+        ],
+        "de": "Das Problem ist ernst.",
+        "why": "Ausnahme: „problema“ ist männlich (trotz -a)."
+      },
+      {
+        "text": "Mi fa male ___ mano.",
+        "answer": "la",
+        "options": [
+          "la",
+          "il",
+          "lo"
+        ],
+        "de": "Mir tut die Hand weh.",
+        "why": "Ausnahme: „mano“ ist weiblich (trotz -o)."
+      },
+      {
+        "text": "___ chiave è nella borsa.",
+        "answer": "La",
+        "options": [
+          "La",
+          "Il",
+          "Lo"
+        ],
+        "de": "Der Schlüssel ist in der Tasche.",
+        "why": "„chiave“ (-e) ist weiblich – Wörter auf -e mit Artikel lernen."
+      },
+      {
+        "text": "___ pane è fresco.",
+        "answer": "Il",
+        "options": [
+          "Il",
+          "La",
+          "Lo"
+        ],
+        "de": "Das Brot ist frisch.",
+        "why": "„pane“ (-e) ist männlich."
+      },
+      {
+        "text": "___ giornale è sul tavolo.",
+        "answer": "Il",
+        "options": [
+          "Il",
+          "La",
+          "Lo"
+        ],
+        "de": "Die Zeitung liegt auf dem Tisch.",
+        "why": "„giornale“ (-e) ist männlich – anders als im Deutschen."
+      },
+      {
+        "text": "___ notte è lunga.",
+        "answer": "La",
+        "options": [
+          "La",
+          "Il",
+          "Lo"
+        ],
+        "de": "Die Nacht ist lang.",
+        "why": "„notte“ (-e) ist weiblich."
+      },
+      {
+        "text": "___ foto è bella.",
+        "answer": "La",
+        "options": [
+          "La",
+          "Il",
+          "Lo"
+        ],
+        "de": "Das Foto ist schön.",
+        "why": "Ausnahme: „foto“ ist weiblich (kurz für „fotografia“)."
+      },
+      {
+        "text": "___ programma comincia alle nove.",
+        "answer": "Il",
+        "options": [
+          "Il",
+          "La",
+          "Lo"
+        ],
+        "de": "Das Programm beginnt um neun.",
+        "why": "Ausnahme: „programma“ ist männlich (trotz -a)."
+      }
     ]
   },
   {
-    "id": "artikel", "topic": "Substantive & Adjektive", "rule": "artikel",
+    "id": "artikel",
+    "topic": "Substantive & Adjektive",
+    "rule": "artikel",
     "title": "Artikel: il, lo, l', la – un, uno, una",
     "intro": "Welcher Artikel passt, hängt vom Geschlecht und vom ersten Laut des Wortes ab.",
-    "table": { "head": ["Wort beginnt mit …", "männlich", "weiblich"], "rows": [
-      ["Konsonant", "il / un · il libro, un libro", "la / una · la casa, una casa"],
-      ["s + Konsonant, z, gn, ps", "lo / uno · lo zio, uno studente", "la / una · la scuola"],
-      ["Vokal", "l' / un · l'amico, un amico", "l' / un' · l'amica, un'amica"]
-    ] },
+    "table": {
+      "head": [
+        "Wort beginnt mit …",
+        "männlich",
+        "weiblich"
+      ],
+      "rows": [
+        [
+          "Konsonant",
+          "il / un · il libro, un libro",
+          "la / una · la casa, una casa"
+        ],
+        [
+          "s + Konsonant, z, gn, ps",
+          "lo / uno · lo zio, uno studente",
+          "la / una · la scuola"
+        ],
+        [
+          "Vokal",
+          "l' / un · l'amico, un amico",
+          "l' / un' · l'amica, un'amica"
+        ]
+      ]
+    },
     "tips": [
       "Männlich „un“ bekommt nie einen Apostroph: un amico. Nur weiblich wird es zu un': un'amica.",
       "Ob „lo“ oder „il“ hängt nur vom Anfang des nächsten Wortes ab: il ragazzo, aber lo zaino."
     ],
     "exercises": [
-      { "text": "___ zaino è pesante.", "answer": "Lo", "options": ["Lo", "Il", "La"], "de": "Der Rucksack ist schwer.", "why": "Vor z steht „lo“." },
-      { "text": "___ studente studia.", "answer": "Lo", "options": ["Lo", "Il", "La"], "de": "Der Student lernt.", "why": "Vor s + Konsonant steht „lo“." },
-      { "text": "___amico di Marco è simpatico.", "answer": "L'", "options": ["L'", "Il", "Lo"], "de": "Marcos Freund ist nett.", "why": "Vor Vokal wird der Artikel zu „l'“." },
-      { "text": "Ho ___ fratello e una sorella.", "answer": "un", "options": ["un", "uno", "una"], "de": "Ich habe einen Bruder und eine Schwester.", "why": "Männlich vor Konsonant: „un“." },
-      { "text": "Cerco ___ specchio.", "answer": "uno", "options": ["uno", "un", "una"], "de": "Ich suche einen Spiegel.", "why": "Vor s + Konsonant: „uno“." },
-      { "text": "Vorrei ___insalata.", "answer": "un'", "options": ["un'", "un", "una"], "de": "Ich hätte gern einen Salat.", "why": "„insalata“ ist weiblich und beginnt mit Vokal → „un'“." },
-      { "text": "È ___ amico mio.", "answer": "un", "options": ["un", "un'", "uno"], "de": "Er ist ein Freund von mir.", "why": "Männlich: „un“ – auch vor Vokal ohne Apostroph." },
-      { "text": "Dov'è ___ zucchero?", "answer": "lo", "options": ["lo", "il", "la"], "de": "Wo ist der Zucker?", "why": "Vor z steht „lo“." }
+      {
+        "text": "___ zaino è pesante.",
+        "answer": "Lo",
+        "options": [
+          "Lo",
+          "Il",
+          "La"
+        ],
+        "de": "Der Rucksack ist schwer.",
+        "why": "Vor z steht „lo“."
+      },
+      {
+        "text": "___ studente studia.",
+        "answer": "Lo",
+        "options": [
+          "Lo",
+          "Il",
+          "La"
+        ],
+        "de": "Der Student lernt.",
+        "why": "Vor s + Konsonant steht „lo“."
+      },
+      {
+        "text": "___amico di Marco è simpatico.",
+        "answer": "L'",
+        "options": [
+          "L'",
+          "Il",
+          "Lo"
+        ],
+        "de": "Marcos Freund ist nett.",
+        "why": "Vor Vokal wird der Artikel zu „l'“."
+      },
+      {
+        "text": "Ho ___ fratello e una sorella.",
+        "answer": "un",
+        "options": [
+          "un",
+          "uno",
+          "una"
+        ],
+        "de": "Ich habe einen Bruder und eine Schwester.",
+        "why": "Männlich vor Konsonant: „un“."
+      },
+      {
+        "text": "Cerco ___ specchio.",
+        "answer": "uno",
+        "options": [
+          "uno",
+          "un",
+          "una"
+        ],
+        "de": "Ich suche einen Spiegel.",
+        "why": "Vor s + Konsonant: „uno“."
+      },
+      {
+        "text": "Vorrei ___insalata.",
+        "answer": "un'",
+        "options": [
+          "un'",
+          "un",
+          "una"
+        ],
+        "de": "Ich hätte gern einen Salat.",
+        "why": "„insalata“ ist weiblich und beginnt mit Vokal → „un'“."
+      },
+      {
+        "text": "È ___ amico mio.",
+        "answer": "un",
+        "options": [
+          "un",
+          "un'",
+          "uno"
+        ],
+        "de": "Er ist ein Freund von mir.",
+        "why": "Männlich: „un“ – auch vor Vokal ohne Apostroph."
+      },
+      {
+        "text": "Dov'è ___ zucchero?",
+        "answer": "lo",
+        "options": [
+          "lo",
+          "il",
+          "la"
+        ],
+        "de": "Wo ist der Zucker?",
+        "why": "Vor z steht „lo“."
+      },
+      {
+        "text": "___ gnocchi sono buoni.",
+        "answer": "Gli",
+        "options": [
+          "Gli",
+          "I",
+          "Le"
+        ],
+        "de": "Die Gnocchi sind gut.",
+        "why": "Vor gn steht „gli“ (Einzahl: lo gnocco)."
+      },
+      {
+        "text": "Ho ___ zio a Napoli.",
+        "answer": "uno",
+        "options": [
+          "uno",
+          "un",
+          "una"
+        ],
+        "de": "Ich habe einen Onkel in Neapel.",
+        "why": "Vor z steht „uno“."
+      },
+      {
+        "text": "___isola è bellissima.",
+        "answer": "L'",
+        "options": [
+          "L'",
+          "La",
+          "Il"
+        ],
+        "de": "Die Insel ist wunderschön.",
+        "why": "Weiblich vor Vokal: „l'“."
+      },
+      {
+        "text": "Compro ___ giornale.",
+        "answer": "un",
+        "options": [
+          "un",
+          "uno",
+          "una"
+        ],
+        "de": "Ich kaufe eine Zeitung.",
+        "why": "„giornale“ ist männlich, vor g → „un“."
+      }
     ]
   },
   {
-    "id": "subjektpronomen", "topic": "Pronomen", "rule": "verbform",
+    "id": "subjektpronomen",
+    "topic": "Pronomen",
+    "rule": "verbform",
     "title": "Subjektpronomen: io, tu, lui …",
     "intro": "Meist lässt man das Pronomen weg – die Verbendung zeigt schon, wer gemeint ist. Man benutzt es nur zur Betonung oder Klarheit.",
-    "table": { "head": ["Person", "Pronomen", "essere (sein)"], "rows": [
-      ["ich", "io", "sono"],
-      ["du", "tu", "sei"],
-      ["er / sie", "lui / lei", "è"],
-      ["Sie (höflich)", "Lei", "è"],
-      ["wir", "noi", "siamo"],
-      ["ihr", "voi", "siete"],
-      ["sie (Mehrzahl)", "loro", "sono"]
-    ] },
+    "table": {
+      "head": [
+        "Person",
+        "Pronomen",
+        "essere (sein)"
+      ],
+      "rows": [
+        [
+          "ich",
+          "io",
+          "sono"
+        ],
+        [
+          "du",
+          "tu",
+          "sei"
+        ],
+        [
+          "er / sie",
+          "lui / lei",
+          "è"
+        ],
+        [
+          "Sie (höflich)",
+          "Lei",
+          "è"
+        ],
+        [
+          "wir",
+          "noi",
+          "siamo"
+        ],
+        [
+          "ihr",
+          "voi",
+          "siete"
+        ],
+        [
+          "sie (Mehrzahl)",
+          "loro",
+          "sono"
+        ]
+      ]
+    },
     "tips": [
       "Die Höflichkeitsform „Lei“ (Sie) steht mit der 3. Person Einzahl: „Lei è italiano?“ – Sind Sie Italiener?",
       "„Sono“ heißt „ich bin“ und „sie sind“ – der Zusammenhang entscheidet."
     ],
     "exercises": [
-      { "text": "___ siamo amici.", "answer": "Noi", "options": ["Noi", "Voi", "Loro"], "de": "Wir sind Freunde.", "why": "„siamo“ gehört zu „noi“ (wir)." },
-      { "text": "___ sei stanco?", "answer": "Tu", "options": ["Tu", "Io", "Lui"], "de": "Bist du müde?", "why": "„sei“ = du bist → „tu“." },
-      { "text": "Scusi, ___ è il signor Rossi?", "answer": "Lei", "options": ["Lei", "Tu", "Voi"], "de": "Entschuldigung, sind Sie Herr Rossi?", "why": "Höflich (Sie) = „Lei“ mit der 3. Person." },
-      { "text": "Io ___ tedesco.", "answer": "sono", "options": ["sono", "è", "sei"], "de": "Ich bin Deutscher.", "why": "io → sono." },
-      { "text": "Voi ___ di Milano?", "answer": "siete", "options": ["siete", "sono", "siamo"], "de": "Seid ihr aus Mailand?", "why": "voi → siete." },
-      { "text": "Marco e Anna? ___ sono in vacanza.", "answer": "Loro", "options": ["Loro", "Lui", "Noi"], "de": "Marco und Anna? Sie sind im Urlaub.", "why": "Mehrere Personen (sie) = „loro“." },
-      { "text": "Lei ___ medico.", "answer": "è", "options": ["è", "e", "sei"], "de": "Sie ist Ärztin.", "why": "lei → „è“ (mit Akzent; „e“ heißt „und“)." },
-      { "text": "Noi ___ in ufficio.", "answer": "siamo", "options": ["siamo", "sono", "siete"], "de": "Wir sind im Büro.", "why": "noi → siamo." }
+      {
+        "text": "___ siamo amici.",
+        "answer": "Noi",
+        "options": [
+          "Noi",
+          "Voi",
+          "Loro"
+        ],
+        "de": "Wir sind Freunde.",
+        "why": "„siamo“ gehört zu „noi“ (wir)."
+      },
+      {
+        "text": "___ sei stanco?",
+        "answer": "Tu",
+        "options": [
+          "Tu",
+          "Io",
+          "Lui"
+        ],
+        "de": "Bist du müde?",
+        "why": "„sei“ = du bist → „tu“."
+      },
+      {
+        "text": "Scusi, ___ è il signor Rossi?",
+        "answer": "Lei",
+        "options": [
+          "Lei",
+          "Tu",
+          "Voi"
+        ],
+        "de": "Entschuldigung, sind Sie Herr Rossi?",
+        "why": "Höflich (Sie) = „Lei“ mit der 3. Person."
+      },
+      {
+        "text": "Io ___ tedesco.",
+        "answer": "sono",
+        "options": [
+          "sono",
+          "è",
+          "sei"
+        ],
+        "de": "Ich bin Deutscher.",
+        "why": "io → sono."
+      },
+      {
+        "text": "Voi ___ di Milano?",
+        "answer": "siete",
+        "options": [
+          "siete",
+          "sono",
+          "siamo"
+        ],
+        "de": "Seid ihr aus Mailand?",
+        "why": "voi → siete."
+      },
+      {
+        "text": "Marco e Anna? ___ sono in vacanza.",
+        "answer": "Loro",
+        "options": [
+          "Loro",
+          "Lui",
+          "Noi"
+        ],
+        "de": "Marco und Anna? Sie sind im Urlaub.",
+        "why": "Mehrere Personen (sie) = „loro“."
+      },
+      {
+        "text": "Lei ___ medico.",
+        "answer": "è",
+        "options": [
+          "è",
+          "e",
+          "sei"
+        ],
+        "de": "Sie ist Ärztin.",
+        "why": "lei → „è“ (mit Akzent; „e“ heißt „und“)."
+      },
+      {
+        "text": "Noi ___ in ufficio.",
+        "answer": "siamo",
+        "options": [
+          "siamo",
+          "sono",
+          "siete"
+        ],
+        "de": "Wir sind im Büro.",
+        "why": "noi → siamo."
+      },
+      {
+        "text": "___ sono di Berlino, e tu?",
+        "answer": "Io",
+        "options": [
+          "Io",
+          "Tu",
+          "Lui"
+        ],
+        "de": "Ich bin aus Berlin, und du?",
+        "why": "„sono“ mit „ich“ → io."
+      },
+      {
+        "text": "___ siete pronti?",
+        "answer": "Voi",
+        "options": [
+          "Voi",
+          "Noi",
+          "Loro"
+        ],
+        "de": "Seid ihr bereit?",
+        "why": "„siete“ = ihr seid → voi."
+      },
+      {
+        "text": "Paolo? ___ è al lavoro.",
+        "answer": "Lui",
+        "options": [
+          "Lui",
+          "Lei",
+          "Loro"
+        ],
+        "de": "Paolo? Er ist bei der Arbeit.",
+        "why": "ein Mann → lui."
+      },
+      {
+        "text": "Giulia? ___ è a casa.",
+        "answer": "Lei",
+        "options": [
+          "Lei",
+          "Lui",
+          "Loro"
+        ],
+        "de": "Giulia? Sie ist zu Hause.",
+        "why": "eine Frau → lei."
+      }
     ]
   },
   {
-    "id": "essere-avere", "topic": "Verben & Adverbien", "rule": "verbform",
+    "id": "essere-avere",
+    "topic": "Verben & Adverbien",
+    "rule": "verbform",
     "title": "essere und avere",
     "intro": "Die zwei wichtigsten Verben sind unregelmäßig. Man braucht sie auch für das Perfekt.",
-    "table": { "head": ["", "essere (sein)", "avere (haben)"], "rows": [
-      ["io", "sono", "ho"],
-      ["tu", "sei", "hai"],
-      ["lui / lei / Lei", "è", "ha"],
-      ["noi", "siamo", "abbiamo"],
-      ["voi", "siete", "avete"],
-      ["loro", "sono", "hanno"]
-    ] },
+    "table": {
+      "head": [
+        "",
+        "essere (sein)",
+        "avere (haben)"
+      ],
+      "rows": [
+        [
+          "io",
+          "sono",
+          "ho"
+        ],
+        [
+          "tu",
+          "sei",
+          "hai"
+        ],
+        [
+          "lui / lei / Lei",
+          "è",
+          "ha"
+        ],
+        [
+          "noi",
+          "siamo",
+          "abbiamo"
+        ],
+        [
+          "voi",
+          "siete",
+          "avete"
+        ],
+        [
+          "loro",
+          "sono",
+          "hanno"
+        ]
+      ]
+    },
     "tips": [
       "Das h in ho, hai, ha, hanno spricht man nicht – es unterscheidet nur in der Schrift: ho (ich habe) / o (oder), ha (hat) / a (nach).",
       "Alter, Hunger, Durst und Angst „hat“ man: ho vent'anni, ho fame, ho sete, ho paura."
     ],
     "exercises": [
-      { "text": "Io ___ un cane.", "answer": "ho", "options": ["ho", "o", "sono"], "de": "Ich habe einen Hund.", "why": "io → ho (mit h)." },
-      { "text": "Loro ___ due figli.", "answer": "hanno", "options": ["hanno", "anno", "sono"], "de": "Sie haben zwei Kinder.", "why": "loro → hanno (mit h; „anno“ heißt Jahr)." },
-      { "text": "Tu ___ molto gentile.", "answer": "sei", "options": ["sei", "hai", "è"], "de": "Du bist sehr nett.", "why": "tu → sei." },
-      { "text": "Noi ___ fame.", "answer": "abbiamo", "options": ["abbiamo", "siamo", "avete"], "de": "Wir haben Hunger.", "why": "Hunger „hat“ man: noi → abbiamo." },
-      { "text": "Lei ___ trent'anni.", "answer": "ha", "options": ["ha", "a", "è"], "de": "Sie ist dreißig Jahre alt.", "why": "Alter mit avere: „ha trent'anni“." },
-      { "text": "Voi ___ stanchi?", "answer": "siete", "options": ["siete", "avete", "sono"], "de": "Seid ihr müde?", "why": "voi → siete." },
-      { "text": "Il museo ___ chiuso.", "answer": "è", "options": ["è", "ha", "e"], "de": "Das Museum ist geschlossen.", "why": "es ist = „è“ (mit Akzent)." },
-      { "text": "Tu ___ paura dei cani?", "answer": "hai", "options": ["hai", "ai", "sei"], "de": "Hast du Angst vor Hunden?", "why": "Angst „hat“ man: tu → hai." }
+      {
+        "text": "Io ___ un cane.",
+        "answer": "ho",
+        "options": [
+          "ho",
+          "o",
+          "sono"
+        ],
+        "de": "Ich habe einen Hund.",
+        "why": "io → ho (mit h)."
+      },
+      {
+        "text": "Loro ___ due figli.",
+        "answer": "hanno",
+        "options": [
+          "hanno",
+          "anno",
+          "sono"
+        ],
+        "de": "Sie haben zwei Kinder.",
+        "why": "loro → hanno (mit h; „anno“ heißt Jahr)."
+      },
+      {
+        "text": "Tu ___ molto gentile.",
+        "answer": "sei",
+        "options": [
+          "sei",
+          "hai",
+          "è"
+        ],
+        "de": "Du bist sehr nett.",
+        "why": "tu → sei."
+      },
+      {
+        "text": "Noi ___ fame.",
+        "answer": "abbiamo",
+        "options": [
+          "abbiamo",
+          "siamo",
+          "avete"
+        ],
+        "de": "Wir haben Hunger.",
+        "why": "Hunger „hat“ man: noi → abbiamo."
+      },
+      {
+        "text": "Lei ___ trent'anni.",
+        "answer": "ha",
+        "options": [
+          "ha",
+          "a",
+          "è"
+        ],
+        "de": "Sie ist dreißig Jahre alt.",
+        "why": "Alter mit avere: „ha trent'anni“."
+      },
+      {
+        "text": "Voi ___ stanchi?",
+        "answer": "siete",
+        "options": [
+          "siete",
+          "avete",
+          "sono"
+        ],
+        "de": "Seid ihr müde?",
+        "why": "voi → siete."
+      },
+      {
+        "text": "Il museo ___ chiuso.",
+        "answer": "è",
+        "options": [
+          "è",
+          "ha",
+          "e"
+        ],
+        "de": "Das Museum ist geschlossen.",
+        "why": "es ist = „è“ (mit Akzent)."
+      },
+      {
+        "text": "Tu ___ paura dei cani?",
+        "answer": "hai",
+        "options": [
+          "hai",
+          "ai",
+          "sei"
+        ],
+        "de": "Hast du Angst vor Hunden?",
+        "why": "Angst „hat“ man: tu → hai."
+      },
+      {
+        "text": "Noi ___ in ritardo.",
+        "answer": "siamo",
+        "options": [
+          "siamo",
+          "abbiamo",
+          "sono"
+        ],
+        "de": "Wir sind spät dran.",
+        "why": "noi → siamo."
+      },
+      {
+        "text": "Voi ___ una macchina?",
+        "answer": "avete",
+        "options": [
+          "avete",
+          "siete",
+          "hanno"
+        ],
+        "de": "Habt ihr ein Auto?",
+        "why": "haben, voi → avete."
+      },
+      {
+        "text": "Io ___ sete.",
+        "answer": "ho",
+        "options": [
+          "ho",
+          "sono",
+          "o"
+        ],
+        "de": "Ich habe Durst.",
+        "why": "Durst „hat“ man: ho sete."
+      },
+      {
+        "text": "Loro ___ italiani.",
+        "answer": "sono",
+        "options": [
+          "sono",
+          "hanno",
+          "siamo"
+        ],
+        "de": "Sie sind Italiener.",
+        "why": "loro → sono."
+      }
     ]
   },
   {
-    "id": "praesens-are", "topic": "Verben & Adverbien", "rule": "verbform",
+    "id": "praesens-are",
+    "topic": "Verben & Adverbien",
+    "rule": "verbform",
     "title": "Präsens: Verben auf -are",
     "intro": "Die meisten Verben enden auf -are. Man nimmt -are weg und hängt die Endung der Person an.",
-    "table": { "head": ["", "parlare (sprechen)", "Endung"], "rows": [
-      ["io", "parlo", "-o"],
-      ["tu", "parli", "-i"],
-      ["lui / lei / Lei", "parla", "-a"],
-      ["noi", "parliamo", "-iamo"],
-      ["voi", "parlate", "-ate"],
-      ["loro", "parlano", "-ano"]
-    ] },
+    "table": {
+      "head": [
+        "",
+        "parlare (sprechen)",
+        "Endung"
+      ],
+      "rows": [
+        [
+          "io",
+          "parlo",
+          "-o"
+        ],
+        [
+          "tu",
+          "parli",
+          "-i"
+        ],
+        [
+          "lui / lei / Lei",
+          "parla",
+          "-a"
+        ],
+        [
+          "noi",
+          "parliamo",
+          "-iamo"
+        ],
+        [
+          "voi",
+          "parlate",
+          "-ate"
+        ],
+        [
+          "loro",
+          "parlano",
+          "-ano"
+        ]
+      ]
+    },
     "tips": [
       "Verben auf -care / -gare schieben vor i ein h ein, damit c und g hart bleiben: cercare → cerchi, paghiamo.",
       "Betonung bei „loro“: PARlano – nicht parlaNO."
     ],
     "exercises": [
-      { "text": "Io ___ italiano.", "answer": "parlo", "options": ["parlo", "parli", "parla"], "de": "Ich spreche Italienisch.", "why": "io → -o." },
-      { "text": "Tu ___ a Berlino?", "answer": "abiti", "options": ["abiti", "abita", "abito"], "de": "Wohnst du in Berlin?", "why": "tu → -i." },
-      { "text": "Noi ___ la pizza.", "answer": "mangiamo", "options": ["mangiamo", "mangiano", "mangiate"], "de": "Wir essen Pizza.", "why": "noi → -iamo." },
-      { "text": "Voi ___ troppo.", "answer": "lavorate", "options": ["lavorate", "lavorano", "lavoriamo"], "de": "Ihr arbeitet zu viel.", "why": "voi → -ate." },
-      { "text": "Loro ___ la televisione.", "answer": "guardano", "options": ["guardano", "guardate", "guarda"], "de": "Sie sehen fern.", "why": "loro → -ano." },
-      { "text": "Marco ___ il treno.", "answer": "aspetta", "options": ["aspetta", "aspetto", "aspettano"], "de": "Marco wartet auf den Zug.", "why": "er (Marco) → -a." },
-      { "text": "Tu ___ le chiavi?", "answer": "cerchi", "options": ["cerchi", "cerci", "cerca"], "de": "Suchst du die Schlüssel?", "why": "„cercare“: vor -i ein h einschieben → „cerchi“." },
-      { "text": "Noi ___ con la carta.", "answer": "paghiamo", "options": ["paghiamo", "pagiamo", "pagano"], "de": "Wir zahlen mit Karte.", "why": "„pagare“: h einschieben, damit das g hart bleibt." }
+      {
+        "text": "Io ___ italiano.",
+        "answer": "parlo",
+        "options": [
+          "parlo",
+          "parli",
+          "parla"
+        ],
+        "de": "Ich spreche Italienisch.",
+        "why": "io → -o."
+      },
+      {
+        "text": "Tu ___ a Berlino?",
+        "answer": "abiti",
+        "options": [
+          "abiti",
+          "abita",
+          "abito"
+        ],
+        "de": "Wohnst du in Berlin?",
+        "why": "tu → -i."
+      },
+      {
+        "text": "Noi ___ la pizza.",
+        "answer": "mangiamo",
+        "options": [
+          "mangiamo",
+          "mangiano",
+          "mangiate"
+        ],
+        "de": "Wir essen Pizza.",
+        "why": "noi → -iamo."
+      },
+      {
+        "text": "Voi ___ troppo.",
+        "answer": "lavorate",
+        "options": [
+          "lavorate",
+          "lavorano",
+          "lavoriamo"
+        ],
+        "de": "Ihr arbeitet zu viel.",
+        "why": "voi → -ate."
+      },
+      {
+        "text": "Loro ___ la televisione.",
+        "answer": "guardano",
+        "options": [
+          "guardano",
+          "guardate",
+          "guarda"
+        ],
+        "de": "Sie sehen fern.",
+        "why": "loro → -ano."
+      },
+      {
+        "text": "Marco ___ il treno.",
+        "answer": "aspetta",
+        "options": [
+          "aspetta",
+          "aspetto",
+          "aspettano"
+        ],
+        "de": "Marco wartet auf den Zug.",
+        "why": "er (Marco) → -a."
+      },
+      {
+        "text": "Tu ___ le chiavi?",
+        "answer": "cerchi",
+        "options": [
+          "cerchi",
+          "cerci",
+          "cerca"
+        ],
+        "de": "Suchst du die Schlüssel?",
+        "why": "„cercare“: vor -i ein h einschieben → „cerchi“."
+      },
+      {
+        "text": "Noi ___ con la carta.",
+        "answer": "paghiamo",
+        "options": [
+          "paghiamo",
+          "pagiamo",
+          "pagano"
+        ],
+        "de": "Wir zahlen mit Karte.",
+        "why": "„pagare“: h einschieben, damit das g hart bleibt."
+      },
+      {
+        "text": "Lei ___ in banca.",
+        "answer": "lavora",
+        "options": [
+          "lavora",
+          "lavoro",
+          "lavori"
+        ],
+        "de": "Sie arbeitet in der Bank.",
+        "why": "sie → -a."
+      },
+      {
+        "text": "Noi ___ la cena.",
+        "answer": "prepariamo",
+        "options": [
+          "prepariamo",
+          "preparano",
+          "preparate"
+        ],
+        "de": "Wir bereiten das Abendessen vor.",
+        "why": "noi → -iamo."
+      },
+      {
+        "text": "Loro ___ inglese.",
+        "answer": "parlano",
+        "options": [
+          "parlano",
+          "parlate",
+          "parla"
+        ],
+        "de": "Sie sprechen Englisch.",
+        "why": "loro → -ano."
+      },
+      {
+        "text": "Tu ___ il treno?",
+        "answer": "aspetti",
+        "options": [
+          "aspetti",
+          "aspetta",
+          "aspettano"
+        ],
+        "de": "Wartest du auf den Zug?",
+        "why": "tu → -i."
+      }
     ]
   },
   {
-    "id": "mehrzahl", "topic": "Substantive & Adjektive", "rule": "mehrzahl",
+    "id": "mehrzahl",
+    "topic": "Substantive & Adjektive",
+    "rule": "mehrzahl",
     "title": "Mehrzahl der Nomen",
     "intro": "In der Mehrzahl ändern sich die Endung und der Artikel.",
-    "table": { "head": ["Einzahl", "Mehrzahl", "Beispiel"], "rows": [
-      ["-o (männlich)", "-i", "il libro → i libri"],
-      ["-a (weiblich)", "-e", "la casa → le case"],
-      ["-e (m / w)", "-i", "il fiore → i fiori · la chiave → le chiavi"],
-      ["Artikel", "il → i · lo, l' → gli · la → le", "lo zio → gli zii · l'amica → le amiche"]
-    ] },
+    "table": {
+      "head": [
+        "Einzahl",
+        "Mehrzahl",
+        "Beispiel"
+      ],
+      "rows": [
+        [
+          "-o (männlich)",
+          "-i",
+          "il libro → i libri"
+        ],
+        [
+          "-a (weiblich)",
+          "-e",
+          "la casa → le case"
+        ],
+        [
+          "-e (m / w)",
+          "-i",
+          "il fiore → i fiori · la chiave → le chiavi"
+        ],
+        [
+          "Artikel",
+          "il → i · lo, l' → gli · la → le",
+          "lo zio → gli zii · l'amica → le amiche"
+        ]
+      ]
+    },
     "tips": [
       "Gleich bleiben: Wörter mit Akzent am Ende (la città → le città), Fremdwörter (il film → i film) und Kurzwörter (la foto → le foto).",
       "Unregelmäßig: l'uovo → le uova, la mano → le mani, l'uomo → gli uomini."
     ],
     "exercises": [
-      { "text": "Ho comprato due ___.", "answer": "libri", "options": ["libri", "libre", "libro"], "de": "Ich habe zwei Bücher gekauft.", "why": "-o → -i: „libri“." },
-      { "text": "Le ___ sono rosse.", "answer": "mele", "options": ["mele", "meli", "mela"], "de": "Die Äpfel sind rot.", "why": "-a → -e: „mele“." },
-      { "text": "Ho perso le ___.", "answer": "chiavi", "options": ["chiavi", "chiave", "chiava"], "de": "Ich habe die Schlüssel verloren.", "why": "-e → -i: „chiavi“." },
-      { "text": "___ zii arrivano domani.", "answer": "Gli", "options": ["Gli", "I", "Le"], "de": "Die Onkel kommen morgen.", "why": "„lo zio“ → Mehrzahl „gli zii“." },
-      { "text": "Mi piacciono le ___ italiane.", "answer": "città", "options": ["città", "citte", "cittì"], "de": "Mir gefallen die italienischen Städte.", "why": "Wörter mit Akzent am Ende bleiben gleich." },
-      { "text": "Ho visto due ___ al cinema.", "answer": "film", "options": ["film", "filmi", "filme"], "de": "Ich habe zwei Filme im Kino gesehen.", "why": "Fremdwörter bleiben in der Mehrzahl gleich." },
-      { "text": "Compro sei ___.", "answer": "uova", "options": ["uova", "uovi", "uove"], "de": "Ich kaufe sechs Eier.", "why": "Unregelmäßig: l'uovo → le uova." },
-      { "text": "___ amiche di Sara sono qui.", "answer": "Le", "options": ["Le", "Gli", "I"], "de": "Saras Freundinnen sind hier.", "why": "Weiblich Mehrzahl: immer „le“." }
+      {
+        "text": "Ho comprato due ___.",
+        "answer": "libri",
+        "options": [
+          "libri",
+          "libre",
+          "libro"
+        ],
+        "de": "Ich habe zwei Bücher gekauft.",
+        "why": "-o → -i: „libri“."
+      },
+      {
+        "text": "Le ___ sono rosse.",
+        "answer": "mele",
+        "options": [
+          "mele",
+          "meli",
+          "mela"
+        ],
+        "de": "Die Äpfel sind rot.",
+        "why": "-a → -e: „mele“."
+      },
+      {
+        "text": "Ho perso le ___.",
+        "answer": "chiavi",
+        "options": [
+          "chiavi",
+          "chiave",
+          "chiava"
+        ],
+        "de": "Ich habe die Schlüssel verloren.",
+        "why": "-e → -i: „chiavi“."
+      },
+      {
+        "text": "___ zii arrivano domani.",
+        "answer": "Gli",
+        "options": [
+          "Gli",
+          "I",
+          "Le"
+        ],
+        "de": "Die Onkel kommen morgen.",
+        "why": "„lo zio“ → Mehrzahl „gli zii“."
+      },
+      {
+        "text": "Mi piacciono le ___ italiane.",
+        "answer": "città",
+        "options": [
+          "città",
+          "citte",
+          "cittì"
+        ],
+        "de": "Mir gefallen die italienischen Städte.",
+        "why": "Wörter mit Akzent am Ende bleiben gleich."
+      },
+      {
+        "text": "Ho visto due ___ al cinema.",
+        "answer": "film",
+        "options": [
+          "film",
+          "filmi",
+          "filme"
+        ],
+        "de": "Ich habe zwei Filme im Kino gesehen.",
+        "why": "Fremdwörter bleiben in der Mehrzahl gleich."
+      },
+      {
+        "text": "Compro sei ___.",
+        "answer": "uova",
+        "options": [
+          "uova",
+          "uovi",
+          "uove"
+        ],
+        "de": "Ich kaufe sechs Eier.",
+        "why": "Unregelmäßig: l'uovo → le uova."
+      },
+      {
+        "text": "___ amiche di Sara sono qui.",
+        "answer": "Le",
+        "options": [
+          "Le",
+          "Gli",
+          "I"
+        ],
+        "de": "Saras Freundinnen sind hier.",
+        "why": "Weiblich Mehrzahl: immer „le“."
+      },
+      {
+        "text": "Nel negozio ci sono due ___ belle.",
+        "answer": "borse",
+        "options": [
+          "borse",
+          "borsi",
+          "borsa"
+        ],
+        "de": "Im Geschäft gibt es zwei schöne Taschen.",
+        "why": "-a → -e: „borse“."
+      },
+      {
+        "text": "I ___ sono chiusi.",
+        "answer": "negozi",
+        "options": [
+          "negozi",
+          "negozii",
+          "negozio"
+        ],
+        "de": "Die Geschäfte sind geschlossen.",
+        "why": "-io → -i (nur ein i)."
+      },
+      {
+        "text": "In piazza ci sono tre ___.",
+        "answer": "bar",
+        "options": [
+          "bar",
+          "bari",
+          "barre"
+        ],
+        "de": "Auf dem Platz gibt es drei Bars.",
+        "why": "Fremdwörter bleiben in der Mehrzahl gleich."
+      },
+      {
+        "text": "Mi fanno male le ___.",
+        "answer": "braccia",
+        "options": [
+          "braccia",
+          "braccie",
+          "braccio"
+        ],
+        "de": "Mir tun die Arme weh.",
+        "why": "Unregelmäßig: il braccio → le braccia."
+      }
     ]
   },
   {
-    "id": "adjektive", "topic": "Substantive & Adjektive", "rule": "angleichung",
+    "id": "adjektive",
+    "topic": "Substantive & Adjektive",
+    "rule": "angleichung",
     "title": "Adjektive anpassen",
     "intro": "Adjektive richten sich nach dem Nomen – männlich oder weiblich, Einzahl oder Mehrzahl. Meist stehen sie nach dem Nomen.",
-    "table": { "head": ["", "m. Sg.", "w. Sg.", "m. Pl.", "w. Pl."], "rows": [
-      ["-o", "rosso", "rossa", "rossi", "rosse"],
-      ["-e", "grande", "grande", "grandi", "grandi"]
-    ] },
+    "table": {
+      "head": [
+        "",
+        "m. Sg.",
+        "w. Sg.",
+        "m. Pl.",
+        "w. Pl."
+      ],
+      "rows": [
+        [
+          "-o",
+          "rosso",
+          "rossa",
+          "rossi",
+          "rosse"
+        ],
+        [
+          "-e",
+          "grande",
+          "grande",
+          "grandi",
+          "grandi"
+        ]
+      ]
+    },
     "tips": [
       "Adjektive auf -e haben nur zwei Formen: grande / grandi.",
       "Mit -co / -go oft ein h: bianco → bianchi, bianche; lungo → lunghi, lunghe.",
       "„bello“ und „buono“ stehen oft vor dem Nomen: una bella casa, un buon caffè."
     ],
     "exercises": [
-      { "text": "La macchina è ___.", "answer": "nuova", "options": ["nuova", "nuovo", "nuove"], "de": "Das Auto ist neu.", "why": "„macchina“ ist weiblich Einzahl → „nuova“." },
-      { "text": "I ragazzi sono ___.", "answer": "stanchi", "options": ["stanchi", "stanco", "stanche"], "de": "Die Jungen sind müde.", "why": "männlich Mehrzahl → -i (mit h: „stanchi“)." },
-      { "text": "Le case sono ___.", "answer": "grandi", "options": ["grandi", "grande", "grandie"], "de": "Die Häuser sind groß.", "why": "Adjektive auf -e: Mehrzahl -i – für beide Geschlechter." },
-      { "text": "Ho una giacca ___.", "answer": "verde", "options": ["verde", "verda", "verdo"], "de": "Ich habe eine grüne Jacke.", "why": "„verde“ endet auf -e → in der Einzahl gleich für m und w." },
-      { "text": "Le scarpe ___ sono care.", "answer": "bianche", "options": ["bianche", "bianchi", "bianca"], "de": "Die weißen Schuhe sind teuer.", "why": "weiblich Mehrzahl, -ca → -che." },
-      { "text": "È un libro molto ___.", "answer": "interessante", "options": ["interessante", "interessanto", "interessanta"], "de": "Es ist ein sehr interessantes Buch.", "why": "Adjektiv auf -e: „interessante“ für m und w." },
-      { "text": "Abbiamo due gatti ___.", "answer": "neri", "options": ["neri", "nere", "nero"], "de": "Wir haben zwei schwarze Katzen.", "why": "„gatti“ ist männlich Mehrzahl → „neri“." },
-      { "text": "Sono ragazze ___.", "answer": "simpatiche", "options": ["simpatiche", "simpatici", "simpatica"], "de": "Das sind nette Mädchen.", "why": "weiblich Mehrzahl: -ca → -che." }
+      {
+        "text": "La macchina è ___.",
+        "answer": "nuova",
+        "options": [
+          "nuova",
+          "nuovo",
+          "nuove"
+        ],
+        "de": "Das Auto ist neu.",
+        "why": "„macchina“ ist weiblich Einzahl → „nuova“."
+      },
+      {
+        "text": "I ragazzi sono ___.",
+        "answer": "stanchi",
+        "options": [
+          "stanchi",
+          "stanco",
+          "stanche"
+        ],
+        "de": "Die Jungen sind müde.",
+        "why": "männlich Mehrzahl → -i (mit h: „stanchi“)."
+      },
+      {
+        "text": "Le case sono ___.",
+        "answer": "grandi",
+        "options": [
+          "grandi",
+          "grande",
+          "grandie"
+        ],
+        "de": "Die Häuser sind groß.",
+        "why": "Adjektive auf -e: Mehrzahl -i – für beide Geschlechter."
+      },
+      {
+        "text": "Ho una giacca ___.",
+        "answer": "verde",
+        "options": [
+          "verde",
+          "verda",
+          "verdo"
+        ],
+        "de": "Ich habe eine grüne Jacke.",
+        "why": "„verde“ endet auf -e → in der Einzahl gleich für m und w."
+      },
+      {
+        "text": "Le scarpe ___ sono care.",
+        "answer": "bianche",
+        "options": [
+          "bianche",
+          "bianchi",
+          "bianca"
+        ],
+        "de": "Die weißen Schuhe sind teuer.",
+        "why": "weiblich Mehrzahl, -ca → -che."
+      },
+      {
+        "text": "È un libro molto ___.",
+        "answer": "interessante",
+        "options": [
+          "interessante",
+          "interessanto",
+          "interessanta"
+        ],
+        "de": "Es ist ein sehr interessantes Buch.",
+        "why": "Adjektiv auf -e: „interessante“ für m und w."
+      },
+      {
+        "text": "Abbiamo due gatti ___.",
+        "answer": "neri",
+        "options": [
+          "neri",
+          "nere",
+          "nero"
+        ],
+        "de": "Wir haben zwei schwarze Katzen.",
+        "why": "„gatti“ ist männlich Mehrzahl → „neri“."
+      },
+      {
+        "text": "Sono ragazze ___.",
+        "answer": "simpatiche",
+        "options": [
+          "simpatiche",
+          "simpatici",
+          "simpatica"
+        ],
+        "de": "Das sind nette Mädchen.",
+        "why": "weiblich Mehrzahl: -ca → -che."
+      },
+      {
+        "text": "Le ragazze sono ___.",
+        "answer": "alte",
+        "options": [
+          "alte",
+          "alti",
+          "alta"
+        ],
+        "de": "Die Mädchen sind groß.",
+        "why": "weiblich Mehrzahl → -e."
+      },
+      {
+        "text": "Il gelato è ___.",
+        "answer": "buono",
+        "options": [
+          "buono",
+          "buona",
+          "buoni"
+        ],
+        "de": "Das Eis ist gut.",
+        "why": "„gelato“ ist männlich Einzahl → „buono“."
+      },
+      {
+        "text": "Ho due borse ___.",
+        "answer": "nere",
+        "options": [
+          "nere",
+          "neri",
+          "nera"
+        ],
+        "de": "Ich habe zwei schwarze Taschen.",
+        "why": "„borse“ ist weiblich Mehrzahl → „nere“."
+      },
+      {
+        "text": "È un ___ giorno.",
+        "answer": "bel",
+        "options": [
+          "bel",
+          "bello",
+          "bella"
+        ],
+        "de": "Es ist ein schöner Tag.",
+        "why": "„bello“ vor einem Konsonanten → „bel“."
+      }
     ]
   },
   {
-    "id": "praesens-ere-ire", "topic": "Verben & Adverbien", "rule": "verbform",
+    "id": "praesens-ere-ire",
+    "topic": "Verben & Adverbien",
+    "rule": "verbform",
     "title": "Präsens: Verben auf -ere und -ire",
     "intro": "Bei -ere und -ire sind die Endungen fast gleich. Manche -ire-Verben schieben -isc- ein.",
-    "table": { "head": ["", "prendere", "dormire", "capire (-isc-)"], "rows": [
-      ["io", "prendo", "dormo", "capisco"],
-      ["tu", "prendi", "dormi", "capisci"],
-      ["lui / lei", "prende", "dorme", "capisce"],
-      ["noi", "prendiamo", "dormiamo", "capiamo"],
-      ["voi", "prendete", "dormite", "capite"],
-      ["loro", "prendono", "dormono", "capiscono"]
-    ] },
+    "table": {
+      "head": [
+        "",
+        "prendere",
+        "dormire",
+        "capire (-isc-)"
+      ],
+      "rows": [
+        [
+          "io",
+          "prendo",
+          "dormo",
+          "capisco"
+        ],
+        [
+          "tu",
+          "prendi",
+          "dormi",
+          "capisci"
+        ],
+        [
+          "lui / lei",
+          "prende",
+          "dorme",
+          "capisce"
+        ],
+        [
+          "noi",
+          "prendiamo",
+          "dormiamo",
+          "capiamo"
+        ],
+        [
+          "voi",
+          "prendete",
+          "dormite",
+          "capite"
+        ],
+        [
+          "loro",
+          "prendono",
+          "dormono",
+          "capiscono"
+        ]
+      ]
+    },
     "tips": [
       "Wie „capire“ gehen z. B. finire, preferire, pulire, spedire: preferisco, finisci …",
       "Nur „voi“ unterscheidet sich: prendete (-ere) / dormite (-ire)."
     ],
     "exercises": [
-      { "text": "Io ___ un caffè.", "answer": "prendo", "options": ["prendo", "prende", "prendi"], "de": "Ich nehme einen Kaffee.", "why": "io → -o." },
-      { "text": "Tu ___ molto.", "answer": "leggi", "options": ["leggi", "legge", "leggo"], "de": "Du liest viel.", "why": "tu → -i." },
-      { "text": "Lui ___ fino alle nove.", "answer": "dorme", "options": ["dorme", "dormi", "dormo"], "de": "Er schläft bis neun.", "why": "er → -e." },
-      { "text": "Noi ___ la porta.", "answer": "apriamo", "options": ["apriamo", "aprono", "aprite"], "de": "Wir öffnen die Tür.", "why": "noi → -iamo." },
-      { "text": "Voi ___ la lettera?", "answer": "scrivete", "options": ["scrivete", "scrivite", "scrivono"], "de": "Schreibt ihr den Brief?", "why": "voi bei -ere → -ete." },
-      { "text": "Loro ___ domani.", "answer": "partono", "options": ["partono", "partiscono", "partite"], "de": "Sie fahren morgen ab.", "why": "loro → -ono; „partire“ hat kein -isc-." },
-      { "text": "Non ___ la domanda.", "answer": "capisco", "options": ["capisco", "capo", "capiso"], "de": "Ich verstehe die Frage nicht.", "why": "„capire“ schiebt -isc- ein: capisco." },
-      { "text": "Lei ___ il tè.", "answer": "preferisce", "options": ["preferisce", "prefere", "preferiscono"], "de": "Sie trinkt lieber Tee.", "why": "„preferire“ mit -isc-: lei → preferisce." }
+      {
+        "text": "Io ___ un caffè.",
+        "answer": "prendo",
+        "options": [
+          "prendo",
+          "prende",
+          "prendi"
+        ],
+        "de": "Ich nehme einen Kaffee.",
+        "why": "io → -o."
+      },
+      {
+        "text": "Tu ___ molto.",
+        "answer": "leggi",
+        "options": [
+          "leggi",
+          "legge",
+          "leggo"
+        ],
+        "de": "Du liest viel.",
+        "why": "tu → -i."
+      },
+      {
+        "text": "Lui ___ fino alle nove.",
+        "answer": "dorme",
+        "options": [
+          "dorme",
+          "dormi",
+          "dormo"
+        ],
+        "de": "Er schläft bis neun.",
+        "why": "er → -e."
+      },
+      {
+        "text": "Noi ___ la porta.",
+        "answer": "apriamo",
+        "options": [
+          "apriamo",
+          "aprono",
+          "aprite"
+        ],
+        "de": "Wir öffnen die Tür.",
+        "why": "noi → -iamo."
+      },
+      {
+        "text": "Voi ___ la lettera?",
+        "answer": "scrivete",
+        "options": [
+          "scrivete",
+          "scrivite",
+          "scrivono"
+        ],
+        "de": "Schreibt ihr den Brief?",
+        "why": "voi bei -ere → -ete."
+      },
+      {
+        "text": "Loro ___ domani.",
+        "answer": "partono",
+        "options": [
+          "partono",
+          "partiscono",
+          "partite"
+        ],
+        "de": "Sie fahren morgen ab.",
+        "why": "loro → -ono; „partire“ hat kein -isc-."
+      },
+      {
+        "text": "Non ___ la domanda.",
+        "answer": "capisco",
+        "options": [
+          "capisco",
+          "capo",
+          "capiso"
+        ],
+        "de": "Ich verstehe die Frage nicht.",
+        "why": "„capire“ schiebt -isc- ein: capisco."
+      },
+      {
+        "text": "Lei ___ il tè.",
+        "answer": "preferisce",
+        "options": [
+          "preferisce",
+          "prefere",
+          "preferiscono"
+        ],
+        "de": "Sie trinkt lieber Tee.",
+        "why": "„preferire“ mit -isc-: lei → preferisce."
+      },
+      {
+        "text": "Tu ___ il treno?",
+        "answer": "prendi",
+        "options": [
+          "prendi",
+          "prende",
+          "prendo"
+        ],
+        "de": "Nimmst du den Zug?",
+        "why": "tu → -i."
+      },
+      {
+        "text": "Noi ___ bene.",
+        "answer": "dormiamo",
+        "options": [
+          "dormiamo",
+          "dormono",
+          "dormite"
+        ],
+        "de": "Wir schlafen gut.",
+        "why": "noi → -iamo."
+      },
+      {
+        "text": "Loro ___ la lezione.",
+        "answer": "capiscono",
+        "options": [
+          "capiscono",
+          "capono",
+          "capisceno"
+        ],
+        "de": "Sie verstehen die Lektion.",
+        "why": "„capire“ mit -isc-: loro → capiscono."
+      },
+      {
+        "text": "Voi ___ la finestra?",
+        "answer": "aprite",
+        "options": [
+          "aprite",
+          "aprete",
+          "aprono"
+        ],
+        "de": "Öffnet ihr das Fenster?",
+        "why": "voi bei -ire → -ite."
+      }
     ]
   },
   {
-    "id": "praepositionen", "topic": "Präpositionen", "rule": "praeposition",
+    "id": "praepositionen",
+    "topic": "Präpositionen",
+    "rule": "praeposition",
     "title": "Präpositionen: di, a, da, in, con, su, per, tra",
     "intro": "Präpositionen werden oft anders benutzt als im Deutschen. Die wichtigsten Regeln:",
-    "table": { "head": ["Präposition", "Gebrauch", "Beispiel"], "rows": [
-      ["di", "von · aus (Herkunft mit essere)", "il libro di Marco · sono di Berlino"],
-      ["a", "nach / in + Stadt · um + Uhrzeit", "vado a Roma · alle otto"],
-      ["in", "nach / in + Land · Verkehrsmittel", "vado in Italia · in treno"],
-      ["da", "von … her · zu (Person) · seit", "vengo da Milano · vado da Luca · da due anni"],
-      ["con", "mit", "con gli amici"],
-      ["su", "auf · über", "sul tavolo"],
-      ["per", "für · nach (Richtung)", "per te · il treno per Roma"],
-      ["tra / fra", "zwischen · in (zeitlich)", "tra due giorni"]
-    ] },
+    "table": {
+      "head": [
+        "Präposition",
+        "Gebrauch",
+        "Beispiel"
+      ],
+      "rows": [
+        [
+          "di",
+          "von · aus (Herkunft mit essere)",
+          "il libro di Marco · sono di Berlino"
+        ],
+        [
+          "a",
+          "nach / in + Stadt · um + Uhrzeit",
+          "vado a Roma · alle otto"
+        ],
+        [
+          "in",
+          "nach / in + Land · Verkehrsmittel",
+          "vado in Italia · in treno"
+        ],
+        [
+          "da",
+          "von … her · zu (Person) · seit",
+          "vengo da Milano · vado da Luca · da due anni"
+        ],
+        [
+          "con",
+          "mit",
+          "con gli amici"
+        ],
+        [
+          "su",
+          "auf · über",
+          "sul tavolo"
+        ],
+        [
+          "per",
+          "für · nach (Richtung)",
+          "per te · il treno per Roma"
+        ],
+        [
+          "tra / fra",
+          "zwischen · in (zeitlich)",
+          "tra due giorni"
+        ]
+      ]
+    },
     "tips": [
       "Zu jemandem gehen: „da“ – vado da Luca, vado dal dentista.",
       "Seit: „da“ mit Präsens – abito qui da tre anni (ich wohne seit drei Jahren hier)."
     ],
     "exercises": [
-      { "text": "Vado ___ Roma.", "answer": "a", "options": ["a", "in", "da"], "de": "Ich fahre nach Rom.", "why": "Stadt → „a“." },
-      { "text": "Andiamo ___ Spagna.", "answer": "in", "options": ["in", "a", "da"], "de": "Wir fahren nach Spanien.", "why": "Land → „in“." },
-      { "text": "Sono ___ Berlino.", "answer": "di", "options": ["di", "per", "con"], "de": "Ich bin aus Berlin (stamme von dort).", "why": "Herkunft mit essere: „sono di …“." },
-      { "text": "Abito qui ___ tre anni.", "answer": "da", "options": ["da", "per", "di"], "de": "Ich wohne seit drei Jahren hier.", "why": "seit = „da“ mit Präsens." },
-      { "text": "Il treno ___ Napoli parte alle nove.", "answer": "per", "options": ["per", "di", "con"], "de": "Der Zug nach Neapel fährt um neun ab.", "why": "Ziel eines Zuges oder Flugs: „per“." },
-      { "text": "Esco ___ i miei amici.", "answer": "con", "options": ["con", "per", "tra"], "de": "Ich gehe mit meinen Freunden aus.", "why": "mit = „con“." },
-      { "text": "Ci vediamo ___ due giorni.", "answer": "tra", "options": ["tra", "da", "di"], "de": "Wir sehen uns in zwei Tagen.", "why": "in (zeitlich, Zukunft) = „tra / fra“." },
-      { "text": "Vado al lavoro ___ macchina.", "answer": "in", "options": ["in", "con", "a"], "de": "Ich fahre mit dem Auto zur Arbeit.", "why": "Verkehrsmittel ohne Artikel: „in macchina“." }
+      {
+        "text": "Vado ___ Roma.",
+        "answer": "a",
+        "options": [
+          "a",
+          "in",
+          "da"
+        ],
+        "de": "Ich fahre nach Rom.",
+        "why": "Stadt → „a“."
+      },
+      {
+        "text": "Andiamo ___ Spagna.",
+        "answer": "in",
+        "options": [
+          "in",
+          "a",
+          "da"
+        ],
+        "de": "Wir fahren nach Spanien.",
+        "why": "Land → „in“."
+      },
+      {
+        "text": "Sono ___ Berlino.",
+        "answer": "di",
+        "options": [
+          "di",
+          "per",
+          "con"
+        ],
+        "de": "Ich bin aus Berlin (stamme von dort).",
+        "why": "Herkunft mit essere: „sono di …“."
+      },
+      {
+        "text": "Abito qui ___ tre anni.",
+        "answer": "da",
+        "options": [
+          "da",
+          "per",
+          "di"
+        ],
+        "de": "Ich wohne seit drei Jahren hier.",
+        "why": "seit = „da“ mit Präsens."
+      },
+      {
+        "text": "Il treno ___ Napoli parte alle nove.",
+        "answer": "per",
+        "options": [
+          "per",
+          "di",
+          "con"
+        ],
+        "de": "Der Zug nach Neapel fährt um neun ab.",
+        "why": "Ziel eines Zuges oder Flugs: „per“."
+      },
+      {
+        "text": "Esco ___ i miei amici.",
+        "answer": "con",
+        "options": [
+          "con",
+          "per",
+          "tra"
+        ],
+        "de": "Ich gehe mit meinen Freunden aus.",
+        "why": "mit = „con“."
+      },
+      {
+        "text": "Ci vediamo ___ due giorni.",
+        "answer": "tra",
+        "options": [
+          "tra",
+          "da",
+          "di"
+        ],
+        "de": "Wir sehen uns in zwei Tagen.",
+        "why": "in (zeitlich, Zukunft) = „tra / fra“."
+      },
+      {
+        "text": "Vado al lavoro ___ macchina.",
+        "answer": "in",
+        "options": [
+          "in",
+          "con",
+          "a"
+        ],
+        "de": "Ich fahre mit dem Auto zur Arbeit.",
+        "why": "Verkehrsmittel ohne Artikel: „in macchina“."
+      },
+      {
+        "text": "Il libro è ___ Marco.",
+        "answer": "di",
+        "options": [
+          "di",
+          "da",
+          "a"
+        ],
+        "de": "Das Buch gehört Marco.",
+        "why": "Besitz: „di“."
+      },
+      {
+        "text": "Stasera vado ___ Luca.",
+        "answer": "da",
+        "options": [
+          "da",
+          "a",
+          "di"
+        ],
+        "de": "Heute Abend gehe ich zu Luca.",
+        "why": "zu einer Person: „da“."
+      },
+      {
+        "text": "Il regalo è ___ te.",
+        "answer": "per",
+        "options": [
+          "per",
+          "di",
+          "con"
+        ],
+        "de": "Das Geschenk ist für dich.",
+        "why": "für = „per“."
+      },
+      {
+        "text": "Abito ___ Germania.",
+        "answer": "in",
+        "options": [
+          "in",
+          "a",
+          "di"
+        ],
+        "de": "Ich wohne in Deutschland.",
+        "why": "Land → „in“."
+      }
     ]
   },
   {
-    "id": "verben-unregelmaessig", "topic": "Verben & Adverbien", "rule": "verbform",
+    "id": "verben-unregelmaessig",
+    "topic": "Verben & Adverbien",
+    "rule": "verbform",
     "title": "Unregelmäßig: andare, fare, stare, venire",
     "intro": "Diese Verben braucht man ständig. Sie folgen keiner Regel – am besten als Tabelle lernen.",
-    "table": { "head": ["", "andare", "fare", "stare", "venire"], "rows": [
-      ["io", "vado", "faccio", "sto", "vengo"],
-      ["tu", "vai", "fai", "stai", "vieni"],
-      ["lui / lei", "va", "fa", "sta", "viene"],
-      ["noi", "andiamo", "facciamo", "stiamo", "veniamo"],
-      ["voi", "andate", "fate", "state", "venite"],
-      ["loro", "vanno", "fanno", "stanno", "vengono"]
-    ] },
+    "table": {
+      "head": [
+        "",
+        "andare",
+        "fare",
+        "stare",
+        "venire"
+      ],
+      "rows": [
+        [
+          "io",
+          "vado",
+          "faccio",
+          "sto",
+          "vengo"
+        ],
+        [
+          "tu",
+          "vai",
+          "fai",
+          "stai",
+          "vieni"
+        ],
+        [
+          "lui / lei",
+          "va",
+          "fa",
+          "sta",
+          "viene"
+        ],
+        [
+          "noi",
+          "andiamo",
+          "facciamo",
+          "stiamo",
+          "veniamo"
+        ],
+        [
+          "voi",
+          "andate",
+          "fate",
+          "state",
+          "venite"
+        ],
+        [
+          "loro",
+          "vanno",
+          "fanno",
+          "stanno",
+          "vengono"
+        ]
+      ]
+    },
     "tips": [
       "„stare“ für das Befinden: Come stai? – Sto bene.",
       "„andare a“ + Stadt, „andare in“ + Land: vado a Roma, vado in Italia."
     ],
     "exercises": [
-      { "text": "Domani io ___ al mare.", "answer": "vado", "options": ["vado", "va", "andiamo"], "de": "Morgen fahre ich ans Meer.", "why": "andare: io → vado." },
-      { "text": "Che cosa ___ stasera?", "answer": "fai", "options": ["fai", "fa", "fate"], "de": "Was machst du heute Abend?", "why": "fare: tu → fai." },
-      { "text": "Ciao Luca, come ___?", "answer": "stai", "options": ["stai", "sta", "stiamo"], "de": "Hallo Luca, wie geht es dir?", "why": "stare: tu → stai." },
-      { "text": "Noi ___ in treno.", "answer": "andiamo", "options": ["andiamo", "vadiamo", "andano"], "de": "Wir fahren mit dem Zug.", "why": "andare: noi → andiamo." },
-      { "text": "Loro ___ da Milano.", "answer": "vengono", "options": ["vengono", "venono", "veniono"], "de": "Sie kommen aus Mailand.", "why": "venire: loro → vengono." },
-      { "text": "Io ___ colazione alle otto.", "answer": "faccio", "options": ["faccio", "fao", "facco"], "de": "Ich frühstücke um acht.", "why": "fare: io → faccio." },
-      { "text": "Voi ___ con noi?", "answer": "venite", "options": ["venite", "vengite", "venete"], "de": "Kommt ihr mit uns?", "why": "venire: voi → venite." },
-      { "text": "I nonni ___ bene.", "answer": "stanno", "options": ["stanno", "stano", "stiamo"], "de": "Den Großeltern geht es gut.", "why": "stare: loro → stanno." }
+      {
+        "text": "Domani io ___ al mare.",
+        "answer": "vado",
+        "options": [
+          "vado",
+          "va",
+          "andiamo"
+        ],
+        "de": "Morgen fahre ich ans Meer.",
+        "why": "andare: io → vado."
+      },
+      {
+        "text": "Che cosa ___ stasera?",
+        "answer": "fai",
+        "options": [
+          "fai",
+          "fa",
+          "fate"
+        ],
+        "de": "Was machst du heute Abend?",
+        "why": "fare: tu → fai."
+      },
+      {
+        "text": "Ciao Luca, come ___?",
+        "answer": "stai",
+        "options": [
+          "stai",
+          "sta",
+          "stiamo"
+        ],
+        "de": "Hallo Luca, wie geht es dir?",
+        "why": "stare: tu → stai."
+      },
+      {
+        "text": "Noi ___ in treno.",
+        "answer": "andiamo",
+        "options": [
+          "andiamo",
+          "vadiamo",
+          "andano"
+        ],
+        "de": "Wir fahren mit dem Zug.",
+        "why": "andare: noi → andiamo."
+      },
+      {
+        "text": "Loro ___ da Milano.",
+        "answer": "vengono",
+        "options": [
+          "vengono",
+          "venono",
+          "veniono"
+        ],
+        "de": "Sie kommen aus Mailand.",
+        "why": "venire: loro → vengono."
+      },
+      {
+        "text": "Io ___ colazione alle otto.",
+        "answer": "faccio",
+        "options": [
+          "faccio",
+          "fao",
+          "facco"
+        ],
+        "de": "Ich frühstücke um acht.",
+        "why": "fare: io → faccio."
+      },
+      {
+        "text": "Voi ___ con noi?",
+        "answer": "venite",
+        "options": [
+          "venite",
+          "vengite",
+          "venete"
+        ],
+        "de": "Kommt ihr mit uns?",
+        "why": "venire: voi → venite."
+      },
+      {
+        "text": "I nonni ___ bene.",
+        "answer": "stanno",
+        "options": [
+          "stanno",
+          "stano",
+          "stiamo"
+        ],
+        "de": "Den Großeltern geht es gut.",
+        "why": "stare: loro → stanno."
+      },
+      {
+        "text": "Voi ___ al cinema?",
+        "answer": "andate",
+        "options": [
+          "andate",
+          "vate",
+          "andiamo"
+        ],
+        "de": "Geht ihr ins Kino?",
+        "why": "andare: voi → andate."
+      },
+      {
+        "text": "Loro ___ sport.",
+        "answer": "fanno",
+        "options": [
+          "fanno",
+          "fano",
+          "facciono"
+        ],
+        "de": "Sie treiben Sport.",
+        "why": "fare: loro → fanno."
+      },
+      {
+        "text": "Stasera io ___ a casa.",
+        "answer": "sto",
+        "options": [
+          "sto",
+          "sta",
+          "stai"
+        ],
+        "de": "Heute Abend bleibe ich zu Hause.",
+        "why": "stare: io → sto."
+      },
+      {
+        "text": "Tu ___ con me?",
+        "answer": "vieni",
+        "options": [
+          "vieni",
+          "veni",
+          "viene"
+        ],
+        "de": "Kommst du mit mir?",
+        "why": "venire: tu → vieni."
+      }
     ]
   },
   {
-    "id": "praepositionen-artikel", "topic": "Präpositionen", "rule": "praeposition",
+    "id": "praepositionen-artikel",
+    "topic": "Präpositionen",
+    "rule": "praeposition",
     "title": "Präposition + Artikel: al, del, nel, sul …",
     "intro": "Folgt auf a, di, da, in oder su ein bestimmter Artikel, verschmelzen beide zu einem Wort.",
-    "table": { "head": ["", "il", "lo", "l'", "la", "i", "gli", "le"], "rows": [
-      ["a", "al", "allo", "all'", "alla", "ai", "agli", "alle"],
-      ["di", "del", "dello", "dell'", "della", "dei", "degli", "delle"],
-      ["da", "dal", "dallo", "dall'", "dalla", "dai", "dagli", "dalle"],
-      ["in", "nel", "nello", "nell'", "nella", "nei", "negli", "nelle"],
-      ["su", "sul", "sullo", "sull'", "sulla", "sui", "sugli", "sulle"]
-    ] },
+    "table": {
+      "head": [
+        "",
+        "il",
+        "lo",
+        "l'",
+        "la",
+        "i",
+        "gli",
+        "le"
+      ],
+      "rows": [
+        [
+          "a",
+          "al",
+          "allo",
+          "all'",
+          "alla",
+          "ai",
+          "agli",
+          "alle"
+        ],
+        [
+          "di",
+          "del",
+          "dello",
+          "dell'",
+          "della",
+          "dei",
+          "degli",
+          "delle"
+        ],
+        [
+          "da",
+          "dal",
+          "dallo",
+          "dall'",
+          "dalla",
+          "dai",
+          "dagli",
+          "dalle"
+        ],
+        [
+          "in",
+          "nel",
+          "nello",
+          "nell'",
+          "nella",
+          "nei",
+          "negli",
+          "nelle"
+        ],
+        [
+          "su",
+          "sul",
+          "sullo",
+          "sull'",
+          "sulla",
+          "sui",
+          "sugli",
+          "sulle"
+        ]
+      ]
+    },
     "tips": [
       "„con“ und „per“ verschmelzen nicht: con il treno, per la mamma.",
       "Merkhilfe: in wird zu ne-, di wird zu de-."
     ],
     "exercises": [
-      { "text": "Il libro è ___ tavolo.", "answer": "sul", "options": ["sul", "su il", "sullo"], "de": "Das Buch liegt auf dem Tisch.", "why": "su + il → sul." },
-      { "text": "Vado ___ dentista.", "answer": "dal", "options": ["dal", "da il", "al"], "de": "Ich gehe zum Zahnarzt.", "why": "zu einer Person: da + il → dal." },
-      { "text": "Le chiavi sono ___ borsa.", "answer": "nella", "options": ["nella", "in la", "nel"], "de": "Die Schlüssel sind in der Tasche.", "why": "in + la → nella." },
-      { "text": "Il treno arriva ___ otto.", "answer": "alle", "options": ["alle", "a le", "ai"], "de": "Der Zug kommt um acht an.", "why": "Uhrzeit: a + le → alle." },
-      { "text": "È la macchina ___ professore.", "answer": "del", "options": ["del", "di il", "dal"], "de": "Das ist das Auto des Lehrers.", "why": "di + il → del." },
-      { "text": "Scrivo ___ amici.", "answer": "agli", "options": ["agli", "ai", "a gli"], "de": "Ich schreibe den Freunden.", "why": "a + gli → agli (vor Vokal)." },
-      { "text": "Siamo ___ stazione.", "answer": "alla", "options": ["alla", "a la", "al"], "de": "Wir sind am Bahnhof.", "why": "a + la → alla." },
-      { "text": "Vengo ___ Stati Uniti.", "answer": "dagli", "options": ["dagli", "dai", "da gli"], "de": "Ich komme aus den USA.", "why": "da + gli → dagli." }
+      {
+        "text": "Il libro è ___ tavolo.",
+        "answer": "sul",
+        "options": [
+          "sul",
+          "su il",
+          "sullo"
+        ],
+        "de": "Das Buch liegt auf dem Tisch.",
+        "why": "su + il → sul."
+      },
+      {
+        "text": "Vado ___ dentista.",
+        "answer": "dal",
+        "options": [
+          "dal",
+          "da il",
+          "al"
+        ],
+        "de": "Ich gehe zum Zahnarzt.",
+        "why": "zu einer Person: da + il → dal."
+      },
+      {
+        "text": "Le chiavi sono ___ borsa.",
+        "answer": "nella",
+        "options": [
+          "nella",
+          "in la",
+          "nel"
+        ],
+        "de": "Die Schlüssel sind in der Tasche.",
+        "why": "in + la → nella."
+      },
+      {
+        "text": "Il treno arriva ___ otto.",
+        "answer": "alle",
+        "options": [
+          "alle",
+          "a le",
+          "ai"
+        ],
+        "de": "Der Zug kommt um acht an.",
+        "why": "Uhrzeit: a + le → alle."
+      },
+      {
+        "text": "È la macchina ___ professore.",
+        "answer": "del",
+        "options": [
+          "del",
+          "di il",
+          "dal"
+        ],
+        "de": "Das ist das Auto des Lehrers.",
+        "why": "di + il → del."
+      },
+      {
+        "text": "Scrivo ___ amici.",
+        "answer": "agli",
+        "options": [
+          "agli",
+          "ai",
+          "a gli"
+        ],
+        "de": "Ich schreibe den Freunden.",
+        "why": "a + gli → agli (vor Vokal)."
+      },
+      {
+        "text": "Siamo ___ stazione.",
+        "answer": "alla",
+        "options": [
+          "alla",
+          "a la",
+          "al"
+        ],
+        "de": "Wir sind am Bahnhof.",
+        "why": "a + la → alla."
+      },
+      {
+        "text": "Vengo ___ Stati Uniti.",
+        "answer": "dagli",
+        "options": [
+          "dagli",
+          "dai",
+          "da gli"
+        ],
+        "de": "Ich komme aus den USA.",
+        "why": "da + gli → dagli."
+      },
+      {
+        "text": "Il gatto dorme ___ letto.",
+        "answer": "sul",
+        "options": [
+          "sul",
+          "su il",
+          "sullo"
+        ],
+        "de": "Die Katze schläft auf dem Bett.",
+        "why": "su + il → sul."
+      },
+      {
+        "text": "Vengo ___ufficio.",
+        "answer": "dall'",
+        "options": [
+          "dall'",
+          "dal",
+          "da l'"
+        ],
+        "de": "Ich komme aus dem Büro.",
+        "why": "da + l' → dall'."
+      },
+      {
+        "text": "Metto il latte ___ frigorifero.",
+        "answer": "nel",
+        "options": [
+          "nel",
+          "in il",
+          "al"
+        ],
+        "de": "Ich stelle die Milch in den Kühlschrank.",
+        "why": "in + il → nel."
+      },
+      {
+        "text": "È il libro ___ studenti.",
+        "answer": "degli",
+        "options": [
+          "degli",
+          "dei",
+          "di gli"
+        ],
+        "de": "Das ist das Buch der Studenten.",
+        "why": "di + gli → degli (vor s + Konsonant)."
+      }
     ]
   },
   {
-    "id": "possessiv", "topic": "Pronomen", "rule": "artikel",
+    "id": "possessiv",
+    "topic": "Pronomen",
+    "rule": "artikel",
     "title": "Possessiv: il mio, la mia …",
     "intro": "Possessivpronomen stehen meist mit Artikel und richten sich nach dem Besitz – nicht nach dem Besitzer.",
-    "table": { "head": ["", "m. Sg.", "w. Sg.", "m. Pl.", "w. Pl."], "rows": [
-      ["mein", "il mio", "la mia", "i miei", "le mie"],
-      ["dein", "il tuo", "la tua", "i tuoi", "le tue"],
-      ["sein / ihr", "il suo", "la sua", "i suoi", "le sue"],
-      ["unser", "il nostro", "la nostra", "i nostri", "le nostre"],
-      ["euer", "il vostro", "la vostra", "i vostri", "le vostre"],
-      ["ihr (Mehrzahl)", "il loro", "la loro", "i loro", "le loro"]
-    ] },
+    "table": {
+      "head": [
+        "",
+        "m. Sg.",
+        "w. Sg.",
+        "m. Pl.",
+        "w. Pl."
+      ],
+      "rows": [
+        [
+          "mein",
+          "il mio",
+          "la mia",
+          "i miei",
+          "le mie"
+        ],
+        [
+          "dein",
+          "il tuo",
+          "la tua",
+          "i tuoi",
+          "le tue"
+        ],
+        [
+          "sein / ihr",
+          "il suo",
+          "la sua",
+          "i suoi",
+          "le sue"
+        ],
+        [
+          "unser",
+          "il nostro",
+          "la nostra",
+          "i nostri",
+          "le nostre"
+        ],
+        [
+          "euer",
+          "il vostro",
+          "la vostra",
+          "i vostri",
+          "le vostre"
+        ],
+        [
+          "ihr (Mehrzahl)",
+          "il loro",
+          "la loro",
+          "i loro",
+          "le loro"
+        ]
+      ]
+    },
     "tips": [
       "Familie in der Einzahl ohne Artikel: mia madre, tuo fratello – aber: i miei genitori, la loro madre.",
       "„suo“ heißt sein UND ihr: la sua macchina = sein oder ihr Auto."
     ],
     "exercises": [
-      { "text": "___ casa è grande.", "answer": "La mia", "options": ["La mia", "Il mio", "Mia"], "de": "Mein Haus ist groß.", "why": "„casa“ ist weiblich, mit Artikel: la mia." },
-      { "text": "Dove sono ___ chiavi?", "answer": "le tue", "options": ["le tue", "i tuoi", "tue"], "de": "Wo sind deine Schlüssel?", "why": "„chiavi“ ist weiblich Mehrzahl → le tue." },
-      { "text": "___ fratello abita a Roma.", "answer": "Mio", "options": ["Mio", "Il mio", "La mia"], "de": "Mein Bruder wohnt in Rom.", "why": "Familie in der Einzahl: ohne Artikel." },
-      { "text": "Questi sono ___ libri.", "answer": "i miei", "options": ["i miei", "i mii", "le mie"], "de": "Das sind meine Bücher.", "why": "männlich Mehrzahl: i miei." },
-      { "text": "Anna ha perso ___ borsa.", "answer": "la sua", "options": ["la sua", "il suo", "la loro"], "de": "Anna hat ihre Tasche verloren.", "why": "„borsa“ ist weiblich → la sua." },
-      { "text": "Marco cerca ___ giacca.", "answer": "la sua", "options": ["la sua", "il suo", "sua"], "de": "Marco sucht seine Jacke.", "why": "Richtet sich nach „giacca“ (weiblich), nicht nach Marco." },
-      { "text": "___ genitori sono simpatici.", "answer": "I tuoi", "options": ["I tuoi", "Tuoi", "Le tue"], "de": "Deine Eltern sind nett.", "why": "Familie in der Mehrzahl: mit Artikel." },
-      { "text": "Paolo e Lucia? È ___ macchina.", "answer": "la loro", "options": ["la loro", "la lora", "loro"], "de": "Paolo und Lucia? Das ist ihr Auto.", "why": "„loro“ ändert sich nie und hat immer einen Artikel." }
+      {
+        "text": "___ casa è grande.",
+        "answer": "La mia",
+        "options": [
+          "La mia",
+          "Il mio",
+          "Mia"
+        ],
+        "de": "Mein Haus ist groß.",
+        "why": "„casa“ ist weiblich, mit Artikel: la mia."
+      },
+      {
+        "text": "Dove sono ___ chiavi?",
+        "answer": "le tue",
+        "options": [
+          "le tue",
+          "i tuoi",
+          "tue"
+        ],
+        "de": "Wo sind deine Schlüssel?",
+        "why": "„chiavi“ ist weiblich Mehrzahl → le tue."
+      },
+      {
+        "text": "___ fratello abita a Roma.",
+        "answer": "Mio",
+        "options": [
+          "Mio",
+          "Il mio",
+          "La mia"
+        ],
+        "de": "Mein Bruder wohnt in Rom.",
+        "why": "Familie in der Einzahl: ohne Artikel."
+      },
+      {
+        "text": "Questi sono ___ libri.",
+        "answer": "i miei",
+        "options": [
+          "i miei",
+          "i mii",
+          "le mie"
+        ],
+        "de": "Das sind meine Bücher.",
+        "why": "männlich Mehrzahl: i miei."
+      },
+      {
+        "text": "Anna ha perso ___ borsa.",
+        "answer": "la sua",
+        "options": [
+          "la sua",
+          "il suo",
+          "la loro"
+        ],
+        "de": "Anna hat ihre Tasche verloren.",
+        "why": "„borsa“ ist weiblich → la sua."
+      },
+      {
+        "text": "Marco cerca ___ giacca.",
+        "answer": "la sua",
+        "options": [
+          "la sua",
+          "il suo",
+          "sua"
+        ],
+        "de": "Marco sucht seine Jacke.",
+        "why": "Richtet sich nach „giacca“ (weiblich), nicht nach Marco."
+      },
+      {
+        "text": "___ genitori sono simpatici.",
+        "answer": "I tuoi",
+        "options": [
+          "I tuoi",
+          "Tuoi",
+          "Le tue"
+        ],
+        "de": "Deine Eltern sind nett.",
+        "why": "Familie in der Mehrzahl: mit Artikel."
+      },
+      {
+        "text": "Paolo e Lucia? È ___ macchina.",
+        "answer": "la loro",
+        "options": [
+          "la loro",
+          "la lora",
+          "loro"
+        ],
+        "de": "Paolo und Lucia? Das ist ihr Auto.",
+        "why": "„loro“ ändert sich nie und hat immer einen Artikel."
+      },
+      {
+        "text": "___ sorella è medico.",
+        "answer": "Mia",
+        "options": [
+          "Mia",
+          "La mia",
+          "Mio"
+        ],
+        "de": "Meine Schwester ist Ärztin.",
+        "why": "Familie in der Einzahl: ohne Artikel."
+      },
+      {
+        "text": "Dove sono ___ scarpe?",
+        "answer": "le mie",
+        "options": [
+          "le mie",
+          "i miei",
+          "mie"
+        ],
+        "de": "Wo sind meine Schuhe?",
+        "why": "„scarpe“ ist weiblich Mehrzahl → le mie."
+      },
+      {
+        "text": "Questa è ___ macchina.",
+        "answer": "la nostra",
+        "options": [
+          "la nostra",
+          "il nostro",
+          "nostra"
+        ],
+        "de": "Das ist unser Auto.",
+        "why": "„macchina“ ist weiblich, mit Artikel."
+      },
+      {
+        "text": "Come si chiama ___ cane?",
+        "answer": "il tuo",
+        "options": [
+          "il tuo",
+          "la tua",
+          "tuo"
+        ],
+        "de": "Wie heißt dein Hund?",
+        "why": "„cane“ ist männlich und kein Verwandter → mit Artikel."
+      }
     ]
   },
   {
-    "id": "modalverben", "topic": "Verben & Adverbien", "rule": "verbform",
+    "id": "modalverben",
+    "topic": "Verben & Adverbien",
+    "rule": "verbform",
     "title": "volere, potere, dovere",
     "intro": "Nach volere (wollen), potere (können / dürfen) und dovere (müssen) folgt die Grundform – wie im Deutschen, aber ohne „zu“.",
-    "table": { "head": ["", "volere", "potere", "dovere"], "rows": [
-      ["io", "voglio", "posso", "devo"],
-      ["tu", "vuoi", "puoi", "devi"],
-      ["lui / lei", "vuole", "può", "deve"],
-      ["noi", "vogliamo", "possiamo", "dobbiamo"],
-      ["voi", "volete", "potete", "dovete"],
-      ["loro", "vogliono", "possono", "devono"]
-    ] },
+    "table": {
+      "head": [
+        "",
+        "volere",
+        "potere",
+        "dovere"
+      ],
+      "rows": [
+        [
+          "io",
+          "voglio",
+          "posso",
+          "devo"
+        ],
+        [
+          "tu",
+          "vuoi",
+          "puoi",
+          "devi"
+        ],
+        [
+          "lui / lei",
+          "vuole",
+          "può",
+          "deve"
+        ],
+        [
+          "noi",
+          "vogliamo",
+          "possiamo",
+          "dobbiamo"
+        ],
+        [
+          "voi",
+          "volete",
+          "potete",
+          "dovete"
+        ],
+        [
+          "loro",
+          "vogliono",
+          "possono",
+          "devono"
+        ]
+      ]
+    },
     "tips": [
       "Höflich bitten mit „vorrei“ (ich hätte gern / ich möchte): Vorrei un caffè.",
       "Können im Sinn von „gelernt haben“ = sapere: So nuotare – ich kann schwimmen."
     ],
     "exercises": [
-      { "text": "Io ___ imparare l'italiano.", "answer": "voglio", "options": ["voglio", "vuole", "volo"], "de": "Ich will Italienisch lernen.", "why": "volere: io → voglio." },
-      { "text": "___ aprire la finestra?", "answer": "Puoi", "options": ["Puoi", "Può", "Posso"], "de": "Kannst du das Fenster öffnen?", "why": "potere: tu → puoi." },
-      { "text": "Noi ___ lavorare domani.", "answer": "dobbiamo", "options": ["dobbiamo", "doviamo", "devono"], "de": "Wir müssen morgen arbeiten.", "why": "dovere: noi → dobbiamo." },
-      { "text": "Devo ___ la mamma.", "answer": "chiamare", "options": ["chiamare", "chiamo", "chiamato"], "de": "Ich muss Mama anrufen.", "why": "Nach „devo“ folgt die Grundform." },
-      { "text": "Loro ___ venire stasera.", "answer": "possono", "options": ["possono", "posono", "potono"], "de": "Sie können heute Abend kommen.", "why": "potere: loro → possono." },
-      { "text": "Lui ___ partire subito.", "answer": "vuole", "options": ["vuole", "voglie", "vole"], "de": "Er will sofort abfahren.", "why": "volere: lui → vuole." },
-      { "text": "Voi ___ pagare alla cassa.", "answer": "dovete", "options": ["dovete", "devete", "dobbiamo"], "de": "Ihr müsst an der Kasse zahlen.", "why": "dovere: voi → dovete." },
-      { "text": "Non ___ nuotare.", "answer": "so", "options": ["so", "voglio", "sono"], "de": "Ich kann nicht schwimmen (habe es nie gelernt).", "why": "Gelerntes Können = „sapere“: non so nuotare." }
+      {
+        "text": "Io ___ imparare l'italiano.",
+        "answer": "voglio",
+        "options": [
+          "voglio",
+          "vuole",
+          "volo"
+        ],
+        "de": "Ich will Italienisch lernen.",
+        "why": "volere: io → voglio."
+      },
+      {
+        "text": "___ aprire la finestra?",
+        "answer": "Puoi",
+        "options": [
+          "Puoi",
+          "Può",
+          "Posso"
+        ],
+        "de": "Kannst du das Fenster öffnen?",
+        "why": "potere: tu → puoi."
+      },
+      {
+        "text": "Noi ___ lavorare domani.",
+        "answer": "dobbiamo",
+        "options": [
+          "dobbiamo",
+          "doviamo",
+          "devono"
+        ],
+        "de": "Wir müssen morgen arbeiten.",
+        "why": "dovere: noi → dobbiamo."
+      },
+      {
+        "text": "Devo ___ la mamma.",
+        "answer": "chiamare",
+        "options": [
+          "chiamare",
+          "chiamo",
+          "chiamato"
+        ],
+        "de": "Ich muss Mama anrufen.",
+        "why": "Nach „devo“ folgt die Grundform."
+      },
+      {
+        "text": "Loro ___ venire stasera.",
+        "answer": "possono",
+        "options": [
+          "possono",
+          "posono",
+          "potono"
+        ],
+        "de": "Sie können heute Abend kommen.",
+        "why": "potere: loro → possono."
+      },
+      {
+        "text": "Lui ___ partire subito.",
+        "answer": "vuole",
+        "options": [
+          "vuole",
+          "voglie",
+          "vole"
+        ],
+        "de": "Er will sofort abfahren.",
+        "why": "volere: lui → vuole."
+      },
+      {
+        "text": "Voi ___ pagare alla cassa.",
+        "answer": "dovete",
+        "options": [
+          "dovete",
+          "devete",
+          "dobbiamo"
+        ],
+        "de": "Ihr müsst an der Kasse zahlen.",
+        "why": "dovere: voi → dovete."
+      },
+      {
+        "text": "Non ___ nuotare.",
+        "answer": "so",
+        "options": [
+          "so",
+          "voglio",
+          "sono"
+        ],
+        "de": "Ich kann nicht schwimmen (habe es nie gelernt).",
+        "why": "Gelerntes Können = „sapere“: non so nuotare."
+      },
+      {
+        "text": "Tu ___ venire domani?",
+        "answer": "puoi",
+        "options": [
+          "puoi",
+          "può",
+          "posso"
+        ],
+        "de": "Kannst du morgen kommen?",
+        "why": "potere: tu → puoi."
+      },
+      {
+        "text": "Noi ___ un tavolo per due.",
+        "answer": "vogliamo",
+        "options": [
+          "vogliamo",
+          "vogliono",
+          "volete"
+        ],
+        "de": "Wir wollen einen Tisch für zwei.",
+        "why": "volere: noi → vogliamo."
+      },
+      {
+        "text": "Lei ___ lavorare sabato.",
+        "answer": "deve",
+        "options": [
+          "deve",
+          "devo",
+          "dovete"
+        ],
+        "de": "Sie muss am Samstag arbeiten.",
+        "why": "dovere: lei → deve."
+      },
+      {
+        "text": "Qui non ___ fumare.",
+        "answer": "si può",
+        "options": [
+          "si può",
+          "si puoi",
+          "si posso"
+        ],
+        "de": "Hier darf man nicht rauchen.",
+        "why": "man darf = „si può“."
+      }
     ]
   },
   {
-    "id": "adverbien", "topic": "Verben & Adverbien", "rule": "angleichung",
+    "id": "adverbien",
+    "topic": "Verben & Adverbien",
+    "rule": "angleichung",
     "title": "Adverbien: -mente, bene, male",
     "intro": "Adverbien sagen, wie etwas passiert. Viele bildet man aus der weiblichen Form des Adjektivs + -mente. Adverbien ändern sich nie.",
-    "table": { "head": ["Adjektiv", "Adverb", "Regel"], "rows": [
-      ["lento", "lentamente", "weibliche Form + -mente"],
-      ["veloce", "velocemente", "-e + -mente"],
-      ["facile", "facilmente", "-le / -re: e fällt weg"],
-      ["regolare", "regolarmente", "-le / -re: e fällt weg"],
-      ["buono", "bene", "Ausnahme"],
-      ["cattivo", "male", "Ausnahme"]
-    ] },
+    "table": {
+      "head": [
+        "Adjektiv",
+        "Adverb",
+        "Regel"
+      ],
+      "rows": [
+        [
+          "lento",
+          "lentamente",
+          "weibliche Form + -mente"
+        ],
+        [
+          "veloce",
+          "velocemente",
+          "-e + -mente"
+        ],
+        [
+          "facile",
+          "facilmente",
+          "-le / -re: e fällt weg"
+        ],
+        [
+          "regolare",
+          "regolarmente",
+          "-le / -re: e fällt weg"
+        ],
+        [
+          "buono",
+          "bene",
+          "Ausnahme"
+        ],
+        [
+          "cattivo",
+          "male",
+          "Ausnahme"
+        ]
+      ]
+    },
     "tips": [
       "„molto“ vor einem Adjektiv heißt „sehr“ und ändert sich nicht: sono molto stanche. Vor einem Nomen heißt es „viel“ und passt sich an: molte persone.",
       "Gut / schlecht beim Verb: parli bene – nicht „buono“."
     ],
     "exercises": [
-      { "text": "Parla ___.", "answer": "lentamente", "options": ["lentamente", "lentomente", "lenta"], "de": "Er spricht langsam.", "why": "weibliche Form „lenta“ + -mente." },
-      { "text": "Lo capisco ___.", "answer": "facilmente", "options": ["facilmente", "facilemente", "facile"], "de": "Ich verstehe es leicht.", "why": "-le: das e fällt weg → facilmente." },
-      { "text": "Parli italiano molto ___.", "answer": "bene", "options": ["bene", "buono", "buona"], "de": "Du sprichst sehr gut Italienisch.", "why": "beim Verb: „bene“ (gut), nicht „buono“." },
-      { "text": "Oggi sto ___.", "answer": "male", "options": ["male", "cattivo", "mala"], "de": "Heute geht es mir schlecht.", "why": "beim Verb: „male“ (schlecht)." },
-      { "text": "Le ragazze sono ___ stanche.", "answer": "molto", "options": ["molto", "molte", "molta"], "de": "Die Mädchen sind sehr müde.", "why": "„molto“ vor einem Adjektiv = sehr → unveränderlich." },
-      { "text": "Ci sono ___ persone.", "answer": "molte", "options": ["molte", "molto", "molti"], "de": "Es sind viele Leute da.", "why": "vor einem Nomen = viele → passt sich an „persone“ an." },
-      { "text": "Vado in palestra ___.", "answer": "regolarmente", "options": ["regolarmente", "regolaremente", "regolare"], "de": "Ich gehe regelmäßig ins Fitnessstudio.", "why": "-re: das e fällt weg → regolarmente." },
-      { "text": "Guida troppo ___.", "answer": "velocemente", "options": ["velocemente", "velocamente", "velocimente"], "de": "Er fährt zu schnell.", "why": "„veloce“ + -mente → velocemente." }
+      {
+        "text": "Parla ___.",
+        "answer": "lentamente",
+        "options": [
+          "lentamente",
+          "lentomente",
+          "lenta"
+        ],
+        "de": "Er spricht langsam.",
+        "why": "weibliche Form „lenta“ + -mente."
+      },
+      {
+        "text": "Lo capisco ___.",
+        "answer": "facilmente",
+        "options": [
+          "facilmente",
+          "facilemente",
+          "facile"
+        ],
+        "de": "Ich verstehe es leicht.",
+        "why": "-le: das e fällt weg → facilmente."
+      },
+      {
+        "text": "Parli italiano molto ___.",
+        "answer": "bene",
+        "options": [
+          "bene",
+          "buono",
+          "buona"
+        ],
+        "de": "Du sprichst sehr gut Italienisch.",
+        "why": "beim Verb: „bene“ (gut), nicht „buono“."
+      },
+      {
+        "text": "Oggi sto ___.",
+        "answer": "male",
+        "options": [
+          "male",
+          "cattivo",
+          "mala"
+        ],
+        "de": "Heute geht es mir schlecht.",
+        "why": "beim Verb: „male“ (schlecht)."
+      },
+      {
+        "text": "Le ragazze sono ___ stanche.",
+        "answer": "molto",
+        "options": [
+          "molto",
+          "molte",
+          "molta"
+        ],
+        "de": "Die Mädchen sind sehr müde.",
+        "why": "„molto“ vor einem Adjektiv = sehr → unveränderlich."
+      },
+      {
+        "text": "Ci sono ___ persone.",
+        "answer": "molte",
+        "options": [
+          "molte",
+          "molto",
+          "molti"
+        ],
+        "de": "Es sind viele Leute da.",
+        "why": "vor einem Nomen = viele → passt sich an „persone“ an."
+      },
+      {
+        "text": "Vado in palestra ___.",
+        "answer": "regolarmente",
+        "options": [
+          "regolarmente",
+          "regolaremente",
+          "regolare"
+        ],
+        "de": "Ich gehe regelmäßig ins Fitnessstudio.",
+        "why": "-re: das e fällt weg → regolarmente."
+      },
+      {
+        "text": "Guida troppo ___.",
+        "answer": "velocemente",
+        "options": [
+          "velocemente",
+          "velocamente",
+          "velocimente"
+        ],
+        "de": "Er fährt zu schnell.",
+        "why": "„veloce“ + -mente → velocemente."
+      },
+      {
+        "text": "Parla ___ l'inglese.",
+        "answer": "perfettamente",
+        "options": [
+          "perfettamente",
+          "perfettemente",
+          "perfetta"
+        ],
+        "de": "Er spricht perfekt Englisch.",
+        "why": "weibliche Form „perfetta“ + -mente."
+      },
+      {
+        "text": "Ho dormito ___.",
+        "answer": "male",
+        "options": [
+          "male",
+          "cattivo",
+          "mala"
+        ],
+        "de": "Ich habe schlecht geschlafen.",
+        "why": "beim Verb: „male“."
+      },
+      {
+        "text": "Scrivi ___, per favore.",
+        "answer": "chiaramente",
+        "options": [
+          "chiaramente",
+          "chiaromente",
+          "chiara"
+        ],
+        "de": "Schreib bitte deutlich.",
+        "why": "„chiara“ + -mente."
+      },
+      {
+        "text": "Sono ___ contenta.",
+        "answer": "molto",
+        "options": [
+          "molto",
+          "molta",
+          "molte"
+        ],
+        "de": "Ich bin sehr zufrieden.",
+        "why": "vor einem Adjektiv: „molto“ ändert sich nicht."
+      }
     ]
   },
   {
-    "id": "reflexiv", "topic": "Pronomen", "rule": "wortwahl",
+    "id": "reflexiv",
+    "topic": "Pronomen",
+    "rule": "wortwahl",
     "title": "Reflexive Verben: mi, ti, si …",
     "intro": "Reflexive Verben haben ein Pronomen, das sich auf die handelnde Person bezieht. Viele sind im Deutschen nicht reflexiv: alzarsi = aufstehen.",
-    "table": { "head": ["", "chiamarsi (heißen)"], "rows": [
-      ["io", "mi chiamo"],
-      ["tu", "ti chiami"],
-      ["lui / lei", "si chiama"],
-      ["noi", "ci chiamiamo"],
-      ["voi", "vi chiamate"],
-      ["loro", "si chiamano"]
-    ] },
+    "table": {
+      "head": [
+        "",
+        "chiamarsi (heißen)"
+      ],
+      "rows": [
+        [
+          "io",
+          "mi chiamo"
+        ],
+        [
+          "tu",
+          "ti chiami"
+        ],
+        [
+          "lui / lei",
+          "si chiama"
+        ],
+        [
+          "noi",
+          "ci chiamiamo"
+        ],
+        [
+          "voi",
+          "vi chiamate"
+        ],
+        [
+          "loro",
+          "si chiamano"
+        ]
+      ]
+    },
     "tips": [
       "Im Perfekt immer mit essere: mi sono alzato / alzata.",
       "In der Grundform hängt das Pronomen am Ende: alzarsi, lavarsi, divertirsi."
     ],
     "exercises": [
-      { "text": "Come ___ chiami?", "answer": "ti", "options": ["ti", "si", "mi"], "de": "Wie heißt du?", "why": "tu → ti." },
-      { "text": "Io ___ alzo alle sette.", "answer": "mi", "options": ["mi", "si", "ti"], "de": "Ich stehe um sieben auf.", "why": "io → mi." },
-      { "text": "Lui ___ lava le mani.", "answer": "si", "options": ["si", "se", "lo"], "de": "Er wäscht sich die Hände.", "why": "lui → si." },
-      { "text": "Noi ___ divertiamo molto.", "answer": "ci", "options": ["ci", "si", "vi"], "de": "Wir haben viel Spaß.", "why": "noi → ci." },
-      { "text": "Voi ___ riposate?", "answer": "vi", "options": ["vi", "ci", "si"], "de": "Ruht ihr euch aus?", "why": "voi → vi." },
-      { "text": "I bambini ___ addormentano tardi.", "answer": "si", "options": ["si", "li", "ci"], "de": "Die Kinder schlafen spät ein.", "why": "loro → si." },
-      { "text": "Ieri mi ___ alzato tardi.", "answer": "sono", "options": ["sono", "ho", "è"], "de": "Gestern bin ich spät aufgestanden.", "why": "Reflexiv im Perfekt: immer mit essere." },
-      { "text": "Tu ___ preoccupi troppo.", "answer": "ti", "options": ["ti", "ci", "mi"], "de": "Du machst dir zu viele Sorgen.", "why": "tu → ti." }
+      {
+        "text": "Come ___ chiami?",
+        "answer": "ti",
+        "options": [
+          "ti",
+          "si",
+          "mi"
+        ],
+        "de": "Wie heißt du?",
+        "why": "tu → ti."
+      },
+      {
+        "text": "Io ___ alzo alle sette.",
+        "answer": "mi",
+        "options": [
+          "mi",
+          "si",
+          "ti"
+        ],
+        "de": "Ich stehe um sieben auf.",
+        "why": "io → mi."
+      },
+      {
+        "text": "Lui ___ lava le mani.",
+        "answer": "si",
+        "options": [
+          "si",
+          "se",
+          "lo"
+        ],
+        "de": "Er wäscht sich die Hände.",
+        "why": "lui → si."
+      },
+      {
+        "text": "Noi ___ divertiamo molto.",
+        "answer": "ci",
+        "options": [
+          "ci",
+          "si",
+          "vi"
+        ],
+        "de": "Wir haben viel Spaß.",
+        "why": "noi → ci."
+      },
+      {
+        "text": "Voi ___ riposate?",
+        "answer": "vi",
+        "options": [
+          "vi",
+          "ci",
+          "si"
+        ],
+        "de": "Ruht ihr euch aus?",
+        "why": "voi → vi."
+      },
+      {
+        "text": "I bambini ___ addormentano tardi.",
+        "answer": "si",
+        "options": [
+          "si",
+          "li",
+          "ci"
+        ],
+        "de": "Die Kinder schlafen spät ein.",
+        "why": "loro → si."
+      },
+      {
+        "text": "Ieri mi ___ alzato tardi.",
+        "answer": "sono",
+        "options": [
+          "sono",
+          "ho",
+          "è"
+        ],
+        "de": "Gestern bin ich spät aufgestanden.",
+        "why": "Reflexiv im Perfekt: immer mit essere."
+      },
+      {
+        "text": "Tu ___ preoccupi troppo.",
+        "answer": "ti",
+        "options": [
+          "ti",
+          "ci",
+          "mi"
+        ],
+        "de": "Du machst dir zu viele Sorgen.",
+        "why": "tu → ti."
+      },
+      {
+        "text": "Come ___ chiama tua madre?",
+        "answer": "si",
+        "options": [
+          "si",
+          "ti",
+          "mi"
+        ],
+        "de": "Wie heißt deine Mutter?",
+        "why": "sie → si."
+      },
+      {
+        "text": "Noi ___ vediamo domani.",
+        "answer": "ci",
+        "options": [
+          "ci",
+          "si",
+          "vi"
+        ],
+        "de": "Wir sehen uns morgen.",
+        "why": "uns = ci."
+      },
+      {
+        "text": "Loro ___ sposano a maggio.",
+        "answer": "si",
+        "options": [
+          "si",
+          "ci",
+          "li"
+        ],
+        "de": "Sie heiraten im Mai.",
+        "why": "loro → si."
+      },
+      {
+        "text": "Mi ___ lavato le mani.",
+        "answer": "sono",
+        "options": [
+          "sono",
+          "ho",
+          "è"
+        ],
+        "de": "Ich habe mir die Hände gewaschen.",
+        "why": "Reflexiv im Perfekt: immer mit essere."
+      }
     ]
   },
   {
-    "id": "objekt-direkt", "topic": "Pronomen", "rule": "wortwahl",
+    "id": "objekt-direkt",
+    "topic": "Pronomen",
+    "rule": "wortwahl",
     "title": "Objektpronomen: lo, la, li, le",
     "intro": "Sie ersetzen ein Objekt ohne Präposition (wen? was?) und stehen vor dem gebeugten Verb.",
-    "table": { "head": ["Deutsch", "Pronomen", "Beispiel"], "rows": [
-      ["mich", "mi", "Mi vedi?"],
-      ["dich", "ti", "Ti chiamo domani."],
-      ["ihn / es (m)", "lo", "Il libro? Lo leggo."],
-      ["sie / es (w)", "la", "La pizza? La mangio."],
-      ["uns", "ci", "Ci aspetti?"],
-      ["euch", "vi", "Vi vedo."],
-      ["sie (m Mehrzahl)", "li", "I biglietti? Li compro."],
-      ["sie (w Mehrzahl)", "le", "Le chiavi? Le cerco."]
-    ] },
+    "table": {
+      "head": [
+        "Deutsch",
+        "Pronomen",
+        "Beispiel"
+      ],
+      "rows": [
+        [
+          "mich",
+          "mi",
+          "Mi vedi?"
+        ],
+        [
+          "dich",
+          "ti",
+          "Ti chiamo domani."
+        ],
+        [
+          "ihn / es (m)",
+          "lo",
+          "Il libro? Lo leggo."
+        ],
+        [
+          "sie / es (w)",
+          "la",
+          "La pizza? La mangio."
+        ],
+        [
+          "uns",
+          "ci",
+          "Ci aspetti?"
+        ],
+        [
+          "euch",
+          "vi",
+          "Vi vedo."
+        ],
+        [
+          "sie (m Mehrzahl)",
+          "li",
+          "I biglietti? Li compro."
+        ],
+        [
+          "sie (w Mehrzahl)",
+          "le",
+          "Le chiavi? Le cerco."
+        ]
+      ]
+    },
     "tips": [
       "Mit einer Grundform hängt das Pronomen hinten an: Voglio vederlo.",
       "Vor Vokal oder h werden lo und la oft zu l': L'ho visto."
     ],
     "exercises": [
-      { "text": "Il caffè? ___ prendo senza zucchero.", "answer": "Lo", "options": ["Lo", "La", "Li"], "de": "Den Kaffee? Ich nehme ihn ohne Zucker.", "why": "„caffè“ ist männlich Einzahl → lo." },
-      { "text": "La torta? ___ mangiamo stasera.", "answer": "La", "options": ["La", "Lo", "Le"], "de": "Den Kuchen? Wir essen ihn heute Abend.", "why": "„torta“ ist weiblich → la." },
-      { "text": "I biglietti? ___ compro io.", "answer": "Li", "options": ["Li", "Le", "Lo"], "de": "Die Tickets? Ich kaufe sie.", "why": "männlich Mehrzahl → li." },
-      { "text": "Le chiavi? Non ___ trovo.", "answer": "le", "options": ["le", "li", "la"], "de": "Die Schlüssel? Ich finde sie nicht.", "why": "weiblich Mehrzahl → le." },
-      { "text": "Ciao Marco, ___ chiamo domani.", "answer": "ti", "options": ["ti", "mi", "lo"], "de": "Hallo Marco, ich rufe dich morgen an.", "why": "dich = ti." },
-      { "text": "Anna, ___ vedi?", "answer": "mi", "options": ["mi", "ti", "la"], "de": "Anna, siehst du mich?", "why": "mich = mi." },
-      { "text": "Ragazzi, ___ aspettiamo al bar.", "answer": "vi", "options": ["vi", "ci", "li"], "de": "Leute, wir warten in der Bar auf euch.", "why": "euch = vi." },
-      { "text": "Il film? Voglio ___ domani.", "answer": "vederlo", "options": ["vederlo", "lo vedere", "vedere lo"], "de": "Den Film? Ich will ihn morgen sehen.", "why": "Mit Grundform hängt das Pronomen hinten an: vederlo." }
+      {
+        "text": "Il caffè? ___ prendo senza zucchero.",
+        "answer": "Lo",
+        "options": [
+          "Lo",
+          "La",
+          "Li"
+        ],
+        "de": "Den Kaffee? Ich nehme ihn ohne Zucker.",
+        "why": "„caffè“ ist männlich Einzahl → lo."
+      },
+      {
+        "text": "La torta? ___ mangiamo stasera.",
+        "answer": "La",
+        "options": [
+          "La",
+          "Lo",
+          "Le"
+        ],
+        "de": "Den Kuchen? Wir essen ihn heute Abend.",
+        "why": "„torta“ ist weiblich → la."
+      },
+      {
+        "text": "I biglietti? ___ compro io.",
+        "answer": "Li",
+        "options": [
+          "Li",
+          "Le",
+          "Lo"
+        ],
+        "de": "Die Tickets? Ich kaufe sie.",
+        "why": "männlich Mehrzahl → li."
+      },
+      {
+        "text": "Le chiavi? Non ___ trovo.",
+        "answer": "le",
+        "options": [
+          "le",
+          "li",
+          "la"
+        ],
+        "de": "Die Schlüssel? Ich finde sie nicht.",
+        "why": "weiblich Mehrzahl → le."
+      },
+      {
+        "text": "Ciao Marco, ___ chiamo domani.",
+        "answer": "ti",
+        "options": [
+          "ti",
+          "mi",
+          "lo"
+        ],
+        "de": "Hallo Marco, ich rufe dich morgen an.",
+        "why": "dich = ti."
+      },
+      {
+        "text": "Anna, ___ vedi?",
+        "answer": "mi",
+        "options": [
+          "mi",
+          "ti",
+          "la"
+        ],
+        "de": "Anna, siehst du mich?",
+        "why": "mich = mi."
+      },
+      {
+        "text": "Ragazzi, ___ aspettiamo al bar.",
+        "answer": "vi",
+        "options": [
+          "vi",
+          "ci",
+          "li"
+        ],
+        "de": "Leute, wir warten in der Bar auf euch.",
+        "why": "euch = vi."
+      },
+      {
+        "text": "Il film? Voglio ___ domani.",
+        "answer": "vederlo",
+        "options": [
+          "vederlo",
+          "lo vedere",
+          "vedere lo"
+        ],
+        "de": "Den Film? Ich will ihn morgen sehen.",
+        "why": "Mit Grundform hängt das Pronomen hinten an: vederlo."
+      },
+      {
+        "text": "La pizza? ___ ordiniamo adesso.",
+        "answer": "La",
+        "options": [
+          "La",
+          "Lo",
+          "Le"
+        ],
+        "de": "Die Pizza? Wir bestellen sie jetzt.",
+        "why": "„pizza“ ist weiblich → la."
+      },
+      {
+        "text": "I documenti? ___ ho io.",
+        "answer": "Li",
+        "options": [
+          "Li",
+          "Le",
+          "Lo"
+        ],
+        "de": "Die Dokumente? Ich habe sie.",
+        "why": "männlich Mehrzahl → li."
+      },
+      {
+        "text": "Signora, ___ aspetto qui.",
+        "answer": "La",
+        "options": [
+          "La",
+          "Le",
+          "Lo"
+        ],
+        "de": "Ich warte hier auf Sie.",
+        "why": "Sie (höflich, wen?) = La."
+      },
+      {
+        "text": "Il libro? Voglio ___ stasera.",
+        "answer": "leggerlo",
+        "options": [
+          "leggerlo",
+          "lo leggere",
+          "leggere lo"
+        ],
+        "de": "Das Buch? Ich will es heute Abend lesen.",
+        "why": "Mit Grundform hängt das Pronomen hinten an."
+      }
     ]
   },
   {
-    "id": "objekt-indirekt", "topic": "Pronomen", "rule": "wortwahl",
+    "id": "objekt-indirekt",
+    "topic": "Pronomen",
+    "rule": "wortwahl",
     "title": "mi, ti, gli, le – und piacere",
     "intro": "Indirekte Pronomen antworten auf „wem?“. Besonders wichtig bei „piacere“ (gefallen): mi piace = mir gefällt / ich mag.",
-    "table": { "head": ["Deutsch", "Pronomen", "Beispiel"], "rows": [
-      ["mir", "mi", "Mi piace il mare."],
-      ["dir", "ti", "Ti scrivo."],
-      ["ihm", "gli", "Gli telefono."],
-      ["ihr / Ihnen", "le", "Le do il libro."],
-      ["uns", "ci", "Ci piace viaggiare."],
-      ["euch", "vi", "Vi porto un regalo."],
-      ["ihnen", "gli", "Gli dico tutto."]
-    ] },
+    "table": {
+      "head": [
+        "Deutsch",
+        "Pronomen",
+        "Beispiel"
+      ],
+      "rows": [
+        [
+          "mir",
+          "mi",
+          "Mi piace il mare."
+        ],
+        [
+          "dir",
+          "ti",
+          "Ti scrivo."
+        ],
+        [
+          "ihm",
+          "gli",
+          "Gli telefono."
+        ],
+        [
+          "ihr / Ihnen",
+          "le",
+          "Le do il libro."
+        ],
+        [
+          "uns",
+          "ci",
+          "Ci piace viaggiare."
+        ],
+        [
+          "euch",
+          "vi",
+          "Vi porto un regalo."
+        ],
+        [
+          "ihnen",
+          "gli",
+          "Gli dico tutto."
+        ]
+      ]
+    },
     "tips": [
       "piace + Einzahl oder Grundform, piacciono + Mehrzahl: Mi piace la pizza. Mi piacciono i gatti.",
       "Die Verneinung steht davor: Non mi piace."
     ],
     "exercises": [
-      { "text": "___ piace il caffè.", "answer": "Mi", "options": ["Mi", "Io", "Me"], "de": "Ich mag Kaffee.", "why": "„mir gefällt“ = mi piace." },
-      { "text": "Mi ___ gli spaghetti.", "answer": "piacciono", "options": ["piacciono", "piace", "piaccio"], "de": "Ich mag Spaghetti.", "why": "Mehrzahl → piacciono." },
-      { "text": "A Marco ___ piace il calcio.", "answer": "gli", "options": ["gli", "le", "lo"], "de": "Marco mag Fußball.", "why": "ihm = gli." },
-      { "text": "Ad Anna ___ piacciono i fiori.", "answer": "le", "options": ["le", "gli", "la"], "de": "Anna mag Blumen.", "why": "ihr = le." },
-      { "text": "Signora, ___ telefono stasera.", "answer": "Le", "options": ["Le", "La", "Gli"], "de": "Ich rufe Sie heute Abend an.", "why": "„telefonare a“ → indirekt; Ihnen (höflich) = Le." },
-      { "text": "Ci ___ viaggiare.", "answer": "piace", "options": ["piace", "piacciono", "piaciamo"], "de": "Wir reisen gern.", "why": "Grundform → piace (Einzahl)." },
-      { "text": "Non ___ piace il freddo.", "answer": "mi", "options": ["mi", "io", "me"], "de": "Ich mag die Kälte nicht.", "why": "mir = mi, „non“ steht davor." },
-      { "text": "Ragazzi, ___ porto un regalo.", "answer": "vi", "options": ["vi", "ci", "gli"], "de": "Leute, ich bringe euch ein Geschenk mit.", "why": "euch = vi." }
+      {
+        "text": "___ piace il caffè.",
+        "answer": "Mi",
+        "options": [
+          "Mi",
+          "Io",
+          "Me"
+        ],
+        "de": "Ich mag Kaffee.",
+        "why": "„mir gefällt“ = mi piace."
+      },
+      {
+        "text": "Mi ___ gli spaghetti.",
+        "answer": "piacciono",
+        "options": [
+          "piacciono",
+          "piace",
+          "piaccio"
+        ],
+        "de": "Ich mag Spaghetti.",
+        "why": "Mehrzahl → piacciono."
+      },
+      {
+        "text": "A Marco ___ piace il calcio.",
+        "answer": "gli",
+        "options": [
+          "gli",
+          "le",
+          "lo"
+        ],
+        "de": "Marco mag Fußball.",
+        "why": "ihm = gli."
+      },
+      {
+        "text": "Ad Anna ___ piacciono i fiori.",
+        "answer": "le",
+        "options": [
+          "le",
+          "gli",
+          "la"
+        ],
+        "de": "Anna mag Blumen.",
+        "why": "ihr = le."
+      },
+      {
+        "text": "Signora, ___ telefono stasera.",
+        "answer": "Le",
+        "options": [
+          "Le",
+          "La",
+          "Gli"
+        ],
+        "de": "Ich rufe Sie heute Abend an.",
+        "why": "„telefonare a“ → indirekt; Ihnen (höflich) = Le."
+      },
+      {
+        "text": "Ci ___ viaggiare.",
+        "answer": "piace",
+        "options": [
+          "piace",
+          "piacciono",
+          "piaciamo"
+        ],
+        "de": "Wir reisen gern.",
+        "why": "Grundform → piace (Einzahl)."
+      },
+      {
+        "text": "Non ___ piace il freddo.",
+        "answer": "mi",
+        "options": [
+          "mi",
+          "io",
+          "me"
+        ],
+        "de": "Ich mag die Kälte nicht.",
+        "why": "mir = mi, „non“ steht davor."
+      },
+      {
+        "text": "Ragazzi, ___ porto un regalo.",
+        "answer": "vi",
+        "options": [
+          "vi",
+          "ci",
+          "gli"
+        ],
+        "de": "Leute, ich bringe euch ein Geschenk mit.",
+        "why": "euch = vi."
+      },
+      {
+        "text": "___ piace la pizza?",
+        "answer": "Ti",
+        "options": [
+          "Ti",
+          "Tu",
+          "Te"
+        ],
+        "de": "Magst du Pizza?",
+        "why": "dir gefällt = ti piace."
+      },
+      {
+        "text": "A Laura ___ piace ballare.",
+        "answer": "le",
+        "options": [
+          "le",
+          "gli",
+          "la"
+        ],
+        "de": "Laura tanzt gern.",
+        "why": "ihr = le."
+      },
+      {
+        "text": "Ai bambini ___ piace il gelato.",
+        "answer": "gli",
+        "options": [
+          "gli",
+          "le",
+          "li"
+        ],
+        "de": "Die Kinder mögen Eis.",
+        "why": "ihnen = gli."
+      },
+      {
+        "text": "Ci ___ molto i film italiani.",
+        "answer": "piacciono",
+        "options": [
+          "piacciono",
+          "piace",
+          "piaciamo"
+        ],
+        "de": "Wir mögen italienische Filme sehr.",
+        "why": "Mehrzahl → piacciono."
+      }
     ]
   },
   {
-    "id": "perfekt-avere", "topic": "Verben & Adverbien", "rule": "hilfsverb",
+    "id": "perfekt-avere",
+    "topic": "Verben & Adverbien",
+    "rule": "hilfsverb",
     "title": "Perfekt mit avere",
     "intro": "Das Perfekt (passato prossimo) bildet man mit avere oder essere + Partizip. Die meisten Verben nehmen avere.",
-    "table": { "head": ["Grundform", "Partizip", "Beispiel"], "rows": [
-      ["parlare", "parlato", "Ho parlato con Anna."],
-      ["vendere", "venduto", "Abbiamo venduto la macchina."],
-      ["dormire", "dormito", "Hai dormito bene?"],
-      ["fare", "fatto", "Che cosa hai fatto?"],
-      ["vedere", "visto", "Ho visto un film."],
-      ["prendere", "preso", "Ho preso il treno."],
-      ["scrivere", "scritto", "Ha scritto una lettera."]
-    ] },
+    "table": {
+      "head": [
+        "Grundform",
+        "Partizip",
+        "Beispiel"
+      ],
+      "rows": [
+        [
+          "parlare",
+          "parlato",
+          "Ho parlato con Anna."
+        ],
+        [
+          "vendere",
+          "venduto",
+          "Abbiamo venduto la macchina."
+        ],
+        [
+          "dormire",
+          "dormito",
+          "Hai dormito bene?"
+        ],
+        [
+          "fare",
+          "fatto",
+          "Che cosa hai fatto?"
+        ],
+        [
+          "vedere",
+          "visto",
+          "Ho visto un film."
+        ],
+        [
+          "prendere",
+          "preso",
+          "Ho preso il treno."
+        ],
+        [
+          "scrivere",
+          "scritto",
+          "Ha scritto una lettera."
+        ]
+      ]
+    },
     "tips": [
       "Regelmäßig: -are → -ato, -ere → -uto, -ire → -ito.",
       "Mit avere bleibt das Partizip auf -o: Anna ha mangiato."
     ],
     "exercises": [
-      { "text": "Ieri ___ mangiato la pizza.", "answer": "ho", "options": ["ho", "sono", "hai"], "de": "Gestern habe ich Pizza gegessen.", "why": "„mangiare“ → Perfekt mit avere; io → ho." },
-      { "text": "Hai ___ bene?", "answer": "dormito", "options": ["dormito", "dormuto", "dormato"], "de": "Hast du gut geschlafen?", "why": "-ire → -ito." },
-      { "text": "Abbiamo ___ la macchina.", "answer": "venduto", "options": ["venduto", "vendito", "vendato"], "de": "Wir haben das Auto verkauft.", "why": "-ere → -uto." },
-      { "text": "Che cosa hai ___ ieri?", "answer": "fatto", "options": ["fatto", "fato", "faciuto"], "de": "Was hast du gestern gemacht?", "why": "unregelmäßig: fare → fatto." },
-      { "text": "Ho ___ un bel film.", "answer": "visto", "options": ["visto", "vedito", "vistato"], "de": "Ich habe einen schönen Film gesehen.", "why": "unregelmäßig: vedere → visto." },
-      { "text": "Anna ha ___ una lettera.", "answer": "scritto", "options": ["scritto", "scrivuto", "scrito"], "de": "Anna hat einen Brief geschrieben.", "why": "unregelmäßig: scrivere → scritto." },
-      { "text": "Loro ___ preso il treno.", "answer": "hanno", "options": ["hanno", "sono", "ha"], "de": "Sie haben den Zug genommen.", "why": "Perfekt mit avere; loro → hanno." },
-      { "text": "Avete ___ l'italiano?", "answer": "studiato", "options": ["studiato", "studiuto", "studito"], "de": "Habt ihr Italienisch gelernt?", "why": "-are → -ato." }
+      {
+        "text": "Ieri ___ mangiato la pizza.",
+        "answer": "ho",
+        "options": [
+          "ho",
+          "sono",
+          "hai"
+        ],
+        "de": "Gestern habe ich Pizza gegessen.",
+        "why": "„mangiare“ → Perfekt mit avere; io → ho."
+      },
+      {
+        "text": "Hai ___ bene?",
+        "answer": "dormito",
+        "options": [
+          "dormito",
+          "dormuto",
+          "dormato"
+        ],
+        "de": "Hast du gut geschlafen?",
+        "why": "-ire → -ito."
+      },
+      {
+        "text": "Abbiamo ___ la macchina.",
+        "answer": "venduto",
+        "options": [
+          "venduto",
+          "vendito",
+          "vendato"
+        ],
+        "de": "Wir haben das Auto verkauft.",
+        "why": "-ere → -uto."
+      },
+      {
+        "text": "Che cosa hai ___ ieri?",
+        "answer": "fatto",
+        "options": [
+          "fatto",
+          "fato",
+          "faciuto"
+        ],
+        "de": "Was hast du gestern gemacht?",
+        "why": "unregelmäßig: fare → fatto."
+      },
+      {
+        "text": "Ho ___ un bel film.",
+        "answer": "visto",
+        "options": [
+          "visto",
+          "vedito",
+          "vistato"
+        ],
+        "de": "Ich habe einen schönen Film gesehen.",
+        "why": "unregelmäßig: vedere → visto."
+      },
+      {
+        "text": "Anna ha ___ una lettera.",
+        "answer": "scritto",
+        "options": [
+          "scritto",
+          "scrivuto",
+          "scrito"
+        ],
+        "de": "Anna hat einen Brief geschrieben.",
+        "why": "unregelmäßig: scrivere → scritto."
+      },
+      {
+        "text": "Loro ___ preso il treno.",
+        "answer": "hanno",
+        "options": [
+          "hanno",
+          "sono",
+          "ha"
+        ],
+        "de": "Sie haben den Zug genommen.",
+        "why": "Perfekt mit avere; loro → hanno."
+      },
+      {
+        "text": "Avete ___ l'italiano?",
+        "answer": "studiato",
+        "options": [
+          "studiato",
+          "studiuto",
+          "studito"
+        ],
+        "de": "Habt ihr Italienisch gelernt?",
+        "why": "-are → -ato."
+      },
+      {
+        "text": "Ho ___ la porta.",
+        "answer": "aperto",
+        "options": [
+          "aperto",
+          "aprito",
+          "aperso"
+        ],
+        "de": "Ich habe die Tür geöffnet.",
+        "why": "unregelmäßig: aprire → aperto."
+      },
+      {
+        "text": "Abbiamo ___ un caffè.",
+        "answer": "preso",
+        "options": [
+          "preso",
+          "prenduto",
+          "prendito"
+        ],
+        "de": "Wir haben einen Kaffee getrunken.",
+        "why": "unregelmäßig: prendere → preso."
+      },
+      {
+        "text": "Hai ___ il libro?",
+        "answer": "letto",
+        "options": [
+          "letto",
+          "leggiuto",
+          "lesso"
+        ],
+        "de": "Hast du das Buch gelesen?",
+        "why": "unregelmäßig: leggere → letto."
+      },
+      {
+        "text": "Che cosa ha ___ Marco?",
+        "answer": "detto",
+        "options": [
+          "detto",
+          "diciuto",
+          "ditto"
+        ],
+        "de": "Was hat Marco gesagt?",
+        "why": "unregelmäßig: dire → detto."
+      }
     ]
   },
   {
-    "id": "perfekt-essere", "topic": "Verben & Adverbien", "rule": "hilfsverb",
+    "id": "perfekt-essere",
+    "topic": "Verben & Adverbien",
+    "rule": "hilfsverb",
     "title": "Perfekt mit essere",
     "intro": "Verben der Bewegung und Veränderung (andare, venire, partire, arrivare, uscire, entrare, nascere, diventare, restare …) und alle reflexiven Verben bilden das Perfekt mit essere. Dann passt sich das Partizip an die Person an.",
-    "table": { "head": ["", "andare"], "rows": [
-      ["io", "sono andato / andata"],
-      ["tu", "sei andato / andata"],
-      ["lui / lei", "è andato / è andata"],
-      ["noi", "siamo andati / andate"],
-      ["voi", "siete andati / andate"],
-      ["loro", "sono andati / andate"]
-    ] },
+    "table": {
+      "head": [
+        "",
+        "andare"
+      ],
+      "rows": [
+        [
+          "io",
+          "sono andato / andata"
+        ],
+        [
+          "tu",
+          "sei andato / andata"
+        ],
+        [
+          "lui / lei",
+          "è andato / è andata"
+        ],
+        [
+          "noi",
+          "siamo andati / andate"
+        ],
+        [
+          "voi",
+          "siete andati / andate"
+        ],
+        [
+          "loro",
+          "sono andati / andate"
+        ]
+      ]
+    },
     "tips": [
       "Merkhilfe: Wo man im Deutschen „ist …“ sagt (ist gegangen, ist gekommen), nimmt man meist essere.",
       "Endung: -o / -a für eine Person, -i / -e für mehrere (bei gemischten Gruppen -i)."
     ],
     "exercises": [
-      { "text": "Ieri ___ andato al cinema.", "answer": "sono", "options": ["sono", "ho", "è"], "de": "Gestern bin ich ins Kino gegangen.", "why": "„andare“ → Perfekt mit essere; io → sono." },
-      { "text": "Anna è ___ per Roma.", "answer": "partita", "options": ["partita", "partito", "partite"], "de": "Anna ist nach Rom abgefahren.", "why": "Mit essere passt sich das Partizip an Anna an → -a." },
-      { "text": "I ragazzi sono ___ tardi.", "answer": "arrivati", "options": ["arrivati", "arrivato", "arrivate"], "de": "Die Jungen sind spät angekommen.", "why": "männlich Mehrzahl → -i." },
-      { "text": "Le amiche sono ___ insieme.", "answer": "uscite", "options": ["uscite", "usciti", "uscita"], "de": "Die Freundinnen sind zusammen ausgegangen.", "why": "weiblich Mehrzahl → -e." },
-      { "text": "Marco e Luca sono ___ a casa.", "answer": "restati", "options": ["restati", "restato", "restate"], "de": "Marco und Luca sind zu Hause geblieben.", "why": "zwei Männer → männlich Mehrzahl -i." },
-      { "text": "Mia nonna ___ nata nel 1950.", "answer": "è", "options": ["è", "ha", "sono"], "de": "Meine Großmutter ist 1950 geboren.", "why": "„nascere“ → essere; lei → è." },
-      { "text": "Il treno ___ partito in ritardo.", "answer": "è", "options": ["è", "ha", "sono"], "de": "Der Zug ist verspätet abgefahren.", "why": "„partire“ → essere." },
-      { "text": "Anna ___ diventata medico.", "answer": "è", "options": ["è", "ha", "sono"], "de": "Anna ist Ärztin geworden.", "why": "„diventare“ (Veränderung) → essere." }
+      {
+        "text": "Ieri ___ andato al cinema.",
+        "answer": "sono",
+        "options": [
+          "sono",
+          "ho",
+          "è"
+        ],
+        "de": "Gestern bin ich ins Kino gegangen.",
+        "why": "„andare“ → Perfekt mit essere; io → sono."
+      },
+      {
+        "text": "Anna è ___ per Roma.",
+        "answer": "partita",
+        "options": [
+          "partita",
+          "partito",
+          "partite"
+        ],
+        "de": "Anna ist nach Rom abgefahren.",
+        "why": "Mit essere passt sich das Partizip an Anna an → -a."
+      },
+      {
+        "text": "I ragazzi sono ___ tardi.",
+        "answer": "arrivati",
+        "options": [
+          "arrivati",
+          "arrivato",
+          "arrivate"
+        ],
+        "de": "Die Jungen sind spät angekommen.",
+        "why": "männlich Mehrzahl → -i."
+      },
+      {
+        "text": "Le amiche sono ___ insieme.",
+        "answer": "uscite",
+        "options": [
+          "uscite",
+          "usciti",
+          "uscita"
+        ],
+        "de": "Die Freundinnen sind zusammen ausgegangen.",
+        "why": "weiblich Mehrzahl → -e."
+      },
+      {
+        "text": "Marco e Luca sono ___ a casa.",
+        "answer": "restati",
+        "options": [
+          "restati",
+          "restato",
+          "restate"
+        ],
+        "de": "Marco und Luca sind zu Hause geblieben.",
+        "why": "zwei Männer → männlich Mehrzahl -i."
+      },
+      {
+        "text": "Mia nonna ___ nata nel 1950.",
+        "answer": "è",
+        "options": [
+          "è",
+          "ha",
+          "sono"
+        ],
+        "de": "Meine Großmutter ist 1950 geboren.",
+        "why": "„nascere“ → essere; lei → è."
+      },
+      {
+        "text": "Il treno ___ partito in ritardo.",
+        "answer": "è",
+        "options": [
+          "è",
+          "ha",
+          "sono"
+        ],
+        "de": "Der Zug ist verspätet abgefahren.",
+        "why": "„partire“ → essere."
+      },
+      {
+        "text": "Anna ___ diventata medico.",
+        "answer": "è",
+        "options": [
+          "è",
+          "ha",
+          "sono"
+        ],
+        "de": "Anna ist Ärztin geworden.",
+        "why": "„diventare“ (Veränderung) → essere."
+      },
+      {
+        "text": "Laura ___ venuta alla festa.",
+        "answer": "è",
+        "options": [
+          "è",
+          "ha",
+          "sono"
+        ],
+        "de": "Laura ist zur Party gekommen.",
+        "why": "„venire“ → essere; lei → è."
+      },
+      {
+        "text": "Paolo e Luca sono ___ a casa presto.",
+        "answer": "tornati",
+        "options": [
+          "tornati",
+          "tornato",
+          "tornate"
+        ],
+        "de": "Paolo und Luca sind früh nach Hause gekommen.",
+        "why": "zwei Männer → männlich Mehrzahl -i."
+      },
+      {
+        "text": "Le ragazze sono ___ al mare.",
+        "answer": "andate",
+        "options": [
+          "andate",
+          "andati",
+          "andata"
+        ],
+        "de": "Die Mädchen sind ans Meer gefahren.",
+        "why": "weiblich Mehrzahl → -e."
+      },
+      {
+        "text": "Mio padre ___ nato a Roma.",
+        "answer": "è",
+        "options": [
+          "è",
+          "ha",
+          "sono"
+        ],
+        "de": "Mein Vater ist in Rom geboren.",
+        "why": "„nascere“ → essere."
+      }
     ]
   }
 ]

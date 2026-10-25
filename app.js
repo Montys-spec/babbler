@@ -6,6 +6,7 @@
 const VOCAB_FILES = ["data/vocab.json", "data/vocab-2.json", "data/vocab-3.json"];
 const SENTENCES_FILE = "data/sentences.json";
 const GAPS_FILE = "data/gaps.json";
+const CORE_FILE = "data/core.json";  // the most important everyday words, in learning order
 const SETTINGS_KEY = "babbler-settings-v1";
 
 let words = [];       // all vocab files together; each word gets "stufe" (1–3) when loading
@@ -93,9 +94,10 @@ function sessionSummary() {
   const plan = sessionPlan();
   const names = ["Vokabeln", "Check"];
   if (plan.hoeren.length && CAN_SPEAK) names.push("Hören");
-  names.push("Sätze", "Grammatik");
+  if (knownWordCount() >= SENTENCES_FROM_WORDS) names.push("Sätze");
+  names.push("Grammatik");
   if (plan.sprechen) names.push("Sprechen");
-  names.push("Fehler finden");
+  if (plan.fehler) names.push("Fehler finden");
   return names.length + " Abschnitte · " + names.join(", ");
 }
 
@@ -162,12 +164,18 @@ function showTopicPicker(open) {
 // directions are mixed in (see buildCards). Empty sections are left out.
 const GRAMMAR_EXERCISES = 3;  // + 1 gap sentence of the topic
 const TOPIC_GAPS = 1;
-const SPOT_TASKS_PER_SESSION = 1;
 
 function startPractice() {
   const plan = sessionPlan();
   const topicWords = practiceItems(words, "wort");
-  const topicSentences = practiceItems(sentences, "satz");
+  // Sentences up to the level that fits your Niveau (plus any you have already started)
+  const topicSentences = practiceItems(sentences, "satz").filter(
+    (s) => s.level <= plan.satzLevel || itemStarted("satz", s)
+  );
+  const rules = coveredRules();
+  // Before you know enough words, sentence cards would be guesswork → more word cards instead
+  const sentencesOpen = knownWordCount() >= SENTENCES_FROM_WORDS;
+  const vocabCount = plan.vokabeln + (sentencesOpen ? 0 : plan.saetze);
   const allWordCards = buildCards("wort", topicWords);
 
   // Vokabel-Check: typing only for German→Italian cards – these exist once a word was
@@ -176,22 +184,26 @@ function startPractice() {
   const typed = new Set(typingCards.map((card) => card.item));
   const wordCards = pickRound(
     allWordCards.filter((card) => !typed.has(card.item)),
-    plan.vokabeln + plan.check - typingCards.length
+    vocabCount + plan.check - typingCards.length
   );
-  const flashCards = wordCards.slice(0, plan.vokabeln);
-  const choiceCards = wordCards.slice(plan.vokabeln);
+  const flashCards = wordCards.slice(0, vocabCount);
+  const choiceCards = wordCards.slice(vocabCount);
 
   const listeningTasks = makeListeningTasks(plan.hoeren, topicWords, topicSentences);
-  const sentenceCards = pickRound(buildCards("satz", topicSentences), plan.saetze);
+  const sentenceCards = sentencesOpen ? pickRound(buildCards("satz", topicSentences), plan.saetze) : [];
 
+  // Grammar: the current unit, plus one topic gap – only of a mistake type you have learned
   const grammar = grammarForSession(GRAMMAR_EXERCISES);
-  const topicGaps = pickRound(gapCards(practiceItems(gaps, "luecke"), topicSentences), TOPIC_GAPS);
+  const fairGaps = practiceItems(gaps, "luecke").filter((g) => rules.has(g.rule) && g.level <= plan.satzLevel);
+  const topicGaps = pickRound(gapCards(fairGaps, topicSentences), TOPIC_GAPS);
 
   const speaking = plan.sprechen ? dialogueForSession(plan.sprechen) : null;
 
   // Sentences already on a card this session are left out of "Fehler finden".
   const onCards = new Set(sentenceCards.map((card) => card.item));
-  const spotTasks = makeSpotTasks(topicSentences.filter((s) => !onCards.has(s)), SPOT_TASKS_PER_SESSION);
+  const spotTasks = plan.fehler
+    ? makeSpotTasks(topicSentences.filter((s) => !onCards.has(s)), plan.fehler, rules)
+    : [];
 
   const asCards = (cards) => cards.map((card) => ({ type: "card", card: card }));
   const sections = [
@@ -267,22 +279,33 @@ function addRanks(list) {
   return topics;
 }
 
+// Core words (data/core.json: sì, no, grazie, io, essere, 1–10 …) come first, in the order
+// of that list; all other words follow after them, still mixed across topics.
+function putCoreWordsFirst(coreList) {
+  const position = new Map(coreList.map((it, i) => [it, i + 1]));
+  for (const word of words) {
+    word.rank = position.has(word.it) ? position.get(word.it) : coreList.length + word.rank;
+  }
+}
+
 async function init() {
   $("btn-start").disabled = true;
   try {
-    let vocabLists, grammarData, dialogueData;
-    [vocabLists, sentences, gaps, grammarData, dialogueData] = await Promise.all([
+    let vocabLists, grammarData, dialogueData, coreWords;
+    [vocabLists, sentences, gaps, grammarData, dialogueData, coreWords] = await Promise.all([
       Promise.all(VOCAB_FILES.map(loadJson)),
       loadJson(SENTENCES_FILE),
       loadJson(GAPS_FILE),
       loadJson(GRAMMAR_FILE),
       loadJson(DIALOGUES_FILE),
+      loadJson(CORE_FILE),
     ]);
     prepareGrammar(grammarData);
     prepareDialogues(dialogueData);
     // File 1 → Stufe 1, file 2 → Stufe 2, …
     words = vocabLists.flatMap((list, i) => list.map((word) => Object.assign(word, { stufe: i + 1 })));
     topicNames = addRanks(words);
+    putCoreWordsFirst(coreWords);
     addRanks(sentences);
     addRanks(gaps);
 

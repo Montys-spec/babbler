@@ -187,6 +187,28 @@
   - Status: tested by Claude in the browser (all 5 Niveaus, 40 random sessions, level-up, dictation
     check, screens at phone width) and by Monty, works. Committed and published.
 
+- **Session 11 (2026-10-24, Claude Code):** review of the beginner path + bigger pools (Monty's feedback).
+  Findings: (1) words came topic by topic, so "sì" was new word no. 71 and "no" no. 85 (≈ session 7–10)
+  while "il corpo" came in session 1; (2) at Niveau 1 sentences and "Fehler finden" appeared before any
+  words or rules were known – guesswork; (3) pools were small (153 sentences, 3 topics without any).
+  Changes:
+  - **Core words first** (`data/core.json`, 112 everyday words in learning order: sì, no, grazie,
+    per favore, io, essere, avere, 1–10, pane, acqua, dove? …). `putCoreWordsFirst` in app.js gives them
+    the first ranks; all other words follow, still mixed across topics. sì / no now come in session 1.
+  - **Sentence cards only from 40 known words** (`SENTENCES_FROM_WORDS` in level.js); until then their
+    slots go to word cards. Sentence level is capped per Niveau (`satzLevel`: 1, 1, 2, 3, 3).
+  - **"Fehler finden" from Niveau 2**, and only with mistake types already met in grammar
+    (`coveredRules()`: rules of finished units + the current one, spelling always, word choice from
+    Niveau 3). Topic gaps in the grammar section follow the same rule.
+  - Beginner path now (simulated): S1–5 Vokabeln · Check · Grammatik; Sätze from about S6;
+    Niveau 2 around S12 → Hören + Fehler finden.
+  - **Pools:** sentences 153 → 389 (every topic incl. Gefühle, Freizeit, Einkaufen; 173 at level 1),
+    grammar exercises 152 → 228 (12 per unit), conversations 12 → 18 (64 turns, 6 per level).
+    `data/grammar.json` and `data/dialogues.json` are now pretty-printed (one field per line).
+  - `sw.js`: cache "babbler-v4", `data/core.json` added.
+  - Status: tested by Claude in the browser (12-session beginner run, all Niveaus × 4 topics, no
+    planted mistake outside the covered rules) and by Monty, works. Committed and published.
+
 ## iPhone: install & transfer progress
 1. On the iPhone open **Safari** → https://montys-spec.github.io/babbler/ → Teilen (□↑) →
    **"Zum Home-Bildschirm"** → Hinzufügen. Then always start Babbler from the home-screen icon.
@@ -220,6 +242,7 @@
   (`{ "it", "de", "cat", "g"?, "pl"? }`), order matters (most useful first); every `it` unique across all three
 - `data/sentences.json` – sentences (`{ "cat", "level", "it", "de", "wrong", "why", "rule" }`)
 - `data/gaps.json` – gap sentences (`{ "cat", "level", "text" with ___, "answer", "options", "de", "why", "rule" }`)
+- `data/core.json` – the most important everyday words (Italian text), learned first in this order
 - `data/dialogues.json` – conversations (`{ "id", "level", "title", "situation",
   "turns": [{ "q", "qDe", "hint", "answers": [model answer, alternatives…] }] }`)
 - `data/grammar.json` – grammar units in learning order (`{ "id", "topic", "rule", "title", "intro",

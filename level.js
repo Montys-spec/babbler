@@ -12,17 +12,35 @@ const LEVELS = [
 ];
 
 // What a session contains per Niveau (index 0 = Niveau 1); about 20 tasks each.
-//   hoeren:   listening tasks – "wort" / "satz" = hear and choose the meaning,
-//             "diktat-wort" / "diktat-satz" = hear and type it
-//   sprechen: highest conversation level (0 = no speaking yet); one conversation per session
-// Always added: Grammatik (3 exercises + 1 topic gap) and Fehler finden (1).
+//   hoeren:    listening tasks – "wort" / "satz" = hear and choose the meaning,
+//              "diktat-wort" / "diktat-satz" = hear and type it
+//   satzLevel: hardest sentence level used (sentence cards, gaps, Fehler finden)
+//   sprechen:  highest conversation level (0 = no speaking yet); one conversation per session
+//   fehler:    "Fehler finden" tasks (none at Niveau 1 – there you would only be guessing)
+// Always added: Grammatik (3 exercises + 1 topic gap).
 const SESSION_PLANS = [
-  { vokabeln: 8, check: 4, typing: 1, hoeren: [], saetze: 3, sprechen: 0 },
-  { vokabeln: 6, check: 4, typing: 2, hoeren: ["wort", "wort", "wort"], saetze: 2, sprechen: 0 },
-  { vokabeln: 4, check: 3, typing: 2, hoeren: ["wort", "satz", "satz"], saetze: 2, sprechen: 1 },
-  { vokabeln: 4, check: 3, typing: 3, hoeren: ["satz", "satz", "diktat-wort"], saetze: 2, sprechen: 2 },
-  { vokabeln: 4, check: 3, typing: 3, hoeren: ["satz", "diktat-wort", "diktat-satz"], saetze: 2, sprechen: 3 },
+  { vokabeln: 8, check: 4, typing: 1, hoeren: [], saetze: 3, satzLevel: 1, sprechen: 0, fehler: 0 },
+  { vokabeln: 6, check: 4, typing: 2, hoeren: ["wort", "wort", "wort"], saetze: 2, satzLevel: 1, sprechen: 0, fehler: 1 },
+  { vokabeln: 4, check: 3, typing: 2, hoeren: ["wort", "satz", "satz"], saetze: 2, satzLevel: 2, sprechen: 1, fehler: 1 },
+  { vokabeln: 4, check: 3, typing: 3, hoeren: ["satz", "satz", "diktat-wort"], saetze: 2, satzLevel: 3, sprechen: 2, fehler: 1 },
+  { vokabeln: 4, check: 3, typing: 3, hoeren: ["satz", "diktat-wort", "diktat-satz"], saetze: 2, satzLevel: 3, sprechen: 3, fehler: 1 },
 ];
+
+// Whole sentences only once you know this many words – before that they are guesswork,
+// and their slots go to vocabulary instead.
+const SENTENCES_FROM_WORDS = 40;
+
+// Mistake types (rule tags) you have already met in grammar: the rules of all finished units
+// and the current one. Spelling mistakes are fair from the start; word-choice mistakes
+// (idioms like "ho fame") from Niveau 3. "Fehler finden" and gap sentences only use these.
+function coveredRules() {
+  const rules = new Set(["schreibung"]);
+  const current = currentUnitIndex();
+  const last = current < 0 ? grammarUnits.length - 1 : current;
+  grammarUnits.slice(0, last + 1).forEach((unit) => rules.add(unit.rule));
+  if (currentLevel() >= 3) rules.add("wortwahl");
+  return rules;
+}
 
 function knownWordCount() {
   return words.filter((word) => itemPractised("wort", word)).length;

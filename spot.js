@@ -9,14 +9,18 @@ const SPOT_SIZE = 4;  // sentences per task
 let spotEntries = [];  // [{ sentence, wrong, selected }, …] of the current task
 let spotChecked = false;
 
-// Build `count` tasks from the given sentences (already filtered by topic).
-function makeSpotTasks(sentences, count) {
+// Build `count` tasks from the given sentences (already filtered by topic and Niveau).
+// Only mistakes of the given rule types are planted – the ones you have already learned in
+// grammar (coveredRules in level.js) – so you can actually find them instead of guessing.
+function makeSpotTasks(sentences, count, rules) {
   // Only use sentences up to your current level – but always at least four.
   const level = unlockedLevel(sentences);
   let usable = sentences.filter((s) => s.level <= level);
   if (usable.length < SPOT_SIZE) {
     usable = sentences.slice().sort((a, b) => a.level - b.level).slice(0, SPOT_SIZE);
   }
+  const canBeFaulty = (s) => !rules || rules.has(s.rule);
+  if (!usable.some(canBeFaulty)) return [];
 
   // Draw sentences without repeats until the pool is used up, then start again.
   // The faulty ones are picked with memory: rules you often miss come more often (rules.js).
@@ -24,8 +28,11 @@ function makeSpotTasks(sentences, count) {
   const result = [];
   for (let t = 0; t < count; t++) {
     if (queue.length < SPOT_SIZE) queue = queue.concat(shuffle(usable.filter((s) => !queue.includes(s))));
+    if (!queue.some(canBeFaulty)) queue = queue.concat(shuffle(usable.filter((s) => canBeFaulty(s) && !queue.includes(s))));
     const mistakes = randomInt(1, 2);  // 1 or 2 faulty sentences
-    const faulty = takeByRule(queue, mistakes);
+    const candidates = queue.filter(canBeFaulty);
+    const faulty = takeByRule(candidates, mistakes);
+    for (const s of faulty) queue.splice(queue.indexOf(s), 1);
     const correct = queue.splice(0, SPOT_SIZE - faulty.length);
     const entries = faulty
       .map((s) => ({ sentence: s, wrong: true, selected: false }))
